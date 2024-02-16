@@ -27,6 +27,7 @@
 }
 
 .basket-item-name {
+  font-weight: bold;
   flex: 1;
   text-align: left;
   margin-right: 1em;
