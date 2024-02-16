@@ -20,11 +20,27 @@
 
 .basket-item {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   padding: 10px;
   margin-bottom: 10px;
 }
+
+.basket-item-details {
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.basket-item-options {
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 
 .basket-item-name {
   font-weight: bold;
@@ -48,17 +64,63 @@
   margin-right: 1em;
 }
 
+.shopping-basket h1 {
+  font-weight: bold;
+    text-align: left;
+  font-size: 40px;
+}
+
+.basket-summary{
+  text-align: right;
+  margin-right: 1em;
+  flex: none;
+}
+
+.basket-summary h2 {
+  font-weight: bold;
+  text-align: right;
+  font-size: 20px;
+}
+
+.basket-summary h3 {
+  font-weight: bold;
+  text-align: right;
+  font-size: 25px;
+}
+
+.item-name-and-quantity {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.item-options {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-grow: 1;
+}
+
+.gift-wrap,
+.recurring-order {
+  padding-right: 15px;
+}
+
+.recurring-order-label {
+  display: inline-block;
+  margin-left: 15px;
+}
+
+.item-price-and-remove {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
 .basket-item button {
   flex: none;
 }
 
-.edit-button {
-  margin-left: 10px;
-  padding: 5px;
-  border-radius: 5px;
-  color: blue;
-  cursor: pointer;
-}
 
 .basket-item button {
   margin-left: auto;
@@ -89,6 +151,16 @@
 
 .quantity-control button {
   width: 10px;
+}
+
+.options-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.option {
+  margin-left: 15px; /* Adjust spacing between options */
 }
 
 

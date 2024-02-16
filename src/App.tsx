@@ -7,6 +7,15 @@ import './App.css';
 const initialBasketItems = [
     { id: 1, name: 'Gulerødder', price: 3, quantity: 3 },
     { id: 2, name: 'Ærter', price: 1, quantity: 1 },
+    { id: 3, name: 'Kartofler', price: 2, quantity: 2 },
+    { id: 4, name: 'Løg', price: 1, quantity: 1 },
+    { id: 5, name: 'Hvidløg', price: 2, quantity: 1 },
+    { id: 6, name: 'Ingefær', price: 2, quantity: 1 },
+    { id: 7, name: 'Gurkemeje', price: 2, quantity: 1 },
+    { id: 8, name: 'Karry', price: 2, quantity: 1 },
+    { id: 9, name: 'Kokosmælk', price: 5, quantity: 1 },
+    { id: 10, name: 'Ris', price: 3, quantity: 1 },
+
 ];
 
 function App() {
@@ -27,8 +36,8 @@ function App() {
     }
 
         return (
-            <div>
-                <h2>Shopping Basket</h2>
+            <div className="shopping-basket">
+                <h1>Shopping Basket</h1>
                 {basketItems.map((item) => (
                     <BasketItem
                         key={item.id}
