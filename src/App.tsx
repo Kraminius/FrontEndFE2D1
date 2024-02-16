@@ -13,27 +13,33 @@ function App() {
     const [basketItems, setBasketItems] = useState(initialBasketItems);
 
     const handleQuantityChange = (itemId, newQuantity) => {
-        //TODO: Implement the logic to update the quantity of the item in basketItems
+        const updatedItems = basketItems.map(item => {
+            if (item.id === itemId) {
+                return { ...item, quantity: newQuantity };
+            }
+            return item;
+        });
+        setBasketItems(updatedItems);
     };
 
     const handleRemove = (itemId) => {
-        //TODO: Implement the logic to remove the item from basketItems
-    };
+        setBasketItems(basketItems.filter(item => item.id !== itemId));
+    }
 
-    return (
-        <div>
-            <h2>Shopping Basket</h2>
-            {basketItems.map((item) => (
-                <BasketItem
-                    key={item.id}
-                    item={item}
-                    onQuantityChange={handleQuantityChange}
-                    onRemove={handleRemove}
-                />
-            ))}
-            <BasketSummary items={basketItems} />
-        </div>
-    );
-}
+        return (
+            <div>
+                <h2>Shopping Basket</h2>
+                {basketItems.map((item) => (
+                    <BasketItem
+                        key={item.id}
+                        item={item}
+                        onQuantityChange={handleQuantityChange}
+                        onRemove={handleRemove}
+                    />
+                ))}
+                <BasketSummary items={basketItems}/>
+            </div>
+        );
+    }
 
 export default App;
