@@ -21,18 +21,34 @@
 .basket-item {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 10px;
   margin-bottom: 10px;
 }
 
 .basket-item-name {
-  font-weight: bold;
-  text-align: right;
-  text-emphasis: #1a1a1a;
+  flex: 1;
+  text-align: left;
+  margin-right: 1em;
 }
 
-.basket-item p {
-  margin-right: 15px;
+.quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none
+  width: 120px;
+}
+
+.item-price {
+  flex: none;
+  width: 80px;
+  text-align: right;
+  margin-right: 1em;
+}
+
+.basket-item button {
+  flex: none;
 }
 
 .edit-button {
@@ -84,6 +100,12 @@
   background: none;
   padding: 0;
   cursor: pointer;
+}
+
+.item-price {
+  font-weight: bold;
+  text-align: end;
+  margin-left: 10px;
 }
 
 @keyframes logo-spin {

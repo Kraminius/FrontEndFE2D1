@@ -36,7 +36,7 @@ function BasketItem({ item, onQuantityChange, onRemove }) {
                 />
                 <button onClick={incrementQuantity}>+</button>
             </div>
-            <p>{item.price * quantity},-</p>
+            <p className="item-price">{item.price * quantity},-</p>
             <button onClick={handleRemove}>Remove</button>
         </div>
     );
