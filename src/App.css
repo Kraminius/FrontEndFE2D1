@@ -18,6 +18,74 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+.basket-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.basket-item-name {
+  font-weight: bold;
+  text-align: right;
+  text-emphasis: #1a1a1a;
+}
+
+.basket-item p {
+  margin-right: 15px;
+}
+
+.edit-button {
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  color: blue;
+  cursor: pointer;
+}
+
+.basket-item button {
+  margin-left: auto;
+}
+
+.quantity-arrow {
+  width: 15px;
+  height: 15px;
+  border: none;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.quantity-control input {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  border: none;
+  background-color: #f0f0f0;
+  -moz-appearance: textfield; /* Remove the spin button Firefox*/
+}
+
+.quantity-control button {
+  width: 10px;
+}
+
+
+.arrow-button {
+  margin: 0 -7px;
+  border-top: 5px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid transparent;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -31,6 +99,13 @@
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
+}
+
+/* Remove the spin button Chrome and other chromium browsers*/
+.quantity-control input::-webkit-outer-spin-button,
+.quantity-control input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .card {
