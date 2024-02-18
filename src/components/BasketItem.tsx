@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import { BasketItemProps } from "../types/Types"
+import {useState} from "react";
 
-function BasketItem({ item, onQuantityChange, onGiftWrapChange, onRecurringOrderChange, onRemove }) {
+
+function BasketItem({ item, onQuantityChange, onGiftWrapChange, onRecurringOrderChange, onRemove }: BasketItemProps) {
     const [quantity, setQuantity] = useState(item.quantity);
     const [showRecurringOptions, setShowRecurringOptions] = useState(false);
 

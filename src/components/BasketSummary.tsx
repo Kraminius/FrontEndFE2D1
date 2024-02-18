@@ -1,6 +1,8 @@
-import React from 'react';
+import {BasketSummaryProps} from "../types/Types";
 
-function BasketSummary({ items, onGiftWrapToggle, onRecurrenceChange }) {
+
+
+function BasketSummary({ items }: BasketSummaryProps){
     const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
     return (
