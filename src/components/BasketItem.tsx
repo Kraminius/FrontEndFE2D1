@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function BasketItem({ item, onQuantityChange, onRemove }) {
+function BasketItem({ item, onQuantityChange, onGiftWrapChange, onRecurringOrderChange, onRemove }) {
     const [quantity, setQuantity] = useState(item.quantity);
     const [giftWrap, setGiftWrap] = useState(false);
     const [recurringOrder, setRecurringOrder] = useState('none');
@@ -27,13 +27,16 @@ function BasketItem({ item, onQuantityChange, onRemove }) {
 
     const toggleGiftWrap = () => {
         setGiftWrap(!giftWrap);
+        onGiftWrapChange(!giftWrap);
     };
 
     const toggleRecurringOptions = () => {
         setShowRecurringOptions(!showRecurringOptions);
+        let a;
         if (showRecurringOptions) {
-            setRecurringOrder('none');
+            a = setRecurringOrder('none');
         }
+        setRecurringOrder(a)
     };
 
     const handleRecurringOrderChange = (e) => {
