@@ -1,3 +1,4 @@
+import React from 'react';
 import { BasketItemProps } from "../types/Types"
 import {useState} from "react";
 
