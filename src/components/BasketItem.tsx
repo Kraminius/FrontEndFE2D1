@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 
 function BasketItem({ item, onQuantityChange, onGiftWrapChange, onRecurringOrderChange, onRemove }) {
     const [quantity, setQuantity] = useState(item.quantity);
-    const [giftWrap, setGiftWrap] = useState(false);
-    const [recurringOrder, setRecurringOrder] = useState('none');
     const [showRecurringOptions, setShowRecurringOptions] = useState(false);
 
     const handleQuantityChange = (newQuantity) => {
@@ -26,23 +24,16 @@ function BasketItem({ item, onQuantityChange, onGiftWrapChange, onRecurringOrder
     };
 
     const toggleGiftWrap = () => {
-        setGiftWrap(!giftWrap);
-        onGiftWrapChange(!giftWrap);
+        onGiftWrapChange(item.id, !item.giftWrap);
     };
 
     const toggleRecurringOptions = () => {
         setShowRecurringOptions(!showRecurringOptions);
-        let a;
-        if (showRecurringOptions) {
-            a = setRecurringOrder('none');
-        }
-        setRecurringOrder(a)
     };
 
     const handleRecurringOrderChange = (e) => {
-        setRecurringOrder(e.target.value);
+        onRecurringOrderChange(item.id, e.target.value);
     };
-
 
     return (
         <div className="basket-item">
@@ -58,9 +49,7 @@ function BasketItem({ item, onQuantityChange, onGiftWrapChange, onRecurringOrder
                             onChange={(e) => handleQuantityChange(parseInt(e.target.value, 10) || 0)}
                         />
                         <button onClick={incrementQuantity}>+</button>
-
                     </div>
-
                 </div>
                 <p className="item-price">{item.price * quantity},-</p>
             </div>
@@ -69,7 +58,7 @@ function BasketItem({ item, onQuantityChange, onGiftWrapChange, onRecurringOrder
                     <label className="gift-wrap">
                         <input
                             type="checkbox"
-                            checked={giftWrap}
+                            checked={item.giftWrap}
                             onChange={toggleGiftWrap}
                         />
                         Gift Wrap?
@@ -84,7 +73,8 @@ function BasketItem({ item, onQuantityChange, onGiftWrapChange, onRecurringOrder
                     Recurring Order
                 </label>
                 {showRecurringOptions && (
-                    <select value={recurringOrder} onChange={handleRecurringOrderChange}>
+                    <select value={item.recurringOrder} onChange={handleRecurringOrderChange}>
+                        <option value="none">None</option>
                         <option value="daily">Daily</option>
                         <option value="weekly">Weekly</option>
                         <option value="biweekly">Biweekly</option>
