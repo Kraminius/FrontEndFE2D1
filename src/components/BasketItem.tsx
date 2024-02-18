@@ -6,7 +6,7 @@ function BasketItem({ item, onQuantityChange, onGiftWrapChange, onRecurringOrder
     const [quantity, setQuantity] = useState(item.quantity);
     const [showRecurringOptions, setShowRecurringOptions] = useState(false);
 
-    const handleQuantityChange = (newQuantity) => {
+    const handleQuantityChange = (newQuantity: number) => {
         setQuantity(newQuantity);
         onQuantityChange(item.id, newQuantity);
     };
@@ -33,7 +33,7 @@ function BasketItem({ item, onQuantityChange, onGiftWrapChange, onRecurringOrder
         setShowRecurringOptions(!showRecurringOptions);
     };
 
-    const handleRecurringOrderChange = (e) => {
+    const handleRecurringOrderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         onRecurringOrderChange(item.id, e.target.value);
     };
 

@@ -30,7 +30,7 @@ function App() {
         setBasketItems(updatedItems);
     };
 
-    const handleGiftWrapChange = (itemId, newGiftWrap) => {
+    const handleGiftWrapChange = (itemId: number, newGiftWrap: boolean) => {
         const updatedItems = basketItems.map(item => {
             if (item.id === itemId) {
                 return { ...item, giftWrap: newGiftWrap };
@@ -40,17 +40,16 @@ function App() {
         setBasketItems(updatedItems);
     };
 
-    const handleRecurringOrderChange = (itemId, newRecurringOrder) => {
-        const updatedItems = basketItems.map(item => {
+    const handleRecurringOrderChange = (itemId: number, newRecurringOrder: string) => {
+        setBasketItems(prevState => prevState.map(item => {
             if (item.id === itemId) {
-                return { ...item, recurringOrder: newRecurringOrder };
+                return { ...item, recurringOrder: RecurringOrder[newRecurringOrder as keyof typeof RecurringOrder] };
             }
             return item;
-        });
-        setBasketItems(updatedItems);
+        }));
     };
 
-    const handleRemove = (itemId) => {
+    const handleRemove = (itemId: number) => {
         setBasketItems(basketItems.filter(item => item.id !== itemId));
     }
 
