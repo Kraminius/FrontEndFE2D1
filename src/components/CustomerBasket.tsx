@@ -1,4 +1,4 @@
-import { BasketItemProps } from "../types/Types"
+import { BasketItemProps, BasketItem } from "../types/Types"
 import { useState } from "react";
 
 
@@ -18,23 +18,13 @@ export default function CustomerBasket({ item, onQuantityChange, onGiftWrapChang
 	};
 
 	return (
-		<div className="basket-item">
-			<div className="basket-item-details">
-				<div className="item-name-and-quantity">
-					<p className="basket-item-name">{item.name}</p>
-					<p className="item-unit-price">{item.price},- per {item.unit}</p>
-					<div className="quantity-control">
-						<button onClick={() => onQuantityChange(item.id, item.quantity - 1)}>test</button>
-						<input
-							type="number"
-							min="0"
-							value={item.quantity}
-							onChange={(e) => onQuantityChange(item.id, parseInt(e.target.value))}
-						/>
-					</div>
-				</div>
-				<p className="item-total-price">{item.price * item.quantity},- total</p>
+		<div className="basket-item" style={{ padding: "10px", border: "solid 1px black" }}>
+			<div>
+				<span className="basket-item-name">{item.name}</span>
+				<span className="item-unit-price">{item.price},- per {item.unit}</span>
+				<span className="item-total-price"> {item.price * item.quantity},- total</span>
 			</div>
+			<ItemCounter item={item} onQuantityChange={onQuantityChange} />
 			<div className="basket-item-options">
 				<div className="item-options">
 					<label className="gift-wrap">
@@ -66,4 +56,25 @@ export default function CustomerBasket({ item, onQuantityChange, onGiftWrapChang
 			</div>
 		</div>
 	);
+}
+
+interface ItemCounterProps {
+	item: BasketItem;
+	onQuantityChange: (itemId: number, newQuantity: number) => void;
+}
+function ItemCounter({ item, onQuantityChange }: ItemCounterProps) {
+	return (
+		<div>
+			<button onClick={() => onQuantityChange(item.id, item.quantity - 1)}> - </button>
+			<input
+				type="number"
+				min="0"
+				value={item.quantity}
+				onChange={(e) => onQuantityChange(item.id, parseInt(e.target.value))}
+			/>
+
+			<button onClick={() => onQuantityChange(item.id, item.quantity + 1)}> + </button>
+
+		</div>
+	)
 }

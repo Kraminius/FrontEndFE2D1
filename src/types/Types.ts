@@ -18,7 +18,7 @@ export enum RecurringOrder {
 	Biweekly = 'biweekly',
 }
 
-interface BasketItem {
+export interface BasketItem {
 	id: number;
 	name: string;
 	price: number;
