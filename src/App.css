@@ -41,12 +41,14 @@
   justify-content: flex-start;
 }
 
-
 .basket-item-name {
   font-weight: bold;
   flex: 1;
   text-align: left;
   margin-right: 1em;
+}
+item-unit-price {
+  font-weight: bold;
 }
 
 .quantity-control {
@@ -59,7 +61,7 @@
 
 .item-price {
   flex: none;
-  width: 80px;
+  width: 90px;
   text-align: right;
   margin-right: 1em;
 }
