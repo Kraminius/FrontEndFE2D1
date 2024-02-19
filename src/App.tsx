@@ -26,6 +26,7 @@ function App() {
                 return { ...item, quantity: newQuantity };
             }
             return item;
+            console.log("Test")
         });
         setBasketItems(updatedItems);
     };
