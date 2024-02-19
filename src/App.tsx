@@ -21,12 +21,13 @@ function App() {
     const [basketItems, setBasketItems] = useState(initialBasketItems);
 
     const handleQuantityChange = (itemId: number, newQuantity: number) => {
+        if(newQuantity < 1) {return}
         const updatedItems = basketItems.map(item => {
+
             if (item.id === itemId) {
                 return { ...item, quantity: newQuantity };
             }
             return item;
-            console.log("Test")
         });
         setBasketItems(updatedItems);
     };
@@ -64,8 +65,7 @@ function App() {
                         onQuantityChange={handleQuantityChange}
                         onGiftWrapChange={handleGiftWrapChange}
                         onRecurringOrderChange={handleRecurringOrderChange}
-                        onRemove={handleRemove}
-
+                        onRemove={() => handleRemove(item.id)}
                     />
                 ))}
                 <BasketSummary items={basketItems}/>

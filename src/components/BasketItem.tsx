@@ -3,27 +3,7 @@ import {useState} from "react";
 
 
 function BasketItem({ item, onQuantityChange, onGiftWrapChange, onRecurringOrderChange, onRemove }: BasketItemProps) {
-    const [quantity, setQuantity] = useState(item.quantity);
     const [showRecurringOptions, setShowRecurringOptions] = useState(false);
-
-    const handleQuantityChange = (newQuantity: number) => {
-        setQuantity(newQuantity);
-        onQuantityChange(item.id, newQuantity);
-    };
-
-    const handleRemove = () => {
-        onRemove(item.id);
-    };
-
-    const incrementQuantity = () => {
-        const newQuantity = quantity + 1;
-        handleQuantityChange(newQuantity);
-    };
-
-    const decrementQuantity = () => {
-        const newQuantity = quantity - 1 > 0 ? quantity - 1 : 0;
-        handleQuantityChange(newQuantity);
-    };
 
     const toggleGiftWrap = () => {
         onGiftWrapChange(item.id, !item.giftWrap);
@@ -44,17 +24,16 @@ function BasketItem({ item, onQuantityChange, onGiftWrapChange, onRecurringOrder
                     <p className="basket-item-name">{item.name}</p>
                     <p className="item-unit-price">{item.price},- per {item.unit}</p>
                     <div className="quantity-control">
-                        <button onClick={decrementQuantity}>-</button>
+                        <button onClick={() => onQuantityChange(item.id, item.quantity-1)}>test</button>
                         <input
                             type="number"
                             min="0"
-                            value={quantity}
-                            onChange={(e) => handleQuantityChange(parseInt(e.target.value, 10) || 0)}
+                            value={item.quantity}
+                            onChange={(e) => onQuantityChange(item.id, parseInt(e.target.value))}
                         />
-                        <button onClick={incrementQuantity}>+</button>
                     </div>
                 </div>
-                <p className="item-total-price">{item.price * quantity},- total</p>
+                <p className="item-total-price">{item.price * item.quantity},- total</p>
             </div>
             <div className="basket-item-options">
                 <div className="item-options">
@@ -83,7 +62,7 @@ function BasketItem({ item, onQuantityChange, onGiftWrapChange, onRecurringOrder
                         <option value="biweekly">Biweekly</option>
                     </select>
                 )}
-                <button onClick={handleRemove}>Remove</button>
+                <button onClick={onRemove}>Remove</button>
             </div>
         </div>
     );

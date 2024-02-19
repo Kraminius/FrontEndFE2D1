@@ -3,7 +3,7 @@ export interface BasketItemProps {
     onQuantityChange: (itemId: number, newQuantity: number) => void;
     onGiftWrapChange: (itemId: number, newGiftWrap: boolean) => void;
     onRecurringOrderChange: (itemId: number, newRecurringOrder: string) => void;
-    onRemove: (itemId: number) => void;
+    onRemove: () => void;
 }
 
 export interface BasketSummaryProps {

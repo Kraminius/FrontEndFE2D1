@@ -59,6 +59,7 @@ item-unit-price {
   justify-content: center;
   flex: none;
   width: 120px;
+  color: black;
 }
 
 .item-price {
