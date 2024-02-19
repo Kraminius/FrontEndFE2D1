@@ -42,6 +42,7 @@ function BasketItem({ item, onQuantityChange, onGiftWrapChange, onRecurringOrder
             <div className="basket-item-details">
                 <div className="item-name-and-quantity">
                     <p className="basket-item-name">{item.name}</p>
+                    <p className="item-unit-price">{item.price},- per {item.unit}</p>
                     <div className="quantity-control">
                         <button onClick={decrementQuantity}>-</button>
                         <input
@@ -53,7 +54,7 @@ function BasketItem({ item, onQuantityChange, onGiftWrapChange, onRecurringOrder
                         <button onClick={incrementQuantity}>+</button>
                     </div>
                 </div>
-                <p className="item-price">{item.price * quantity},-</p>
+                <p className="item-total-price">{item.price * quantity},- total</p>
             </div>
             <div className="basket-item-options">
                 <div className="item-options">

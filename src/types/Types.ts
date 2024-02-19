@@ -1,14 +1,5 @@
-export interface Item {
-    id: number;
-    name: string;
-    price: number;
-    quantity: number;
-    giftWrap: boolean;
-    recurringOrder: string;
-}
-
 export interface BasketItemProps {
-    item: Item;
+    item: BasketItems;
     onQuantityChange: (itemId: number, newQuantity: number) => void;
     onGiftWrapChange: (itemId: number, newGiftWrap: boolean) => void;
     onRecurringOrderChange: (itemId: number, newRecurringOrder: string) => void;
@@ -16,7 +7,7 @@ export interface BasketItemProps {
 }
 
 export interface BasketSummaryProps {
-    items: Item[];
+    items: BasketItems[];
 }
 
 /* Recurring Order enum, add more for different options */
@@ -34,4 +25,5 @@ export interface BasketItems {
     quantity: number;
     giftWrap: boolean;
     recurringOrder: RecurringOrder;
+    unit: string;
 }
