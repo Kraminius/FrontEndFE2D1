@@ -58,6 +58,7 @@ function App() {
 	return (
 		<div className="shopping-basket">
 			<h1>Shopping Basket</h1>
+			<div className="customer-basket">
 			{basketItems.map((item) => (
 				<CustomerBasket
 					key={item.id}
@@ -68,6 +69,7 @@ function App() {
 					onRemove={() => handleRemove(item.id)}
 				/>
 			))}
+			</div>
 			<BasketSummary items={basketItems} />
 		</div>
 	);

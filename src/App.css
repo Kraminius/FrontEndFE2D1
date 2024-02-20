@@ -75,6 +75,10 @@ item-unit-price {
   font-size: 40px;
 }
 
+.customer-basket{
+  max-height: 500px;
+  overflow-y: auto;
+}
 .basket-summary{
   text-align: right;
   margin-right: 1em;
