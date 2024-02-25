@@ -37,3 +37,9 @@ body {
 	display: flex;
 	flex-direction: column;
 }
+
+.options-cell {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
