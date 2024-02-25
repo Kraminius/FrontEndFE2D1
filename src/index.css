@@ -1,92 +1,74 @@
 :root {
-	/* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
+    /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
 
-	font-synthesis: none;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 td {
-	padding: 10px;
+    padding: 10px;
 }
 
 .inc-button,
 .dec-button {
-	margin: 0 8px;
+    margin: 0 8px;
 }
 
 thead {
-	background-color: #ddd;
+    background-color: #ddd;
 }
 
 tbody tr:nth-child(even) {
-	background-color: #eee;
+    background-color: #eee;
 }
 
 body {
-	margin: auto;
-	max-width: 640px;
+    margin: auto;
+    max-width: 640px;
 }
 
 .summary {
-	text-align: right;
+    text-align: right;
 }
 
 .basket-container {
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .options-cell {
+    display: flex;
+    flex-direction: row;
+}
+
+.quantity-cell {
 	display: flex;
-	flex-direction: row;
 	justify-content: space-between;
+	border: 1px solid #000;
+	padding: 10px 10px;
+    border-radius: 20px 20px 20px 20px;
+	align-items: center;
 }
-.quantity-btn {
-    background-color: transparent;
-    border: 1px solid #000;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 16px; 
-    margin: 0; 
-    border-radius: 0; 
-}
-
-.quantity-btn, .quantity-text {
-    display: inline-block; 
-    font-size: 16px; 
-    padding: 5px 10px; 
-    text-align: center;
-    margin: 0; 
-    border: 1px solid #000;
-    background-color: #fff;
-    box-sizing: border-box;
-    vertical-align: middle; 
+.quantity-cell > button {
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	border-radius: 0;
 }
 
-.quantity-text {
-	padding: 5px 0px;
-    min-height: 10px; 
-    line-height: 18px;
-    border-left: none; 
-	border-right: none;
-}
-
-.quantity-btn:first-child {
-    border-radius: 20px 0 0 20px;
-    border-right: none; 
-}
-
-.quantity-btn:last-child {
-    border-radius: 0 20px 20px 0;
-    border-left: none; 
-}
 
 .quantity-btn:hover, .quantity-btn:active {
-    background-color: #f2f2f2;
+    background-color: #ccc;
 }
 
 .summary {
-	font-size: x-large;
+    font-size: x-large;
 }
+
+#footer-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+

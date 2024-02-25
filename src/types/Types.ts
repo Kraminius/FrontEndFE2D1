@@ -12,10 +12,10 @@ export interface BasketSummaryProps {
 
 /* Recurring Order enum, add more for different options */
 export enum RecurringOrder {
-	Once,
-	Daily,
-	Weekly,
-	Biweekly,
+	Once="Once",
+	Daily="Daily",
+	Weekly="Weekly",
+	Biweekly="Biweekly",
 }
 
 

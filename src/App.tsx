@@ -4,14 +4,20 @@ import { RecurringOrder } from "./types/Types";
 import initialBasketItems from "./data";
 import { useState } from "react";
 import "./index.css";
+import Footer from "./components/Footer";
+const creatorNames = [
+"Christensen, Nicklas Thorbjørn",
+"Gørlyk, Tobias Pedersen",
+"Hansen, Jakob Lars Naur",
+"Jürs, Mikkel",
+"Rolsted, Frederik Emil",
+"Zenkert, Henrik Albert Erik"
+]
 
 const headerNames = ["Type", " ,- /stk.", "Quantity", "Sum", "Options"];
 function App() {
   const [basketItems, setBasketItems] = useState(initialBasketItems);
 
-  for (let item of basketItems.slice(0, 3)) {
-    console.log(item);
-  }
   const handleQuantityChange = (itemId: number, newQuantity: number) => {
     if (newQuantity < 1) {
       return;
@@ -75,6 +81,7 @@ function App() {
         </tbody>
       </table>
       <BasketSummary items={basketItems} />
+	  <Footer creatorNames={creatorNames}/>
     </div>
   );
 }
