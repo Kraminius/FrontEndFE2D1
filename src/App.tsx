@@ -1,29 +1,22 @@
-import CustomerBasket from './components/CustomerBasket';
+import CustomerItem from './components/CustomerBasket';
 import BasketSummary from './components/BasketSummary';
-import { BasketItems, RecurringOrder } from './types/Types'
-import './App.css';
+import { RecurringOrder } from './types/Types'
+import initialBasketItems from './data';
 import { useState } from "react";
 
-const initialBasketItems: BasketItems = [
-	{ id: 1, name: 'Gulerødder', price: 3, quantity: 3, giftWrap: false, recurringOrder: RecurringOrder.None, unit: "stk." },
-	{ id: 2, name: 'Ærter', price: 1, quantity: 1, giftWrap: false, recurringOrder: RecurringOrder.None, unit: "pose" },
-	{ id: 3, name: 'Kartofler', price: 2, quantity: 2, giftWrap: false, recurringOrder: RecurringOrder.None, unit: "stk." },
-	{ id: 4, name: 'Løg', price: 1, quantity: 1, giftWrap: false, recurringOrder: RecurringOrder.None, unit: "stk." },
-	{ id: 5, name: 'Hvidløg', price: 2, quantity: 1, giftWrap: false, recurringOrder: RecurringOrder.None, unit: "bundt" },
-	{ id: 6, name: 'Ingefær', price: 2, quantity: 1, giftWrap: false, recurringOrder: RecurringOrder.None, unit: "stk." },
-	{ id: 7, name: 'Gurkemeje', price: 2, quantity: 1, giftWrap: false, recurringOrder: RecurringOrder.None, unit: "stk." },
-	{ id: 8, name: 'Karry', price: 2, quantity: 1, giftWrap: false, recurringOrder: RecurringOrder.None, unit: "glas." },
-	{ id: 9, name: 'Kokosmælk', price: 5, quantity: 1, giftWrap: false, recurringOrder: RecurringOrder.None, unit: "dåse" },
-	{ id: 10, name: 'Ris', price: 3, quantity: 1, giftWrap: false, recurringOrder: RecurringOrder.None, unit: "pose" },
-];
 
+import './index.css';
+
+const headerNames = ["Type", "Price", "#", "Sum", "Options"]
 function App() {
 	const [basketItems, setBasketItems] = useState(initialBasketItems);
 
+	for (let item of basketItems.slice(0, 3)) {
+		console.log(item);
+	}
 	const handleQuantityChange = (itemId: number, newQuantity: number) => {
 		if (newQuantity < 1) { return }
 		const updatedItems = basketItems.map(item => {
-
 			if (item.id === itemId) {
 				return { ...item, quantity: newQuantity };
 			}
@@ -32,23 +25,25 @@ function App() {
 		setBasketItems(updatedItems);
 	};
 
-	const handleGiftWrapChange = (itemId: number, newGiftWrap: boolean) => {
+	const handleGiftWrapChange = (itemId: number) => {
 		const updatedItems = basketItems.map(item => {
 			if (item.id === itemId) {
-				return { ...item, giftWrap: newGiftWrap };
+				return { ...item, giftWrap: !item.giftWrap };
 			}
 			return item;
 		});
 		setBasketItems(updatedItems);
 	};
 
-	const handleRecurringOrderChange = (itemId: number, newRecurringOrder: string) => {
-		setBasketItems(prevState => prevState.map(item => {
-			if (item.id === itemId) {
-				return { ...item, recurringOrder: RecurringOrder[newRecurringOrder as keyof typeof RecurringOrder] };
-			}
-			return item;
-		}));
+	const handleRecurringOrderChange = (itemId: number, newRecurringOrder: RecurringOrder) => {
+		if (Object.values(RecurringOrder).includes(newRecurringOrder)) {
+			const updatedBasketItems = basketItems.map(item =>
+				item.id === itemId ? { ...item, recurringOrder: newRecurringOrder as RecurringOrder } : item
+			);
+			setBasketItems(updatedBasketItems);
+		} else {
+			console.error("Invalid recurring order type.");
+		}
 	}
 
 	const handleRemove = (itemId: number) => {
@@ -56,23 +51,44 @@ function App() {
 	}
 
 	return (
-		<div className="shopping-basket">
+		<div className="basket-container">
 			<h1>Shopping Basket</h1>
-			<div className="customer-basket">
-			{basketItems.map((item) => (
-				<CustomerBasket
-					key={item.id}
-					item={item}
-					onQuantityChange={handleQuantityChange}
-					onGiftWrapChange={handleGiftWrapChange}
-					onRecurringOrderChange={handleRecurringOrderChange}
-					onRemove={() => handleRemove(item.id)}
-				/>
-			))}
-			</div>
+			<table>
+				<caption>
+					Items you have picked
+				</caption>
+				<Header headerNames={headerNames} />
+				<tbody>
+					{basketItems.map((item) => (
+						<CustomerItem
+							key={item.id}
+							item={item}
+							onQuantityChange={handleQuantityChange}
+							onGiftWrapChange={handleGiftWrapChange}
+							onRecurringOrderChange={handleRecurringOrderChange}
+							onRemove={() => handleRemove(item.id)}
+						/>
+					))}
+				</tbody>
+
+			</table>
 			<BasketSummary items={basketItems} />
 		</div>
 	);
+}
+
+interface HeaderProps {
+	headerNames: string[];
+}
+function Header({ headerNames }: HeaderProps) {
+	return (
+		<thead>
+			<tr>
+				{headerNames.map((headerName: string) => <th key={headerName}>{headerName}</th>)}
+			</tr>
+		</thead>
+	)
+
 }
 
 export default App;

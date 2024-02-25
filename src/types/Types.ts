@@ -1,8 +1,8 @@
 export interface BasketItemProps {
 	item: BasketItem;
 	onQuantityChange: (itemId: number, newQuantity: number) => void;
-	onGiftWrapChange: (itemId: number, newGiftWrap: boolean) => void;
-	onRecurringOrderChange: (itemId: number, newRecurringOrder: string) => void;
+	onGiftWrapChange: (itemId: number) => void;
+	onRecurringOrderChange: (itemId: number, newRecurringOrder: RecurringOrder) => void;
 	onRemove: () => void;
 }
 
@@ -12,11 +12,13 @@ export interface BasketSummaryProps {
 
 /* Recurring Order enum, add more for different options */
 export enum RecurringOrder {
-	None = 'none',
-	Daily = 'daily',
-	Weekly = 'weekly',
-	Biweekly = 'biweekly',
+	Once,
+	Daily,
+	Weekly,
+	Biweekly,
 }
+
+
 
 export interface BasketItem {
 	id: number;
