@@ -1,9 +1,9 @@
-// CustomerItemCard.tsx
+
 import React from 'react';
 import '../Styles/basket.css';
 // @ts-ignore
 import defaultImage from "../images/default-product.png";
-import {BasketItem, RecurringOrder} from '../types/Types'; // Adjust the import path to your types
+import {BasketItem, RecurringOrder} from '../types/Types'; 
 
 interface CustomerItemCardProps {
     item: BasketItem;
@@ -32,7 +32,7 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
                         <div className="item-name">{item.name}</div>
                         <div className="item-price">{`${item.price},-`}</div>
                     </div>
-                    <div className="item-id">{`ID: 0000${item.id}`}</div>
+                    <div className="item-id">{`ID: ${item.id}`}</div>
                     <div className="item-desc">{`Type: ${item.unit}`}</div>
 
 

@@ -6,6 +6,7 @@ import { useState } from "react";
 import "./Styles/index.css";
 import Footer from "./components/Footer";
 import CustomerItemCard from "./components/CustomerItemCard.tsx";
+import PromotionCard from "./components/PromotionCard.tsx";
 const creatorNames = [
 "Christensen, Nicklas Thorbjørn",
 "Gørlyk, Tobias Pedersen",
@@ -80,9 +81,22 @@ function App() {
             ))}
 
           </div>
-          <div>
-            <div className="address"></div>
-            <div className="promotion"></div>
+          <div className="user-info-container">
+            <div className="address-container">
+              <div className="filler"></div>
+            </div>
+
+            <div className="promotion-box">
+              <div className="title-card">See Also</div>
+              <div className="promotion-container">
+                {basketItems.map((item) => (
+                    <PromotionCard
+                        key={item.id}
+                        item={item}
+                    />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
