@@ -1,6 +1,6 @@
 import {BasketItem, BasketItemProps, RecurringOrder} from "../types/Types";
 import {GiftSvg} from "../assets/GiftSvg";
-import "../index.css";
+import "../Styles/index.css";
 
 export default function CustomerItem({
                                        item,
@@ -50,6 +50,7 @@ export default function CustomerItem({
     </tr>
   );
 }
+
 
 interface QuantityProps {
   item: BasketItem;

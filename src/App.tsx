@@ -1,10 +1,11 @@
-import CustomerItem from "./components/CustomerItem";
+//import CustomerItem from "./components/CustomerItem";
 import BasketSummary from "./components/BasketSummary";
 import { RecurringOrder } from "./types/Types";
 import initialBasketItems from "./data";
 import { useState } from "react";
-import "./index.css";
+import "./Styles/index.css";
 import Footer from "./components/Footer";
+import CustomerItemCard from "./components/CustomerItemCard.tsx";
 const creatorNames = [
 "Christensen, Nicklas Thorbjørn",
 "Gørlyk, Tobias Pedersen",
@@ -14,7 +15,7 @@ const creatorNames = [
 "Zenkert, Henrik Albert Erik"
 ]
 
-const headerNames = ["Type", " ,- /stk.", "Quantity", "Sum", "Options"];
+//const headerNames = ["Type", " ,- /stk.", "Quantity", "Sum", "Options"];
 function App() {
   const [basketItems, setBasketItems] = useState(initialBasketItems);
 
@@ -62,33 +63,42 @@ function App() {
   };
 
   return (
-    <div className="basket-container">
-      <h1>Shopping Basket</h1>
-      <table>
-        <caption></caption>
-        <Header headerNames={headerNames} />
-        <tbody>
-          {basketItems.map((item) => (
-            <CustomerItem
-              key={item.id}
-              item={item}
-              onQuantityChange={handleQuantityChange}
-              onGiftWrapChange={handleGiftWrapChange}
-              onRecurringOrderChange={handleRecurringOrderChange}
-              onRemove={() => handleRemove(item.id)}
-            />
-          ))}
-        </tbody>
-      </table>
-      <BasketSummary items={basketItems} />
-	  <Footer creatorNames={creatorNames}/>
-    </div>
+      <div>
+        <h1>Shopping Basket</h1>
+        <div className="page-container">
+          <div className="basket-container">
+
+            {basketItems.map((item) => (
+                <CustomerItemCard
+                    key={item.id}
+                    item={item}
+                    onQuantityChange={handleQuantityChange}
+                    onGiftWrapChange={handleGiftWrapChange}
+                    onRecurringOrderChange={handleRecurringOrderChange}
+                    onRemove={() => handleRemove(item.id)}
+                />
+            ))}
+
+          </div>
+          <div>
+            <div className="address"></div>
+            <div className="promotion"></div>
+          </div>
+        </div>
+
+        <BasketSummary items={basketItems}/>
+        <Footer creatorNames={creatorNames}/>
+      </div>
+
+
   );
 }
 
+/*
 interface HeaderProps {
   headerNames: string[];
 }
+
 function Header({ headerNames }: HeaderProps) {
   return (
     <thead>
@@ -100,5 +110,5 @@ function Header({ headerNames }: HeaderProps) {
     </thead>
   );
 }
-
+*/
 export default App;
