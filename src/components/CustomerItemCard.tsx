@@ -32,6 +32,7 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
                         <div className="item-name">{item.name}</div>
                         <div className="item-price">{`${item.price},-`}</div>
                     </div>
+                    <div className="item-total-price">{`Product total: ${item.price * item.quantity},-`}</div>
                     <div className="item-id">{`ID: ${item.id}`}</div>
                     <div className="item-desc">{`Type: ${item.unit}`}</div>
 
