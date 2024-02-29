@@ -7,14 +7,15 @@ import "./Styles/index.css";
 import Footer from "./components/Footer";
 import CustomerItemCard from "./components/CustomerItemCard.tsx";
 import PromotionCard from "./components/PromotionCard.tsx";
+import DeliveryComponent from "./components/Delivery.tsx";
 const creatorNames = [
-"Christensen, Nicklas Thorbjørn",
-"Gørlyk, Tobias Pedersen",
-"Hansen, Jakob Lars Naur",
-"Jürs, Mikkel",
-"Rolsted, Frederik Emil",
-"Zenkert, Henrik Albert Erik"
-]
+  "Christensen, Nicklas Thorbjørn",
+  "Gørlyk, Tobias Pedersen",
+  "Hansen, Jakob Lars Naur",
+  "Jürs, Mikkel",
+  "Rolsted, Frederik Emil",
+  "Zenkert, Henrik Albert Erik",
+];
 
 //const headerNames = ["Type", " ,- /stk.", "Quantity", "Sum", "Options"];
 function App() {
@@ -64,47 +65,41 @@ function App() {
   };
 
   return (
-      <div>
-        <h1>Shopping Basket</h1>
-        <div className="page-container">
-          <div className="basket-container">
-
-            {basketItems.map((item) => (
-                <CustomerItemCard
-                    key={item.id}
-                    item={item}
-                    onQuantityChange={handleQuantityChange}
-                    onGiftWrapChange={handleGiftWrapChange}
-                    onRecurringOrderChange={handleRecurringOrderChange}
-                    onRemove={() => handleRemove(item.id)}
-                />
-            ))}
-
+    <div>
+      <h1>Shopping Basket</h1>
+      <div className="page-container">
+        <div className="basket-container">
+          {basketItems.map((item) => (
+            <CustomerItemCard
+              key={item.id}
+              item={item}
+              onQuantityChange={handleQuantityChange}
+              onGiftWrapChange={handleGiftWrapChange}
+              onRecurringOrderChange={handleRecurringOrderChange}
+              onRemove={() => handleRemove(item.id)}
+            />
+          ))}
+        </div>
+        <div className="user-info-container">
+          <div className="address-container">
+            <div className="filler"></div>
           </div>
-          <div className="user-info-container">
-            <div className="address-container">
-              <div className="filler"></div>
-            </div>
 
-            <div className="promotion-box">
-              <div className="title-card">See Also</div>
-              <div className="promotion-container">
-                {basketItems.map((item) => (
-                    <PromotionCard
-                        key={item.id}
-                        item={item}
-                    />
-                ))}
-              </div>
+          <div className="promotion-box">
+            <div className="title-card">See Also</div>
+            <div className="promotion-container">
+              {basketItems.map((item) => (
+                <PromotionCard key={item.id} item={item} />
+              ))}
             </div>
           </div>
         </div>
-
-        <BasketSummary items={basketItems}/>
-        <Footer creatorNames={creatorNames}/>
       </div>
 
-
+      <BasketSummary items={basketItems} />
+      <DeliveryComponent />
+      <Footer creatorNames={creatorNames} />
+    </div>
   );
 }
 
