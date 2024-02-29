@@ -134,11 +134,11 @@ const DeliveryComponent: React.FC = () => {
 
         {}
         <div className="form-group-full">
-          <label htmlFor="deliveryAddressLine1">Address *</label>
+          <label htmlFor="deliveryAddressLine">Address *</label>
           <input
             type="text"
-            id="deliveryAddressLine1"
-            name="deliveryAddressLine1"
+            id="deliveryAddressLine"
+            name="deliveryAddressLine"
             value={formData.deliveryAddressLine}
             onChange={handleChange}
           />
@@ -201,7 +201,6 @@ const DeliveryComponent: React.FC = () => {
             onChange={handleChange}
           />
         </div>
-        {}
 
         <button type="submit">Submit</button>
       </form>
