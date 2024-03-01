@@ -34,23 +34,35 @@ const DeliveryComponent: React.FC = () => {
   };
 
   const handleZipCodeChange = async (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
+    addressType: "delivery" | "billing"
   ) => {
     const newZipCode = e.target.value;
-    setFormData({ ...formData, deliveryZipCode: newZipCode });
-
-    if (newZipCode.length === 4) {
-      const newCityName = await fetchCityFromZip(newZipCode);
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        deliveryCity: newCityName || "",
-      }));
+    if (addressType === "delivery") {
+      setFormData({ ...formData, deliveryZipCode: newZipCode });
+      if (newZipCode.length === 4 && formData.deliveryCountry === "DK") {
+        const newCityName = await fetchCityFromZip(newZipCode);
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          deliveryCity: newCityName || "",
+        }));
+      }
+    } else if (addressType === "billing") {
+      setFormData({ ...formData, billingZipCode: newZipCode });
+      if (newZipCode.length === 4 && formData.billingCountry === "DK") {
+        const newCityName = await fetchCityFromZip(newZipCode);
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          billingCity: newCityName || "",
+        }));
+      }
     }
   };
+
   const fetchCityFromZip = async (
     zipCode: string
   ): Promise<string | undefined> => {
-    if (zipCode.length === 4 && formData.deliveryCountry === "DK") {
+    if (zipCode.length === 4) {
       try {
         const response = await fetch(
           `https://api.dataforsyningen.dk/postnumre/${zipCode}`
@@ -74,16 +86,21 @@ const DeliveryComponent: React.FC = () => {
       setFormData((prev) => ({
         ...prev,
         deliveryCountry: selectedCountry,
-        phoneCode: selectedCountryData.phoneCode, // This should now be valid
+        phoneCode: selectedCountryData.phoneCode,
       }));
     } else {
-      // Handle case where no country is found - perhaps reset phoneCode or set to a default
       setFormData((prev) => ({
         ...prev,
         deliveryCountry: "",
-        phoneCode: "", // Reset or handle as needed
+        phoneCode: "",
       }));
     }
+  };
+  const handleToggleBillingAddress = () => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      billingAddressDifferent: !prevFormData.billingAddressDifferent,
+    }));
   };
 
   return (
@@ -151,7 +168,7 @@ const DeliveryComponent: React.FC = () => {
             id="deliveryZipCode"
             name="deliveryZipCode"
             value={formData.deliveryZipCode}
-            onChange={handleZipCodeChange}
+            onChange={(e) => handleZipCodeChange(e, "delivery")}
           />
         </div>
         {}
@@ -201,7 +218,99 @@ const DeliveryComponent: React.FC = () => {
             onChange={handleChange}
           />
         </div>
+        {}
+        <div className="form-group form-group--flex">
+          <div className="input-group">
+            <label htmlFor="companyName"> Company Name *</label>
+            <input
+              type="text"
+              id="companyName"
+              name="companyName"
+              value={formData.companyName}
+              onChange={handleChange}
+            />
+          </div>
 
+          <div className="input-group">
+            <label htmlFor="companyVat">VAT</label>
+            <input
+              type="text"
+              id="companyVat"
+              name="companyVat"
+              value={formData.companyVat}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        {}
+        <div className="form-group-full">
+          <input
+            type="checkbox"
+            id="billingAddressDifferent"
+            name="billingAddressDifferent"
+            checked={formData.billingAddressDifferent}
+            onChange={handleToggleBillingAddress}
+          />
+          <label htmlFor="billingAddressDifferent">
+            Billing address is different
+          </label>
+        </div>
+
+        {/*Different billing address */}
+        {formData.billingAddressDifferent && (
+          <>
+            <div className="form-group-full">
+              <label htmlFor="billingCountry">Billing Country *</label>
+              <select
+                id="billingCountry"
+                name="billingCountry"
+                value={formData.billingCountry}
+                onChange={handleChange}
+              >
+                {countries.map((country) => (
+                  <option key={country.code} value={country.code}>
+                    {country.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group-full">
+              <label htmlFor="billingZipCode">Billing Zip Code *</label>
+              <input
+                type="text"
+                id="billingZipCode"
+                name="billingZipCode"
+                value={formData.billingZipCode}
+                onChange={(e) => handleZipCodeChange(e, "billing")}
+              />
+            </div>
+
+            <div className="form-group-full">
+              <label htmlFor="billingCity">Billing City *</label>
+              <input
+                type="text"
+                id="billingCity"
+                name="billingCity"
+                value={formData.billingCity}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="form-group-full">
+              <label htmlFor="billingAddressLine">Billing Address *</label>
+              <input
+                type="text"
+                id="billingAddressLine"
+                name="billingAddressLine"
+                value={formData.billingAddressLine}
+                onChange={handleChange}
+              />
+            </div>
+          </>
+        )}
+
+        {}
         <button type="submit">Submit</button>
       </form>
     </div>
