@@ -6,43 +6,6 @@
 .delivery-form-container h1 {
     margin-bottom: 20px;
 }
-  
-.form-group-full {
-    margin-bottom: 20px;
-}
-  
-.form-group-full  label {
-   display: block;
-   margin-bottom: 5px;
-}
-  
-.form-group-full input,
-.form-group-full select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 10px;
-}
-
-.form-group-half {
-    margin-bottom: 20px;
-}
-  
-.form-group-half  label {
-    display: block;
-    margin-bottom: 5px;
-}
-  
-.form-group-half input,
-.form-group-half select {
-    width: 50%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 10px;
-}
-
 
 .button[type="submit"] {
     padding: 10px 20px;

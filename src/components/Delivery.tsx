@@ -108,7 +108,7 @@ const DeliveryComponent: React.FC = () => {
       <h1>Delivery Information</h1>
       <form>
         {}
-        <div className="form-group-full">
+        <div className="input-group">
           <label htmlFor="deliveryCountry">Country *</label>
           <select
             id="deliveryCountry"
@@ -150,7 +150,7 @@ const DeliveryComponent: React.FC = () => {
         </div>
 
         {}
-        <div className="form-group-full">
+        <div className="input-group">
           <label htmlFor="deliveryAddressLine">Address *</label>
           <input
             type="text"
@@ -208,7 +208,7 @@ const DeliveryComponent: React.FC = () => {
           </div>
         </div>
         {}
-        <div className="form-group-full">
+        <div className="input-group">
           <label htmlFor="email">Email *</label>
           <input
             type="email"
@@ -221,7 +221,7 @@ const DeliveryComponent: React.FC = () => {
         {}
         <div className="form-group form-group--flex">
           <div className="input-group">
-            <label htmlFor="companyName"> Company Name *</label>
+            <label htmlFor="companyName"> Company Name</label>
             <input
               type="text"
               id="companyName"
@@ -243,7 +243,7 @@ const DeliveryComponent: React.FC = () => {
           </div>
         </div>
         {}
-        <div className="form-group-full">
+        <div className="input-group">
           <input
             type="checkbox"
             id="billingAddressDifferent"
@@ -251,15 +251,13 @@ const DeliveryComponent: React.FC = () => {
             checked={formData.billingAddressDifferent}
             onChange={handleToggleBillingAddress}
           />
-          <label htmlFor="billingAddressDifferent">
-            Billing address is different
-          </label>
+          <label htmlFor="billingAddressDifferent"></label>
         </div>
 
         {/*Different billing address */}
         {formData.billingAddressDifferent && (
           <>
-            <div className="form-group-full">
+            <div className="input-group">
               <label htmlFor="billingCountry">Billing Country *</label>
               <select
                 id="billingCountry"
@@ -275,7 +273,7 @@ const DeliveryComponent: React.FC = () => {
               </select>
             </div>
 
-            <div className="form-group-full">
+            <div className="input-group">
               <label htmlFor="billingZipCode">Billing Zip Code *</label>
               <input
                 type="text"
@@ -286,7 +284,7 @@ const DeliveryComponent: React.FC = () => {
               />
             </div>
 
-            <div className="form-group-full">
+            <div className="input-group">
               <label htmlFor="billingCity">Billing City *</label>
               <input
                 type="text"
@@ -297,7 +295,7 @@ const DeliveryComponent: React.FC = () => {
               />
             </div>
 
-            <div className="form-group-full">
+            <div className="input-group">
               <label htmlFor="billingAddressLine">Billing Address *</label>
               <input
                 type="text"
