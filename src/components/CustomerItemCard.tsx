@@ -20,6 +20,19 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
     onRecurringOrderChange,
     onRemove,
 }) => {
+
+    const calculateTotal = (item: BasketItem) => {
+        let totalPrice = item.price * item.quantity;
+    
+        if (item.discount?.itemAmountForDiscount && item.quantity >= item.discount.itemAmountForDiscount) {
+            totalPrice = totalPrice - item.discount.discountAmount;
+
+        } else {
+            return totalPrice;
+        }
+        return totalPrice;
+    };
+
     const imageUrl = item.imageUrl || defaultImage;
     return (
         <div className="customer-item-card">
@@ -33,9 +46,9 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
                         <div className="item-price">{`${item.price},-`}</div>
                     </div>
                     <div className="item-discount">
-                        {item.discount?.itemAmountForDiscount ? `Buy ${item.discount.itemAmountForDiscount} to get a discount` : ""}
+                        {item.discount?.itemAmountForDiscount ? `Buy ${item.discount.itemAmountForDiscount} to get a discount of ${item.discount.discountAmount}` : ""}
                     </div>
-                    <div className="item-total-price">{`Product total: ${item.price * item.quantity},-`}</div>
+                    <div className="item-total-price">{`Product total: ${calculateTotal(item)},-`}</div>
                     <div className="item-id">{`ID: ${item.id}`}</div>
                     <div className="item-desc">{`Type: ${item.unit}`}</div>
 
