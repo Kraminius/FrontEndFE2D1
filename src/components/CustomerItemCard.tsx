@@ -3,7 +3,7 @@ import React from 'react';
 import '../Styles/basket.css';
 // @ts-ignore
 import defaultImage from "../images/default-product.png";
-import {BasketItem, RecurringOrder} from '../types/Types'; 
+import { BasketItem, RecurringOrder } from '../types/Types';
 
 interface CustomerItemCardProps {
     item: BasketItem;
@@ -14,23 +14,26 @@ interface CustomerItemCardProps {
 }
 
 const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
-                                                               item,
-                                                               onQuantityChange,
-                                                               onGiftWrapChange,
-                                                               onRecurringOrderChange,
-                                                               onRemove,
-                                                           }) => {
+    item,
+    onQuantityChange,
+    onGiftWrapChange,
+    onRecurringOrderChange,
+    onRemove,
+}) => {
     const imageUrl = item.imageUrl || defaultImage;
     return (
         <div className="customer-item-card">
             <div className="options">
                 <div className="product-image">
-                    <img src={imageUrl} alt={item.name}/>
+                    <img src={imageUrl} alt={item.name} />
                 </div>
                 <div className="product-info-aligner">
                     <div className="product-info">
                         <div className="item-name">{item.name}</div>
                         <div className="item-price">{`${item.price},-`}</div>
+                    </div>
+                    <div className="item-discount">
+                        {item.discount?.itemAmountForDiscount ? `Buy ${item.discount.itemAmountForDiscount} to get a discount` : ""}
                     </div>
                     <div className="item-total-price">{`Product total: ${item.price * item.quantity},-`}</div>
                     <div className="item-id">{`ID: ${item.id}`}</div>
@@ -52,7 +55,7 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
             </div>
             <div className="options">
 
-                <Quantity onQuantityChange={onQuantityChange} item={item}/>
+                <Quantity onQuantityChange={onQuantityChange} item={item} />
                 <button className="item-remover" onClick={() => onRemove(item.id)}>Remove</button>
                 <div>
                     <input
@@ -74,7 +77,7 @@ interface QuantityProps {
     onQuantityChange: (itemId: number, newQuantity: number) => void;
 }
 
-const Quantity = ({onQuantityChange, item}: QuantityProps) => (
+const Quantity = ({ onQuantityChange, item }: QuantityProps) => (
     <td >
         <div className="quantity-cell">
             <button
