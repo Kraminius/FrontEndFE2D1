@@ -81,6 +81,7 @@ body {
 .address-container{
     max-height: 65%;
     height: 65%;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 10px;

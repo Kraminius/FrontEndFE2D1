@@ -199,9 +199,11 @@ const DeliveryComponent: React.FC = () => {
           <div className="input-group">
             <label htmlFor="phone">Phone *</label>
             <input
-              type="text"
+              type="tel"
               id="phone"
               name="phone"
+              minLength={8}
+              maxLength={8}
               value={formData.phone}
               onChange={handleChange}
             />
@@ -237,6 +239,8 @@ const DeliveryComponent: React.FC = () => {
               type="text"
               id="companyVat"
               name="companyVat"
+              minLength={8}
+              maxLength={8}
               value={formData.companyVat}
               onChange={handleChange}
             />

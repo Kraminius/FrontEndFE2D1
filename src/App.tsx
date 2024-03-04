@@ -82,6 +82,7 @@ function App() {
         </div>
         <div className="user-info-container">
           <div className="address-container">
+            <DeliveryComponent/>
             <div className="filler"></div>
           </div>
 
