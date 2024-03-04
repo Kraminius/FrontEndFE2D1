@@ -9,7 +9,6 @@ export default function CustomerItem({
                                        onQuantityChange,
                                        onRemove,
                                      }: BasketItemProps) {
-
   return (
     <tr key={item.id}>
       <td align="right">{item.name}</td>

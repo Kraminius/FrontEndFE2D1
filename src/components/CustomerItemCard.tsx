@@ -16,6 +16,7 @@ interface CustomerItemCardProps {
 export const calculateItemTotal = (item: BasketItem) => {
     let totalPrice = item.price * item.quantity;
 
+
     if (item.discount?.itemAmountForDiscount && item.quantity >= item.discount.itemAmountForDiscount) {
         totalPrice = totalPrice - item.discount.discountAmount;
 
