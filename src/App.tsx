@@ -1,5 +1,4 @@
 //import CustomerItem from "./components/CustomerItem";
-import BasketSummary from "./components/BasketSummary";
 import { RecurringOrder } from "./types/Types";
 import initialBasketItems from "./data";
 import { useState } from "react";
