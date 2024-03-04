@@ -111,15 +111,15 @@ const DeliveryComponent: React.FC = () => {
         <div className="input-group">
           <label htmlFor="deliveryCountry">Country *</label>
           <select
-            id="deliveryCountry"
-            name="deliveryCountry"
-            value={formData.deliveryCountry}
-            onChange={handleCountryChange}
+              id="deliveryCountry"
+              name="deliveryCountry"
+              value={formData.deliveryCountry}
+              onChange={handleCountryChange}
           >
             {countries.map((country) => (
-              <option key={country.code} value={country.code}>
-                {country.name}
-              </option>
+                <option key={country.code} value={country.code}>
+                  {country.name}
+                </option>
             ))}
           </select>
         </div>
@@ -129,22 +129,22 @@ const DeliveryComponent: React.FC = () => {
           <div className="input-group">
             <label htmlFor="firstName">Fornavn *</label>
             <input
-              type="text"
-              id="firstName"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
+                type="text"
+                id="firstName"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
             />
           </div>
 
           <div className="input-group">
             <label htmlFor="lastName">Efternavn *</label>
             <input
-              type="text"
-              id="lastName"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
+                type="text"
+                id="lastName"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
             />
           </div>
         </div>
@@ -153,33 +153,33 @@ const DeliveryComponent: React.FC = () => {
         <div className="input-group">
           <label htmlFor="deliveryAddressLine">Address *</label>
           <input
-            type="text"
-            id="deliveryAddressLine"
-            name="deliveryAddressLine"
-            value={formData.deliveryAddressLine}
-            onChange={handleChange}
+              type="text"
+              id="deliveryAddressLine"
+              name="deliveryAddressLine"
+              value={formData.deliveryAddressLine}
+              onChange={handleChange}
           />
         </div>
         {}
         <div className="input-group">
           <label htmlFor="deliveryZipCode">Zip Code *</label>
           <input
-            type="text"
-            id="deliveryZipCode"
-            name="deliveryZipCode"
-            value={formData.deliveryZipCode}
-            onChange={(e) => handleZipCodeChange(e, "delivery")}
+              type="text"
+              id="deliveryZipCode"
+              name="deliveryZipCode"
+              value={formData.deliveryZipCode}
+              onChange={(e) => handleZipCodeChange(e, "delivery")}
           />
         </div>
         {}
         <div className="input-group">
           <label htmlFor="deliveryCity">City *</label>
           <input
-            type="text"
-            id="deliveryCity"
-            name="deliveryCity"
-            value={formData.deliveryCity}
-            onChange={handleChange}
+              type="text"
+              id="deliveryCity"
+              name="deliveryCity"
+              value={formData.deliveryCity}
+              onChange={handleChange}
           />
         </div>
         {}
@@ -187,25 +187,25 @@ const DeliveryComponent: React.FC = () => {
           <div className="input-group">
             <label htmlFor="phoneCode">Phone Code? *</label>
             <input
-              type="text"
-              id="phoneCode"
-              name="phoneCode"
-              value={formData.phoneCode}
-              onChange={handleChange}
-              readOnly
+                type="text"
+                id="phoneCode"
+                name="phoneCode"
+                value={formData.phoneCode}
+                onChange={handleChange}
+                readOnly
             />
           </div>
 
           <div className="input-group">
             <label htmlFor="phone">Phone *</label>
             <input
-              type="tel"
-              id="phone"
-              name="phone"
-              minLength={8}
-              maxLength={8}
-              value={formData.phone}
-              onChange={handleChange}
+                type="tel"
+                id="phone"
+                name="phone"
+                minLength={8}
+                maxLength={8}
+                value={formData.phone}
+                onChange={handleChange}
             />
           </div>
         </div>
@@ -213,11 +213,11 @@ const DeliveryComponent: React.FC = () => {
         <div className="input-group">
           <label htmlFor="email">Email *</label>
           <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
           />
         </div>
         {}
@@ -225,91 +225,93 @@ const DeliveryComponent: React.FC = () => {
           <div className="input-group">
             <label htmlFor="companyName"> Company Name</label>
             <input
-              type="text"
-              id="companyName"
-              name="companyName"
-              value={formData.companyName}
-              onChange={handleChange}
+                type="text"
+                id="companyName"
+                name="companyName"
+                value={formData.companyName}
+                onChange={handleChange}
             />
           </div>
 
           <div className="input-group">
             <label htmlFor="companyVat">VAT</label>
             <input
-              type="text"
-              id="companyVat"
-              name="companyVat"
-              minLength={8}
-              maxLength={8}
-              value={formData.companyVat}
-              onChange={handleChange}
+                type="text"
+                id="companyVat"
+                name="companyVat"
+                minLength={8}
+                maxLength={8}
+                value={formData.companyVat}
+                onChange={handleChange}
             />
           </div>
         </div>
         {}
+
+        <hr/>
         <div className="input-group">
           <input
-            type="checkbox"
-            id="billingAddressDifferent"
-            name="billingAddressDifferent"
-            checked={formData.billingAddressDifferent}
-            onChange={handleToggleBillingAddress}
+              type="checkbox"
+              id="billingAddressDifferent"
+              name="billingAddressDifferent"
+              checked={formData.billingAddressDifferent}
+              onChange={handleToggleBillingAddress}
           />
-          <label htmlFor="billingAddressDifferent"></label>
+          <label htmlFor="billingAddressDifferent">Different billing address</label>
         </div>
 
         {/*Different billing address */}
         {formData.billingAddressDifferent && (
-          <>
-            <div className="input-group">
-              <label htmlFor="billingCountry">Billing Country *</label>
-              <select
-                id="billingCountry"
-                name="billingCountry"
-                value={formData.billingCountry}
-                onChange={handleChange}
-              >
-                {countries.map((country) => (
-                  <option key={country.code} value={country.code}>
-                    {country.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <>
+              <div className="input-group">
+                <label htmlFor="billingCountry">Billing Country *</label>
+                <select
+                    id="billingCountry"
+                    name="billingCountry"
+                    value={formData.billingCountry}
+                    onChange={handleChange}
+                >
+                  {countries.map((country) => (
+                      <option key={country.code} value={country.code}>
+                        {country.name}
+                      </option>
+                  ))}
+                </select>
+              </div>
 
-            <div className="input-group">
-              <label htmlFor="billingZipCode">Billing Zip Code *</label>
-              <input
-                type="text"
-                id="billingZipCode"
-                name="billingZipCode"
-                value={formData.billingZipCode}
-                onChange={(e) => handleZipCodeChange(e, "billing")}
-              />
-            </div>
+              <div className="input-group">
+                <label htmlFor="billingZipCode">Billing Zip Code *</label>
+                <input
+                    type="text"
+                    id="billingZipCode"
+                    name="billingZipCode"
+                    value={formData.billingZipCode}
+                    onChange={(e) => handleZipCodeChange(e, "billing")}
+                />
+              </div>
 
-            <div className="input-group">
-              <label htmlFor="billingCity">Billing City *</label>
-              <input
-                type="text"
-                id="billingCity"
-                name="billingCity"
-                value={formData.billingCity}
-                onChange={handleChange}
-              />
-            </div>
+              <div className="input-group">
+                <label htmlFor="billingCity">Billing City *</label>
+                <input
+                    type="text"
+                    id="billingCity"
+                    name="billingCity"
+                    value={formData.billingCity}
+                    onChange={handleChange}
+                />
+              </div>
 
-            <div className="input-group">
-              <label htmlFor="billingAddressLine">Billing Address *</label>
-              <input
-                type="text"
-                id="billingAddressLine"
-                name="billingAddressLine"
-                value={formData.billingAddressLine}
-                onChange={handleChange}
-              />
-            </div>
-          </>
+              <div className="input-group">
+                <label htmlFor="billingAddressLine">Billing Address *</label>
+                <input
+                    type="text"
+                    id="billingAddressLine"
+                    name="billingAddressLine"
+                    value={formData.billingAddressLine}
+                    onChange={handleChange}
+                />
+              </div>
+            </>
         )}
 
         {}
