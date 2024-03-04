@@ -3,6 +3,9 @@ import { describe, expect, test } from "vitest";
 import React from "react";
 import App from "../App";
 import initialBasketItems from "../data";
+import { calculateItemTotal } from '../components/CustomerItemCard';
+import { BasketItem, RecurringOrder } from '../types/Types';
+import BasketSummary from "../components/BasketSummary";
 
 describe(App.name, () => {
   test('should display "Shopping Basket" title', () => {
@@ -77,4 +80,116 @@ describe(App.name, () => {
       expect(element).toBeInTheDocument();
     });
   });
+});
+
+// Tests for discount calculation
+describe(App.name, () => {
+  test('calculates the total price without discount', () => {
+    const item: BasketItem = {
+      id: 1,
+      name: 'Test Item',
+      price: 10,
+      quantity: 2,
+      imageUrl: '',
+      unit: 'stk',
+      recurringOrder: RecurringOrder.Once,
+      giftWrap: false,
+    };
+
+    const total = calculateItemTotal(item);
+
+    expect(total).toBe(20);
+  });
+
+  test('calculates the total price with discount', () => {
+    const item: BasketItem = {
+      id: 1,
+      name: 'Test Item',
+      price: 10,
+      quantity: 3,
+      imageUrl: '',
+      unit: 'stk',
+      recurringOrder: RecurringOrder.Once,
+      giftWrap: false,
+      discount: {
+        itemAmountForDiscount: 3,
+        discountAmount: 5,
+      },
+    };
+
+    const total = calculateItemTotal(item);
+
+    expect(total).toBe(25);
+  });
+
+  test('does not apply discount if quantity is less than required', () => {
+    const item: BasketItem = {
+      id: 1,
+      name: 'Test Item',
+      price: 10,
+      quantity: 2,
+      imageUrl: '',
+      unit: 'stk',
+      recurringOrder: RecurringOrder.Once,
+      giftWrap: false,
+      discount: {
+        itemAmountForDiscount: 3,
+        discountAmount: 5,
+      },
+    };
+
+    const total = calculateItemTotal(item);
+
+    expect(total).toBe(20);
+  });
+
+  test('applies discount to total price summary', () => {
+    const items: BasketItem[] = [
+      {
+        id: 1,
+        name: 'Test Item',
+        price: 10,
+        quantity: 2,
+        imageUrl: '',
+        unit: 'stk',
+        recurringOrder: RecurringOrder.Once,
+        giftWrap: false,
+        discount: {
+          itemAmountForDiscount: 3,
+          discountAmount: 5,
+        },
+      },
+      {
+        id: 2,
+        name: 'Test Item 2',
+        price: 10,
+        quantity: 2,
+        imageUrl: '',
+        unit: 'stk',
+        recurringOrder: RecurringOrder.Once,
+        giftWrap: false,
+      },
+      {
+        id: 3,
+        name: 'Test Item 3',
+        price: 10,
+        quantity: 1,
+        imageUrl: '',
+        unit: 'stk',
+        recurringOrder: RecurringOrder.Once,
+        giftWrap: false,
+        discount: {
+          itemAmountForDiscount: 1,
+          discountAmount: 1,
+        },
+      },
+    ];
+
+    const { getByText } = render(<BasketSummary items={items} />);
+
+    expect(getByText(/Total:/i).textContent).toBe('Total: 49.00,-');
+
+  });
+
+
 });

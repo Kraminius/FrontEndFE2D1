@@ -18,7 +18,10 @@ export enum RecurringOrder {
 	Biweekly="Biweekly",
 }
 
-
+interface Discount {
+	itemAmountForDiscount: number;
+	discountAmount: number;
+}
 
 export interface BasketItem {
 	imageUrl: string | undefined;
@@ -29,6 +32,7 @@ export interface BasketItem {
 	giftWrap: boolean;
 	recurringOrder: RecurringOrder;
 	unit: string;
+	discount?: Discount;
 }
 export type BasketItems = BasketItem[];
 
