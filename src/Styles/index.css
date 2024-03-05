@@ -73,7 +73,6 @@ body {
     max-height: 100%;
 }
 .basket-container{
-    width: 40%;
     max-height: 700px;
     overflow-y: auto;
     display: flex;
