@@ -97,7 +97,7 @@ function App() {
 
   return (
       <div>
-        <div className="head">
+        <div className="header">
           <h1>Shopping Basket</h1>
         </div>
         <div className="page_components">
@@ -106,6 +106,7 @@ function App() {
               {renderContent()}
               <button className="next-button" onClick={handleNextClick}>Continue</button>
             </div>
+			
             <div className="user-info-container">
               <div className="summary-container">
                 <OrderSummary items={basketItems}/>
