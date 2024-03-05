@@ -21,7 +21,7 @@ thead {
 }
 
 tbody tr:nth-child(even) {
-    background-color: #eee;
+    background-color: #f5f5f5;
 }
 
 body {
@@ -45,10 +45,37 @@ body {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
-.page-container{
+.head{
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    position: sticky;
+    background-color: #ffffff;
+    border-color: #dddddd;
+    border-width: 0;
+    border-bottom-width: 2px;
+    top: 0;
+    padding: 10px;
+    z-index: 1000;
+    border-style: solid;
+
+}
+.page_and_summary_container{
     display: flex;
     flex-direction: row;
     gap: 10px;
+}
+.next-button{
+    width: 80%;
+    height: 36px;
+    border-radius: 15px;
+    border: #bbbbbb;
+    background-color: #007bff;
+    color: #ffffff;
+    font-size: 18px;
+}
+.next-button:hover{
+    background-color: #0461c5;
 }
 .title-card{
     background-color: #ffffff;
@@ -65,6 +92,12 @@ body {
     align-items: center;
     background-color: #ffffff;
 }
+.page_components{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 .user-info-container{
     display: flex;
     flex-direction: column;
@@ -72,27 +105,23 @@ body {
     width: 60%;
     max-height: 100%;
 }
-.basket-container{
-    max-height: 700px;
+.content-container{
+    width: 80%;
     overflow-y: auto;
     display: flex;
+    align-items: center;
     flex-direction: column;
-    gap: 10px;
-    padding: 10px 40px 10px 40px;
-    border: 1px solid #ccc;
-    background-color: #f5f5f5;
-    border-radius: 5px;
+    gap: 20px;
 }
-.address-container{
-    max-height: 65%;
-    height: 65%;
+.summary-container{
     display: flex;
     flex-direction: column;
     gap: 10px;
     padding: 10px 40px 10px 40px;
     border: 1px solid #ccc;
-    background-color: #f5f5f5;
     border-radius: 5px;
+    position: sticky;
+    top: 120px;
 }
 .promotion-box{
     max-height: 35%;
@@ -102,7 +131,6 @@ body {
     gap: 10px;
     padding: 10px;
     border: 1px solid #ccc;
-    background-color: #f5f5f5;
     border-radius: 5px;
 }
 .promotion-container{
