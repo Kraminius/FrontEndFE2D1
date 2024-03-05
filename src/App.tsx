@@ -69,16 +69,22 @@ function App() {
       <h1>Shopping Basket</h1>
       <div className="page-container">
         <div className="basket-container">
-          {basketItems.map((item) => (
-            <CustomerItemCard
-              key={item.id}
-              item={item}
-              onQuantityChange={handleQuantityChange}
-              onGiftWrapChange={handleGiftWrapChange}
-              onRecurringOrderChange={handleRecurringOrderChange}
-              onRemove={() => handleRemove(item.id)}
-            />
-          ))}
+          {basketItems.length > 0 ? (
+              basketItems.map((item) => (
+                  <CustomerItemCard
+                      key={item.id}
+                      item={item}
+                      onQuantityChange={handleQuantityChange}
+                      onGiftWrapChange={handleGiftWrapChange}
+                      onRecurringOrderChange={handleRecurringOrderChange}
+                      onRemove={() => handleRemove(item.id)}
+                  />
+              ))
+          ) : (
+              <div className="empty-basket-message">
+                Your basket is empty. <a href="/browse">Browse more items</a>
+              </div>
+          )}
         </div>
         <div className="user-info-container">
           <div className="address-container">
