@@ -109,6 +109,23 @@ const Quantity = ({ onQuantityChange, item }: QuantityProps) => (
             </button>
         </div>
     </td>
+	<div>
+		<div className="quantity-cell">
+			<button
+				className="quantity-btn"
+				onClick={() => onQuantityChange(item.id, item.quantity - 1)}
+			>
+				-
+			</button>
+			<div className="quantity-text">{item.quantity}</div>
+			<button
+				className="quantity-btn"
+				onClick={() => onQuantityChange(item.id, item.quantity + 1)}
+			>
+				+
+			</button>
+		</div>
+	</div>
 )
 
 export default CustomerItemCard;
