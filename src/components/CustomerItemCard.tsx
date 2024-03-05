@@ -43,7 +43,7 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
 	let itemPriceClassesTotal: string = `item-price__cost ${isSingleItem ? 'item-price__cost--hidden' : ''}`
 	return (
 		<div className="item">
-			<div className="item__pane">
+			<div className="item__pane item__pane--left">
 				<div className="item__image">
 					<img src={imageUrl} alt={item.name} />
 				</div>
@@ -99,14 +99,14 @@ interface QuantityProps {
 const Quantity = ({ onQuantityChange, item }: QuantityProps) => (
 	<div className="quantity">
 		<button
-			className="quantity__button"
+			className="quantity__button quantity__button--left"
 			onClick={() => onQuantityChange(item.id, item.quantity - 1)}
 		>
 			-
 		</button>
 		<div className="quantity-text">{item.quantity}</div>
 		<button
-			className="quantity__button"
+			className="quantity__button quantity__button--right"
 			onClick={() => onQuantityChange(item.id, item.quantity + 1)}
 		>
 			+

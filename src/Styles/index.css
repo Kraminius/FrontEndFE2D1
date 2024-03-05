@@ -7,23 +7,6 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-td {
-    padding: 10px;
-}
-
-.inc-button,
-.dec-button {
-    margin: 0 8px;
-}
-
-thead {
-    background-color: #ddd;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #f5f5f5;
-}
-
 body {
     margin: auto;
     max-width: 1200px;
@@ -59,10 +42,19 @@ body {
 
 }
 .page_and_summary_container{
-	display: flex;
+	display: grid;
+	grid-template-columns: 400px 1fr;
+	gap: 2em;
 }
-.next-button{
-    width: 80%;
+.continue {
+	display: flex;
+	justify-content: flex-end;
+	padding: 20px;
+
+}
+.continue__button{
+	width: 200px;
+	
     height: 36px;
     border-radius: 15px;
     border: #bbbbbb;
@@ -89,34 +81,32 @@ body {
     background-color: #ffffff;
 }
 .page_components{
-    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+	padding-bottom:20px;
 }
 .user-info-container{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 60%;
-    max-height: 100%;
+ /* display: flex; */
+ /* flex-direction: column; */
+ /* gap: 10px; */
+ /* width: 60%; */
+ /* max-height: 100%; */ 
 }
 .content-container{
-    /* overflow-y: auto; */
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 20px;
+	padding-top: 18px;
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1em;
 }
 .summary-container{
     display: flex;
-    flex-direction: column;
-    /* gap: 10px;
-    padding: 10px 40px 10px 40px; */
+	flex-direction: column;
     border: 1px solid #ccc;
     border-radius: 5px;
     position: sticky;
     top: 120px;
+	margin-left:40px;
+	padding: 0 20px;
 }
 .promotion-box{
     max-height: 35%;
@@ -129,7 +119,7 @@ body {
     border-radius: 5px;
 }
 .promotion-container{
-    /* overflow-y: auto; */
+    overflow-y: auto;
     display: flex;
     flex-direction: row;
     gap: 10px;
