@@ -31,7 +31,7 @@ const DeliveryComponent: React.FC = () => {
       formData.deliveryZipCode.length === 4 &&
       (formData.email.includes("@") &&
           !formData.email.startsWith("@")
-      && !formData.email.endsWith("@"))
+      && !formData.email.endsWith("@")) &&
       isNotEmpty(formData.deliveryCountry) &&
       isNotEmpty(formData.deliveryZipCode) &&
       isNotEmpty(formData.deliveryCity) &&
@@ -41,8 +41,8 @@ const DeliveryComponent: React.FC = () => {
       isNotEmpty(formData.phone) &&
       isNotEmpty(formData.email) &&
       (!formData.billingAddressDifferent ||
-          (isNotEmpty(formData.billingCountry) &&
-              formData.billingZipCode.length === 4 &&
+          (   formData.billingZipCode.length === 4 &&
+              isNotEmpty(formData.billingCountry) &&
               isNotEmpty(formData.billingCity) &&
               isNotEmpty(formData.billingZipCode) &&
               isNotEmpty(formData.billingAddressLine)));
