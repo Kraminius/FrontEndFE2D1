@@ -23,6 +23,23 @@ const DeliveryComponent: React.FC = () => {
     billingAddressLine: "",
   });
 
+  const isNotEmpty = (value: string) => value.trim() !== '';
+
+  const isFormValid =
+      isNotEmpty(formData.deliveryCountry) &&
+      isNotEmpty(formData.deliveryZipCode) &&
+      isNotEmpty(formData.deliveryCity) &&
+      isNotEmpty(formData.deliveryAddressLine) &&
+      isNotEmpty(formData.firstName) &&
+      isNotEmpty(formData.lastName) &&
+      isNotEmpty(formData.phone) &&
+      isNotEmpty(formData.email) &&
+      (!formData.billingAddressDifferent ||
+          (isNotEmpty(formData.billingCountry) &&
+              isNotEmpty(formData.billingCity) &&
+              isNotEmpty(formData.billingZipCode) &&
+              isNotEmpty(formData.billingAddressLine)));
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -167,6 +184,8 @@ const DeliveryComponent: React.FC = () => {
             type="text"
             id="deliveryZipCode"
             name="deliveryZipCode"
+            minLength={4}
+            maxLength={4}
             value={formData.deliveryZipCode}
             onChange={(e) => handleZipCodeChange(e, "delivery")}
           />
@@ -199,9 +218,11 @@ const DeliveryComponent: React.FC = () => {
           <div className="input-group">
             <label htmlFor="phone">Phone *</label>
             <input
-              type="text"
+              type="tel"
               id="phone"
               name="phone"
+              minLength={8}
+              maxLength={8}
               value={formData.phone}
               onChange={handleChange}
             />
@@ -237,6 +258,8 @@ const DeliveryComponent: React.FC = () => {
               type="text"
               id="companyVat"
               name="companyVat"
+              minLength={8}
+              maxLength={8}
               value={formData.companyVat}
               onChange={handleChange}
             />
@@ -251,7 +274,7 @@ const DeliveryComponent: React.FC = () => {
             checked={formData.billingAddressDifferent}
             onChange={handleToggleBillingAddress}
           />
-          <label htmlFor="billingAddressDifferent"></label>
+          <label htmlFor="billingAddressDifferent">Different billing address</label>
         </div>
 
         {/*Different billing address */}
@@ -279,6 +302,8 @@ const DeliveryComponent: React.FC = () => {
                 type="text"
                 id="billingZipCode"
                 name="billingZipCode"
+                minLength={4}
+                maxLength={4}
                 value={formData.billingZipCode}
                 onChange={(e) => handleZipCodeChange(e, "billing")}
               />
@@ -309,7 +334,8 @@ const DeliveryComponent: React.FC = () => {
         )}
 
         {}
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={!isFormValid}
+        >Submit</button>
       </form>
     </div>
   );

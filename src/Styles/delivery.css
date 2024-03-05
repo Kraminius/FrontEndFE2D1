@@ -48,3 +48,18 @@
       flex-direction: column;
     }
   }
+
+input:invalid {
+    border: 2px dashed red;
+}
+
+input[type = checkbox] {
+
+    width: 15px;
+    height: 15px;
+    padding: 10px 10px;
+    margin: 0px 10px;
+    vertical-align: bottom;
+    position: relative;
+    float: left;
+}
