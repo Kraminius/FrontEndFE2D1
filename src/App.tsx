@@ -1,4 +1,5 @@
 //import CustomerItem from "./components/CustomerItem";
+import BasketSummary from "./components/BasketSummary";
 import { RecurringOrder } from "./types/Types";
 import initialBasketItems from "./data";
 import { useState } from "react";
@@ -7,7 +8,6 @@ import Footer from "./components/Footer";
 import CustomerItemCard from "./components/CustomerItemCard.tsx";
 import PromotionCard from "./components/PromotionCard.tsx";
 import DeliveryComponent from "./components/Delivery.tsx";
-import OrderSummary from "./components/OrderSummary.tsx";
 const creatorNames = [
   "Christensen, Nicklas Thorbjørn",
   "Gørlyk, Tobias Pedersen",
@@ -63,67 +63,48 @@ function App() {
   const handleRemove = (itemId: number) => {
     setBasketItems(basketItems.filter((item) => item.id !== itemId));
   };
-  const [contentFlow, setContentFlow] = useState(0);
-  function handleNextClick() {
-    setContentFlow(prevContentFlow => {
-      // If the current value is greater than 2, reset to 0 otherwise, increment (Change 2 if you add more pages Guys)
-      return prevContentFlow > 2 ? 0 : prevContentFlow + 1;
-    });
-    window.scrollTo(0, 0);
-  }
-
-  function renderContent() {
-    switch (contentFlow) {
-      case 0: //Basket
-        return basketItems.map((item) => (
-            <CustomerItemCard
-                key={item.id}
-                item={item}
-                onQuantityChange={handleQuantityChange}
-                onGiftWrapChange={handleGiftWrapChange}
-                onRecurringOrderChange={handleRecurringOrderChange}
-                onRemove={() => handleRemove(item.id)}
-            />
-        ));
-      case 1: //Delivery Information
-        return <DeliveryComponent/>;
-      case 2: //Payment
-        return <div>idk payment I suppose :b</div>;
-      default: //Last Page - Receipt
-        return <div>Receipt page</div>;
-    }
-  }
-
 
   return (
     <div>
-      <div className="head">
-        <h1>Shopping Basket</h1>
-      </div>
-      <div className="page_components">
-        <div className="page_and_summary_container">
-          <div className="content-container">
-            {renderContent()}
-            <button className="next-button" onClick={handleNextClick}>Continue</button>
+      <h1>Shopping Basket</h1>
+      <div className="page-container">
+        <div className="basket-container">
+          {basketItems.length > 0 ? (
+              basketItems.map((item) => (
+                  <CustomerItemCard
+                      key={item.id}
+                      item={item}
+                      onQuantityChange={handleQuantityChange}
+                      onGiftWrapChange={handleGiftWrapChange}
+                      onRecurringOrderChange={handleRecurringOrderChange}
+                      onRemove={() => handleRemove(item.id)}
+                  />
+              ))
+          ) : (
+              <div className="empty-basket-message">
+                Your basket is empty. <a href="/browse">Browse more items</a>
+              </div>
+          )}
+        </div>
+        <div className="user-info-container">
+          <div className="address-container">
+            <div className="filler"></div>
           </div>
-          <div className="user-info-container">
-            <div className="summary-container">
-              <OrderSummary items={basketItems}/>
+
+          <div className="promotion-box">
+            <div className="title-card">See Also</div>
+            <div className="promotion-container">
+              {basketItems.map((item) => (
+                <PromotionCard key={item.id} item={item} />
+              ))}
             </div>
-
-
-          </div>
-        </div>
-        <div className="promotion-box">
-          <div className="title-card">See Also</div>
-          <div className="promotion-container">
-            {basketItems.map((item) => (
-                <PromotionCard key={item.id} item={item}/>
-            ))}
           </div>
         </div>
       </div>
-      <Footer creatorNames={creatorNames}/>
+
+      <BasketSummary items={basketItems} />
+      <DeliveryComponent />
+      <Footer creatorNames={creatorNames} />
     </div>
   );
 }

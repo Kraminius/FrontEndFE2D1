@@ -16,6 +16,7 @@ interface CustomerItemCardProps {
 export const calculateItemTotal = (item: BasketItem) => {
     let totalPrice = item.price * item.quantity;
 
+
     if (item.discount?.itemAmountForDiscount && item.quantity >= item.discount.itemAmountForDiscount) {
         totalPrice = totalPrice - item.discount.discountAmount;
 
@@ -91,23 +92,23 @@ interface QuantityProps {
 }
 
 const Quantity = ({ onQuantityChange, item }: QuantityProps) => (
-    <td >
-        <div className="quantity-cell">
-            <button
-                className="quantity-btn"
-                onClick={() => onQuantityChange(item.id, item.quantity - 1)}
-            >
-                -
-            </button>
-            <div className="quantity-text">{item.quantity}</div>
-            <button
-                className="quantity-btn"
-                onClick={() => onQuantityChange(item.id, item.quantity + 1)}
-            >
-                +
-            </button>
-        </div>
-    </td>
+	<div>
+		<div className="quantity-cell">
+			<button
+				className="quantity-btn"
+				onClick={() => onQuantityChange(item.id, item.quantity - 1)}
+			>
+				-
+			</button>
+			<div className="quantity-text">{item.quantity}</div>
+			<button
+				className="quantity-btn"
+				onClick={() => onQuantityChange(item.id, item.quantity + 1)}
+			>
+				+
+			</button>
+		</div>
+	</div>
 )
 
 export default CustomerItemCard;
