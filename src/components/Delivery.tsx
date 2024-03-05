@@ -23,6 +23,24 @@ const DeliveryComponent: React.FC = () => {
     billingAddressLine: "",
   });
 
+  // To check field isn't empty, great for disable button
+  const isNotEmpty = (value: string) => value.trim() !== '';
+
+  const isFormValid =
+      isNotEmpty(formData.deliveryCountry) &&
+      isNotEmpty(formData.deliveryZipCode) &&
+      isNotEmpty(formData.deliveryCity) &&
+      isNotEmpty(formData.deliveryAddressLine) &&
+      isNotEmpty(formData.firstName) &&
+      isNotEmpty(formData.lastName) &&
+      isNotEmpty(formData.phone) &&
+      isNotEmpty(formData.email) &&
+      (!formData.billingAddressDifferent ||
+          (isNotEmpty(formData.billingCountry) &&
+              isNotEmpty(formData.billingCity) &&
+              isNotEmpty(formData.billingZipCode) &&
+              isNotEmpty(formData.billingAddressLine)));
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -167,6 +185,8 @@ const DeliveryComponent: React.FC = () => {
               type="text"
               id="deliveryZipCode"
               name="deliveryZipCode"
+              minLength={4}
+              maxLength={4}
               value={formData.deliveryZipCode}
               onChange={(e) => handleZipCodeChange(e, "delivery")}
           />
@@ -272,7 +292,7 @@ const DeliveryComponent: React.FC = () => {
                     onChange={handleChange}
                 >
                   {countries.map((country) => (
-                      <option key={country.code} value={country.code}>
+                      <option key={country.code + "bil"} value={country.code}>
                         {country.name}
                       </option>
                   ))}
@@ -285,6 +305,8 @@ const DeliveryComponent: React.FC = () => {
                     type="text"
                     id="billingZipCode"
                     name="billingZipCode"
+                    minLength={4}
+                    maxLength={4}
                     value={formData.billingZipCode}
                     onChange={(e) => handleZipCodeChange(e, "billing")}
                 />
@@ -315,7 +337,8 @@ const DeliveryComponent: React.FC = () => {
         )}
 
         {}
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={!isFormValid}
+            >Submit</button>
       </form>
     </div>
   );

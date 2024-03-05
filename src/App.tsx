@@ -104,7 +104,6 @@ function App() {
       </div>
 
       <BasketSummary items={basketItems} />
-      <DeliveryComponent />
       <Footer creatorNames={creatorNames} />
     </div>
   );

@@ -168,7 +168,7 @@ const countries: Country[] = [
   { code: "NA", name: "Namibia", phoneCode: "+264" },
   { code: "NR", name: "Nauru", phoneCode: "+674" },
   { code: "NP", name: "Nepal", phoneCode: "+977" },
-  { code: "AS", name: "American Samoa" },
+  { code: "AA", name: "American Samoa" },
   { code: "NL", name: "Netherlands", phoneCode: "+31" },
   { code: "NC", name: "New Caledonia", phoneCode: "+687" },
   { code: "NZ", name: "New Zealand", phoneCode: "+64" },
