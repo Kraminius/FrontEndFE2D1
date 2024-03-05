@@ -25,7 +25,13 @@ const DeliveryComponent: React.FC = () => {
 
   const isNotEmpty = (value: string) => value.trim() !== '';
 
+  //Checking if submiting is allowed
   const isFormValid =
+      formData.phone.length === 8 &&
+      formData.deliveryZipCode.length === 4 &&
+      (formData.email.includes("@") &&
+          !formData.email.startsWith("@")
+      && !formData.email.endsWith("@"))
       isNotEmpty(formData.deliveryCountry) &&
       isNotEmpty(formData.deliveryZipCode) &&
       isNotEmpty(formData.deliveryCity) &&
@@ -36,6 +42,7 @@ const DeliveryComponent: React.FC = () => {
       isNotEmpty(formData.email) &&
       (!formData.billingAddressDifferent ||
           (isNotEmpty(formData.billingCountry) &&
+              formData.billingZipCode.length === 4 &&
               isNotEmpty(formData.billingCity) &&
               isNotEmpty(formData.billingZipCode) &&
               isNotEmpty(formData.billingAddressLine)));
