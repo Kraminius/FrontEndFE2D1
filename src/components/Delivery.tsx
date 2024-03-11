@@ -199,7 +199,6 @@ const DeliveryComponent: React.FC = () => {
               type="text"
               id="deliveryZipCode"
               name="deliveryZipCode"
-              className={error ? 'input-error' : ''}
               minLength={4}
               maxLength={4}
               value={formData.deliveryZipCode}
