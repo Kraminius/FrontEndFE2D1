@@ -4,6 +4,7 @@ import "../Styles/delivery.css";
 import countries from "../countries.tsx";
 
 const DeliveryComponent: React.FC = () => {
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState<DeliveryFormData>({
     deliveryCountry: "DK",
     deliveryZipCode: "",
@@ -83,23 +84,30 @@ const DeliveryComponent: React.FC = () => {
     }
   };
 
-  const fetchCityFromZip = async (
-    zipCode: string
-  ): Promise<string | undefined> => {
-    if (zipCode.length === 4) {
+  const fetchCityFromZip = async (zipCode: string): Promise<string | undefined> => {
+    if (zipCode.length === 4 && (formData.deliveryCountry === "DK" || formData.billingCountry === "DK")) {
       try {
-        const response = await fetch(
-          `https://api.dataforsyningen.dk/postnumre/${zipCode}`
-        );
-        const data: PostalData = await response.json();
+        const response = await fetch(`https://api.dataforsyningen.dk/postnumre/${zipCode}`);
+        if (!response.ok) {
+          const errorData = await response.json();
+          if (errorData.type === "ResourceNotFoundError") {
+            setError(`Zip code ${errorData.details.nr} not found.`);
+          } else {
+            setError('Failed to fetch city name due to an unexpected error.');
+          }
+          return undefined;
+        }
+        const data = await response.json();
+        setError(null); // Clear any existing errors on successful fetch
         return data.navn;
       } catch (error) {
         console.error("Failed to fetch city name:", error);
+        setError('Failed to fetch city name due to an unexpected error.');
+        return undefined;
       }
     }
     return "";
   };
-
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedCountry = e.target.value;
     const selectedCountryData = countries.find(
@@ -188,15 +196,17 @@ const DeliveryComponent: React.FC = () => {
         <div className="input-group">
           <label htmlFor="deliveryZipCode">Zip Code *</label>
           <input
-            type="text"
-            id="deliveryZipCode"
-            name="deliveryZipCode"
-            minLength={4}
-            maxLength={4}
-            value={formData.deliveryZipCode}
-            onChange={(e) => handleZipCodeChange(e, "delivery")}
+              type="text"
+              id="deliveryZipCode"
+              name="deliveryZipCode"
+              className={error ? 'input-error' : ''}
+              minLength={4}
+              maxLength={4}
+              value={formData.deliveryZipCode}
+              onChange={(e) => handleZipCodeChange(e, "delivery")}
           />
         </div>
+        {error && <div className="postal-error-message">{error}</div>}
         {}
         <div className="input-group">
           <label htmlFor="deliveryCity">City *</label>

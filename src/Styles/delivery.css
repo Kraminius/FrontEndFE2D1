@@ -30,6 +30,15 @@
   .input-group {
     flex: 1;
   }
+
+.input-error {
+    border: 2px solid red;
+}
+
+.postal-error-message {
+    color: red;
+    margin-top: 5px;
+}
   
   .input-group label {
     display: block;
