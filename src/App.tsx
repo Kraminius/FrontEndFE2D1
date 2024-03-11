@@ -1,5 +1,5 @@
 //import CustomerItem from "./components/CustomerItem";
-import { RecurringOrder } from "./types/Types";
+import {BasketItem, RecurringOrder} from "./types/Types";
 import initialBasketItems from "./data";
 import { useState } from "react";
 import "./Styles/index.css";
@@ -17,9 +17,13 @@ const creatorNames = [
 	"Zenkert, Henrik Albert Erik",
 ];
 
+interface AppProps {
+	basketItems?: BasketItem[]; // Make it optional to maintain compatibility
+}
+
 //const headerNames = ["Type", " ,- /stk.", "Quantity", "Sum", "Options"];
-function App() {
-	const [basketItems, setBasketItems] = useState(initialBasketItems);
+function App({ basketItems: externalBasketItems }: AppProps) {
+	const [basketItems, setBasketItems] = useState(externalBasketItems || initialBasketItems);
 
 	const handleQuantityChange = (itemId: number, newQuantity: number) => {
 		if (newQuantity < 1) {

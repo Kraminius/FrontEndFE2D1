@@ -36,7 +36,7 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
 
 	const imageUrl = item.imageUrl || defaultImage;
 
-	// if the item is a single item, then we only show the single item price. 
+	// if the item is a single item, then we only show the single item price.
 	// if the item is more than one, then we show the total price and the single item price is grayed out, but still showing
 	const isSingleItem = item.quantity === 1;
 	let itemPriceClassesSingle: string = `item-price__cost ${isSingleItem ? '' : 'item-price__cost--gray'}`
@@ -100,6 +100,7 @@ const Quantity = ({ onQuantityChange, item }: QuantityProps) => (
 	<div className="quantity">
 		<button
 			className="quantity__button quantity__button--left"
+			aria-label={`Decrease quantity for item ${item.id}`}
 			onClick={() => onQuantityChange(item.id, item.quantity - 1)}
 		>
 			-
@@ -107,6 +108,7 @@ const Quantity = ({ onQuantityChange, item }: QuantityProps) => (
 		<div className="quantity-text">{item.quantity}</div>
 		<button
 			className="quantity__button quantity__button--right"
+			aria-label={`Increase quantity for item ${item.id}`}
 			onClick={() => onQuantityChange(item.id, item.quantity + 1)}
 		>
 			+

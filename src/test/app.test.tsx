@@ -1,8 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import {fireEvent, render, screen} from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import React from "react";
 import App from "../App";
-import initialBasketItems from "../data";
 import { calculateItemTotal } from '../components/CustomerItemCard';
 import { BasketItem, RecurringOrder } from '../types/Types';
 import BasketSummary from "../components/BasketSummary";
@@ -189,6 +187,39 @@ describe(App.name, () => {
 
     expect(getByText(/Total:/i).textContent).toBe('Total: 49.00,-');
 
+  });
+
+  test('applies discount if purchase amount is above 300', async () => {
+    const items = [
+      {
+        id: 10001,
+        name: 'Test Item 1',
+        price: 299,
+        quantity: 1,
+        imageUrl: undefined,
+        unit: 'stk',
+        recurringOrder: RecurringOrder.Once,
+        giftWrap: false,
+        discount: {
+          itemAmountForDiscount: 1,
+          discountAmount: 0,
+        },
+      },
+    ];
+    const {getByText} = render(<BasketSummary items={items}/>);
+
+
+    expect(getByText(/Total:/i).textContent).toBe('Total: 299.00,-');
+    render(<App basketItems = {items}/>);
+
+    const increaseButton = await screen.findByLabelText(`Increase quantity for item 10001`);
+    fireEvent.click(increaseButton);
+
+    const totalTexts = await screen.findAllByText(/Total:/i);
+
+    const lastTotalText = totalTexts[totalTexts.length - 1];
+
+    expect(lastTotalText.textContent).toContain('538.20,-');
   });
 
 
