@@ -28,27 +28,33 @@ const DeliveryComponent: React.FC = () => {
 
   const isNotEmpty = (value: string) => value.trim() !== '';
 
+  const isValidEmail = (email: string): boolean => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
   //Checking if submiting is allowed
-  const isFormValid =
-      formData.phone.length === 8 &&
-      formData.deliveryZipCode.length === 4 &&
-      (formData.email.includes("@") &&
-          !formData.email.startsWith("@")
-      && !formData.email.endsWith("@")) &&
-      isNotEmpty(formData.deliveryCountry) &&
-      isNotEmpty(formData.deliveryZipCode) &&
-      isNotEmpty(formData.deliveryCity) &&
-      isNotEmpty(formData.deliveryAddressLine) &&
-      isNotEmpty(formData.firstName) &&
-      isNotEmpty(formData.lastName) &&
-      isNotEmpty(formData.phone) &&
-      isNotEmpty(formData.email) &&
-      (!formData.billingAddressDifferent ||
-          (   formData.billingZipCode.length === 4 &&
-              isNotEmpty(formData.billingCountry) &&
-              isNotEmpty(formData.billingCity) &&
-              isNotEmpty(formData.billingZipCode) &&
-              isNotEmpty(formData.billingAddressLine)));
+  const validateForm = () => {
+    if (!isNotEmpty(formData.deliveryCountry)) return false;
+    if (formData.deliveryZipCode.length !== 4) return false;
+    if (!isNotEmpty(formData.deliveryCity)) return false;
+    if (!isNotEmpty(formData.deliveryAddressLine)) return false;
+    if (!isNotEmpty(formData.firstName)) return false;
+    if (!isNotEmpty(formData.lastName)) return false;
+    if (formData.phone.length !== 8) return false;
+    if (!isValidEmail(formData.email)) return false;
+
+    if (formData.billingAddressDifferent) {
+      if (formData.billingZipCode.length !== 4) return false;
+      if (!isNotEmpty(formData.billingCountry)) return false;
+      if (!isNotEmpty(formData.billingCity)) return false;
+      if (!isNotEmpty(formData.billingAddressLine)) return false;
+    }
+
+    return true;
+  };
+
+  const isFormValid = validateForm();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
