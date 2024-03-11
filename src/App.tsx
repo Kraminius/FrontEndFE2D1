@@ -85,16 +85,22 @@ function App({ basketItems: externalBasketItems }: AppProps) {
 	function renderContent() {
 		switch (contentFlow) {
 			case 0: //Basket
-				return basketItems.map((item) => (
-					<CustomerItemCard
-						key={item.id}
-						item={item}
-						onQuantityChange={handleQuantityChange}
-						onGiftWrapChange={handleGiftWrapChange}
-						onRecurringOrderChange={handleRecurringOrderChange}
-						onRemove={() => handleRemove(item.id)}
-					/>
-				));
+				return basketItems.length > 0 ? (
+						basketItems.map((item) => (
+							<CustomerItemCard
+								key={item.id}
+								item={item}
+								onQuantityChange={handleQuantityChange}
+								onGiftWrapChange={handleGiftWrapChange}
+								onRecurringOrderChange={handleRecurringOrderChange}
+								onRemove={() => handleRemove(item.id)}
+							/>
+						))
+					) : (
+						<div className="empty-basket-message">
+							Your basket is empty. <a href="/browse">Browse more items</a>
+						</div>
+					)
 			case 1: //Delivery Information
 				return <DeliveryComponent />;
 			case 2: //Payment
