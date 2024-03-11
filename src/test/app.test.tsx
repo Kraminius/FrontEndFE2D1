@@ -4,6 +4,7 @@ import App from "../App";
 import { calculateItemTotal } from '../components/CustomerItemCard';
 import { BasketItem, RecurringOrder } from '../types/Types';
 import BasketSummary from "../components/BasketSummary";
+import {isValidEmail} from "../utils/utilfunctions.tsx";
 
 describe(App.name, () => {
   test('should display "Shopping Basket" title', () => {
@@ -223,4 +224,22 @@ describe(App.name, () => {
   });
 
 
+  test('validates email correctly', () => {
+    expect(isValidEmail('test@example.com')).toBe(true);
+    expect(isValidEmail('invalid-email')).toBe(false);
+    expect(isValidEmail('user.name+tag+sorting@example.com')).toBe(true);
+    expect(isValidEmail('user.name@student.dtu.dk')).toBe(true);
+    expect(isValidEmail('user.name@example.com.co')).toBe(true);
+    expect(isValidEmail('user.name@example')).toBe(false);
+    expect(isValidEmail('user@localhost')).toBe(false);
+    expect(isValidEmail('@no-local-part.com')).toBe(false);
+    expect(isValidEmail('no-at-sign')).toBe(false);
+    expect(isValidEmail('no-tld@domain')).toBe(false);
+    expect(isValidEmail('overscore_in@domain.com')).toBe(true);
+    expect(isValidEmail('numbers1234@numbers.com')).toBe(true);
+    expect(isValidEmail('')).toBe(false);
+    expect(isValidEmail('space in@domain.com')).toBe(false);
+    expect(isValidEmail('email@domain.com.')).toBe(false);
+    expect(isValidEmail('email@-domain.com')).toBe(false);
+  });
 });
