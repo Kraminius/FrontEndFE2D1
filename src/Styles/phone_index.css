@@ -1,0 +1,35 @@
+.phone-header{
+    height: 7%;
+    width: 100%;
+    position: fixed;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 16px;
+    font-size: 22px;
+    background-color: #ffffff;
+    border-color: #dddddd;
+    border-width: 0;
+    border-bottom-width: 2px;
+    top: 0;
+    z-index: 1000;
+    border-style: solid;
+}
+.phone-page-components{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    gap: 50px;
+}
+.phone-content-container{
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    gap: 5px;
+}
+.phone-summary-container{
+    width: 90%;
+}

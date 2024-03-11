@@ -54,7 +54,6 @@ body {
 }
 .continue__button{
 	width: 200px;
-	
     height: 36px;
     border-radius: 15px;
     border: #bbbbbb;
@@ -71,7 +70,7 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     text-align: center;
-    font-size: 28px;
+    font-size: 150%;
 }
 .text-card{
     padding: 20px 20px 20px 20px;
@@ -117,6 +116,7 @@ body {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    width: 90%;
 }
 .promotion-container{
     overflow-y: auto;
