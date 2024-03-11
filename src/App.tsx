@@ -3,6 +3,7 @@ import {BasketItem, RecurringOrder} from "./types/Types";
 import initialBasketItems from "./data";
 import { useState } from "react";
 import "./Styles/index.css";
+import "./Styles/phone_index.css";
 import Footer from "./components/Footer";
 import CustomerItemCard from "./components/CustomerItemCard.tsx";
 import PromotionCard from "./components/PromotionCard.tsx";
@@ -67,6 +68,11 @@ function App({ basketItems: externalBasketItems }: AppProps) {
 	const handleRemove = (itemId: number) => {
 		setBasketItems(basketItems.filter((item) => item.id !== itemId));
 	};
+
+	const isMobileScreenSize = () => {
+		return window.innerWidth <= window.innerHeight;
+	}
+
 	const [contentFlow, setContentFlow] = useState(0);
 	function handleNextClick() {
 		setContentFlow(prevContentFlow => {
@@ -98,57 +104,74 @@ function App({ basketItems: externalBasketItems }: AppProps) {
 		}
 	}
 
-
-	return (
-		<div>
-			<div className="header">
-				<h1>Shopping Basket</h1>
-			</div>
-			<div className="page_components">
-				<div className="page_and_summary_container">
-					<div className="content-container">
+	if (isMobileScreenSize()) {
+		//Phone View
+		return (
+			<div>
+				<div className="phone-header"> Shopping Basket
+				</div>
+				<div className="phone-page-components">
+					<div className="phone-content-container">
 						{renderContent()}
 					</div>
-					<div className="user-info-container">
-						<div className="summary-container">
-							<OrderSummary items={basketItems} />
+					<div className="promotion-box">
+						<div className="title-card">See Also</div>
+						<div className="promotion-container">
+							{basketItems.map((item) => (
+								<PromotionCard key={item.id} item={item}/>
+							))}
 						</div>
-
-
 					</div>
-				</div>
-				<div className="continue">
-					<button className="continue__button" onClick={handleNextClick}>Continue</button>
-				</div>
-				<div className="promotion-box">
-					<div className="title-card">See Also</div>
-					<div className="promotion-container">
-						{basketItems.map((item) => (
-							<PromotionCard key={item.id} item={item} />
-						))}
+					<div className="phone-summary-container">
+						<OrderSummary items={basketItems}/>
 					</div>
+					<div className="continue">
+						<button className="continue__button" onClick={handleNextClick}>Continue</button>
+					</div>
+
 				</div>
+				<Footer creatorNames={creatorNames}/>
 			</div>
-			<Footer creatorNames={creatorNames} />
-		</div>
-	);
+		);
+	} else {
+		//Monitor View
+		return (
+			<div>
+				<div className="header">
+					<h1>Shopping Basket</h1>
+				</div>
+				<div className="page_components">
+					<div className="page_and_summary_container">
+						<div className="content-container">
+							{renderContent()}
+						</div>
+						<div className="user-info-container">
+							<div className="summary-container">
+								<OrderSummary items={basketItems} />
+							</div>
+
+
+						</div>
+					</div>
+					<div className="continue">
+						<button className="continue__button" onClick={handleNextClick}>Continue</button>
+					</div>
+					<div className="promotion-box">
+						<div className="title-card">See Also</div>
+						<div className="promotion-container">
+							{basketItems.map((item) => (
+								<PromotionCard key={item.id} item={item} />
+							))}
+						</div>
+					</div>
+				</div>
+				<Footer creatorNames={creatorNames} />
+			</div>
+		);
+	}
+
+
 }
 
-/*
-interface HeaderProps {
-  headerNames: string[];
-}
 
-function Header({ headerNames }: HeaderProps) {
-  return (
-	<thead>
-	  <tr>
-		{headerNames.map((headerName: string) => (
-		  <th key={headerName}>{headerName}</th>
-		))}
-	  </tr>
-	</thead>
-  );
-}
-*/
 export default App;
