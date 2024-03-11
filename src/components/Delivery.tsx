@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { DeliveryFormData, PostalData } from "../types/Types";
+import { DeliveryFormData} from "../types/Types";
 import "../Styles/delivery.css";
 import countries from "../countries.tsx";
 
@@ -10,6 +10,7 @@ const DeliveryComponent: React.FC = () => {
     deliveryZipCode: "",
     deliveryCity: "",
     deliveryAddressLine: "",
+    deliveryAddressLine2: "",
     firstName: "",
     lastName: "",
     phoneCode: "+45",
@@ -22,6 +23,7 @@ const DeliveryComponent: React.FC = () => {
     billingZipCode: "",
     billingCity: "",
     billingAddressLine: "",
+    billingAddressLine2: "",
   });
 
   const isNotEmpty = (value: string) => value.trim() !== '';
@@ -143,15 +145,15 @@ const DeliveryComponent: React.FC = () => {
         <div className="input-group">
           <label htmlFor="deliveryCountry">Country *</label>
           <select
-            id="deliveryCountry"
-            name="deliveryCountry"
-            value={formData.deliveryCountry}
-            onChange={handleCountryChange}
+              id="deliveryCountry"
+              name="deliveryCountry"
+              value={formData.deliveryCountry}
+              onChange={handleCountryChange}
           >
             {countries.map((country) => (
-              <option key={country.code} value={country.code}>
-                {country.name}
-              </option>
+                <option key={country.code} value={country.code}>
+                  {country.name}
+                </option>
             ))}
           </select>
         </div>
@@ -159,24 +161,24 @@ const DeliveryComponent: React.FC = () => {
         {}
         <div className="form-group form-group--flex">
           <div className="input-group">
-            <label htmlFor="firstName">Fornavn *</label>
+            <label htmlFor="firstName">First Name *</label>
             <input
-              type="text"
-              id="firstName"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
+                type="text"
+                id="firstName"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
             />
           </div>
 
           <div className="input-group">
-            <label htmlFor="lastName">Efternavn *</label>
+            <label htmlFor="lastName">Last Name *</label>
             <input
-              type="text"
-              id="lastName"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
+                type="text"
+                id="lastName"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
             />
           </div>
         </div>
@@ -185,11 +187,22 @@ const DeliveryComponent: React.FC = () => {
         <div className="input-group">
           <label htmlFor="deliveryAddressLine">Address *</label>
           <input
-            type="text"
-            id="deliveryAddressLine"
-            name="deliveryAddressLine"
-            value={formData.deliveryAddressLine}
-            onChange={handleChange}
+              type="text"
+              id="deliveryAddressLine"
+              name="deliveryAddressLine"
+              value={formData.deliveryAddressLine}
+              onChange={handleChange}
+          />
+        </div>
+        {}
+        <div className="input-group">
+          <label htmlFor="deliveryAddressLine2">Address Line 2</label>
+          <input
+              type="text"
+              id="deliveryAddressLine2"
+              name="deliveryAddressLine2"
+              value={formData.deliveryAddressLine2}
+              onChange={handleChange}
           />
         </div>
         {}
@@ -210,11 +223,11 @@ const DeliveryComponent: React.FC = () => {
         <div className="input-group">
           <label htmlFor="deliveryCity">City *</label>
           <input
-            type="text"
-            id="deliveryCity"
-            name="deliveryCity"
-            value={formData.deliveryCity}
-            onChange={handleChange}
+              type="text"
+              id="deliveryCity"
+              name="deliveryCity"
+              value={formData.deliveryCity}
+              onChange={handleChange}
           />
         </div>
         {}
@@ -222,25 +235,25 @@ const DeliveryComponent: React.FC = () => {
           <div className="input-group">
             <label htmlFor="phoneCode">Phone Code? *</label>
             <input
-              type="text"
-              id="phoneCode"
-              name="phoneCode"
-              value={formData.phoneCode}
-              onChange={handleChange}
-              readOnly
+                type="text"
+                id="phoneCode"
+                name="phoneCode"
+                value={formData.phoneCode}
+                onChange={handleChange}
+                readOnly
             />
           </div>
 
           <div className="input-group">
             <label htmlFor="phone">Phone *</label>
             <input
-              type="tel"
-              id="phone"
-              name="phone"
-              minLength={8}
-              maxLength={8}
-              value={formData.phone}
-              onChange={handleChange}
+                type="tel"
+                id="phone"
+                name="phone"
+                minLength={8}
+                maxLength={8}
+                value={formData.phone}
+                onChange={handleChange}
             />
           </div>
         </div>
@@ -248,11 +261,11 @@ const DeliveryComponent: React.FC = () => {
         <div className="input-group">
           <label htmlFor="email">Email *</label>
           <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
           />
         </div>
         {}
@@ -260,98 +273,110 @@ const DeliveryComponent: React.FC = () => {
           <div className="input-group">
             <label htmlFor="companyName"> Company Name</label>
             <input
-              type="text"
-              id="companyName"
-              name="companyName"
-              value={formData.companyName}
-              onChange={handleChange}
+                type="text"
+                id="companyName"
+                name="companyName"
+                value={formData.companyName}
+                onChange={handleChange}
             />
           </div>
 
           <div className="input-group">
             <label htmlFor="companyVat">VAT</label>
             <input
-              type="text"
-              id="companyVat"
-              name="companyVat"
-              minLength={8}
-              maxLength={8}
-              value={formData.companyVat}
-              onChange={handleChange}
+                type="text"
+                id="companyVat"
+                name="companyVat"
+                minLength={8}
+                maxLength={8}
+                value={formData.companyVat}
+                onChange={handleChange}
             />
           </div>
         </div>
         {}
         <div className="input-group">
           <input
-            type="checkbox"
-            id="billingAddressDifferent"
-            name="billingAddressDifferent"
-            checked={formData.billingAddressDifferent}
-            onChange={handleToggleBillingAddress}
+              type="checkbox"
+              id="billingAddressDifferent"
+              name="billingAddressDifferent"
+              checked={formData.billingAddressDifferent}
+              onChange={handleToggleBillingAddress}
           />
           <label htmlFor="billingAddressDifferent">Different billing address</label>
         </div>
 
         {/*Different billing address */}
         {formData.billingAddressDifferent && (
-          <>
-            <div className="input-group">
-              <label htmlFor="billingCountry">Billing Country *</label>
-              <select
-                id="billingCountry"
-                name="billingCountry"
-                value={formData.billingCountry}
-                onChange={handleChange}
-              >
-                {countries.map((country) => (
-                  <option key={country.code} value={country.code}>
-                    {country.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <>
+              <div className="input-group">
+                <label htmlFor="billingCountry">Billing Country *</label>
+                <select
+                    id="billingCountry"
+                    name="billingCountry"
+                    value={formData.billingCountry}
+                    onChange={handleChange}
+                >
+                  {countries.map((country) => (
+                      <option key={country.code} value={country.code}>
+                        {country.name}
+                      </option>
+                  ))}
+                </select>
+              </div>
 
-            <div className="input-group">
-              <label htmlFor="billingZipCode">Billing Zip Code *</label>
-              <input
-                type="text"
-                id="billingZipCode"
-                name="billingZipCode"
-                minLength={4}
-                maxLength={4}
-                value={formData.billingZipCode}
-                onChange={(e) => handleZipCodeChange(e, "billing")}
-              />
-            </div>
+              <div className="input-group">
+                <label htmlFor="billingZipCode">Billing Zip Code *</label>
+                <input
+                    type="text"
+                    id="billingZipCode"
+                    name="billingZipCode"
+                    minLength={4}
+                    maxLength={4}
+                    value={formData.billingZipCode}
+                    onChange={(e) => handleZipCodeChange(e, "billing")}
+                />
+              </div>
 
-            <div className="input-group">
-              <label htmlFor="billingCity">Billing City *</label>
-              <input
-                type="text"
-                id="billingCity"
-                name="billingCity"
-                value={formData.billingCity}
-                onChange={handleChange}
-              />
-            </div>
+              <div className="input-group">
+                <label htmlFor="billingCity">Billing City *</label>
+                <input
+                    type="text"
+                    id="billingCity"
+                    name="billingCity"
+                    value={formData.billingCity}
+                    onChange={handleChange}
+                />
+              </div>
 
-            <div className="input-group">
-              <label htmlFor="billingAddressLine">Billing Address *</label>
-              <input
-                type="text"
-                id="billingAddressLine"
-                name="billingAddressLine"
-                value={formData.billingAddressLine}
-                onChange={handleChange}
-              />
-            </div>
-          </>
+              <div className="input-group">
+                <label htmlFor="billingAddressLine">Billing Address *</label>
+                <input
+                    type="text"
+                    id="billingAddressLine"
+                    name="billingAddressLine"
+                    value={formData.billingAddressLine}
+                    onChange={handleChange}
+                />
+              </div>
+
+              <div className="input-group">
+                <label htmlFor="billingAddressLine2">Billing Address Line 2</label>
+                <input
+                    type="text"
+                    id="billingAddressLine2"
+                    name="billingAddressLine2"
+                    value={formData.billingAddressLine2}
+                    onChange={handleChange}
+                />
+              </div>
+            </>
         )}
 
         {}
         <button type="submit" disabled={!isFormValid}
-        >Submit</button>
+        >Submit
+        </button>
       </form>
     </div>
   );

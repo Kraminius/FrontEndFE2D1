@@ -41,6 +41,7 @@ export interface DeliveryFormData {
     deliveryZipCode:  string |"",
     deliveryCity:  string |"",
     deliveryAddressLine:  string |"",
+	deliveryAddressLine2?: string,
     firstName:  string |"",
     lastName:  string |"",
 	phoneCode: string |"",
@@ -53,6 +54,7 @@ export interface DeliveryFormData {
     billingZipCode:  string |"",
     billingCity:  string |"",
     billingAddressLine:  string |""
+	billingAddressLine2?: string;
 }
 
 
