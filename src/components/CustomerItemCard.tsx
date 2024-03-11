@@ -70,7 +70,7 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
 				</div>
 				<Quantity onQuantityChange={onQuantityChange} item={item} />
 				<div className="item-discount">
-					{item.discount?.itemAmountForDiscount ? `Buy ${item.discount.itemAmountForDiscount} to get a discount of ${item.discount.discountAmount}` : ""}
+					{item.discount?.itemAmountForDiscount ? `Buy ${item.discount.itemAmountForDiscount} to get a discount of ${item.discount.discountAmount},-` : ""}
 				</div>
 				<div className="item-id">{`ID: ${item.id}`}</div>
 				<div className="item-desc">{`Type: ${item.unit}`}</div>
