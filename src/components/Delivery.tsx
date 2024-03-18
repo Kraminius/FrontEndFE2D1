@@ -3,7 +3,13 @@ import { DeliveryFormData } from "../types/Types";
 import "../Styles/delivery.css";
 import countries from "../countries.tsx";
 
-const DeliveryComponent = ({ onFormValidityChange }) => {
+interface DeliveryComponentProps {
+  onFormValidityChange: (isValid: boolean) => void;
+}
+
+const DeliveryComponent: React.FC<DeliveryComponentProps> = ({
+  onFormValidityChange,
+}) => {
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState<DeliveryFormData>({
     deliveryCountry: "DK",
