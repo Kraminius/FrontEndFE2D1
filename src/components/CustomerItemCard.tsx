@@ -36,6 +36,9 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
 
 	const imageUrl = item.imageUrl || defaultImage;
 
+	let normalPrice = item.price * item.quantity;
+	let isPriceDiscounted = (item.discount && item.quantity >= item.discount.itemAmountForDiscount)
+
 	// if the item is a single item, then we only show the single item price.
 	// if the item is more than one, then we show the total price and the single item price is grayed out, but still showing
 	const isSingleItem = item.quantity === 1;
@@ -66,6 +69,7 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
 				<div className='item-price'>
 					<span className='item-price__currency'>DKK </span>
 					<span className={itemPriceClassesSingle}>{`${item.price},00`}</span>
+					{isPriceDiscounted && <div style={{color: 'grey', textDecoration: 'line-through'}}>{`${normalPrice},00`}</div>}
 					<div className={itemPriceClassesTotal}>{`${calculateItemTotal(item)},00`}</div>
 				</div>
 				<Quantity onQuantityChange={onQuantityChange} item={item} />
