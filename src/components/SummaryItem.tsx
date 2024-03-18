@@ -10,6 +10,7 @@ interface SummaryItemProps {
     item: BasketItem;
 }
 
+
 const SummaryItem: React.FC<SummaryItemProps> = ({item}) => {
     const imageUrl = item.imageUrl || defaultImage;
     let normalPrice = item.price * item.quantity;
@@ -22,7 +23,7 @@ const SummaryItem: React.FC<SummaryItemProps> = ({item}) => {
     return (
         <div className="summary-item">
             <div className="summary-item-image">
-                <img src={imageUrl} alt={item.name}/>
+                <img  src={imageUrl} alt={item.name} loading="lazy"/>
             </div>
             <div className="summary-item-amount">{item.quantity}</div>
             <div className="summary-item-name">{item.name}</div>
