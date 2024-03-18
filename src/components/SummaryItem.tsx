@@ -28,7 +28,7 @@ const SummaryItem: React.FC<SummaryItemProps> = ({item}) => {
             <div className="summary-item-name">{item.name}</div>
             <div className="summary-item-total">
                 {discountedPrice ?
-                    <><s style={{color: 'grey'}}>{normalPrice},-</s> <span>{discountedPrice},-</span></>
+                    <><s style={{color: 'grey', textDecoration: 'line-through'}}>{normalPrice},-</s> <span>{discountedPrice},-</span></>
                     :
                     <>{normalPrice},-</>
                 }
