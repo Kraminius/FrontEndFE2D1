@@ -22,14 +22,15 @@ const SummaryItem: React.FC<SummaryItemProps> = ({item}) => {
 
     return (
         <div className="summary-item">
-            <div className="summary-item-image">
-                <img  src={imageUrl} alt={item.name} loading="lazy"/>
+            <div className="summary-item-image-container">
+                <img src={imageUrl} alt={item.name} loading="lazy" className={"summary-item-image"}/>
             </div>
             <div className="summary-item-amount">{item.quantity}</div>
             <div className="summary-item-name">{item.name}</div>
             <div className="summary-item-total">
                 {discountedPrice ?
-                    <><s style={{color: 'grey', textDecoration: 'line-through'}}>{normalPrice},-</s> <span>{discountedPrice},-</span></>
+                    <><s style={{color: 'grey', textDecoration: 'line-through'}}>{normalPrice},-</s>
+                        <span>{discountedPrice},-</span></>
                     :
                     <>{normalPrice},-</>
                 }
