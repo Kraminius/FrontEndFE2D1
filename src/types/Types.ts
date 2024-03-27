@@ -12,16 +12,12 @@ export interface BasketSummaryProps {
 
 /* Recurring Order enum, add more for different options */
 export enum RecurringOrder {
-	Once="Once",
-	Daily="Daily",
-	Weekly="Weekly",
-	Biweekly="Biweekly",
+	Once = "Once",
+	Daily = "Daily",
+	Weekly = "Weekly",
+	Biweekly = "Biweekly",
 }
 
-interface Discount {
-	itemAmountForDiscount: number;
-	discountAmount: number;
-}
 
 export interface BasketItem {
 	imageUrl: string | undefined;
@@ -29,10 +25,13 @@ export interface BasketItem {
 	name: string;
 	price: number;
 	quantity: number;
+	currency: string;
 	giftWrap: boolean;
+	rebateQuantity: number;
+	rebatePercent: number;
+	upsellProductId: string | null;
 	recurringOrder: RecurringOrder;
 	unit: string;
-	discount?: Discount;
 }
 export type BasketItems = BasketItem[];
 
