@@ -1,4 +1,3 @@
-
 import React from 'react';
 import '../Styles/promotion.css';
 // @ts-ignore
@@ -10,8 +9,8 @@ interface PromotionCard {
 }
 
 const PromotionCard: React.FC<PromotionCard> = ({
-                                                               item,
-                                                           }) => {
+                                                    item,
+                                                }) => {
     const imageUrl = item.imageUrl || defaultImage;
     return (
         <div className="promotion-card">

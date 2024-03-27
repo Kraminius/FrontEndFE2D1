@@ -1,8 +1,8 @@
 export interface BasketItemProps {
 	item: BasketItem;
 	onQuantityChange: (itemId: number, newQuantity: number) => void;
-	onGiftWrapChange: (itemId: number) => void;
-	onRecurringOrderChange: (itemId: number, newRecurringOrder: RecurringOrder) => void;
+	onGiftWrapChange: (itemId: string) => void;
+	onRecurringOrderChange: (itemId: string, newRecurringOrder: RecurringOrder) => void;
 	onRemove: () => void;
 }
 

@@ -19,34 +19,37 @@ const creatorNames = [
     "Zenkert, Henrik Albert Erik",
 ];
 
- interface AppProps {
-     basketItems?: BasketItem[]; // Make it optional to maintain compatibility
- }
+interface AppProps {
+    basketItems?: BasketItem[]; // Make it optional to maintain compatibility
+}
 
-//const headerNames = ["Type", " ,- /stk.", "Quantity", "Sum", "Options"];
-
-function App({ basketItems: testBasketItems }: AppProps) {
-
+// Right now we can use the AppProps interface to define the props for the App component, we use this for testing.
+// Alternatively we could use jest.mock to mock the fetchBasketItems function.
+function App({basketItems: testBasketItems}: AppProps) {
     const [basketItems, setBasketItems] = useState<BasketItem[]>([]);
 
-    // Fetching the initial items
+    // Fetching the initial items, if testBasketItems is provided, use that instead (for testing purposes).
     useEffect(() => {
-      (async () => {
-        try {
-          const items = await fetchBasketItems();
-          setBasketItems(items);
-        } catch (error) {
-            console.error("Error fetching basket items: ", error);
-
-            // show error message to user
-
+        if (testBasketItems) {
+            setBasketItems(testBasketItems);
+            return;
         }
-      })();
+        (async () => {
+            try {
+                const items = await fetchBasketItems();
+                setBasketItems(items);
+            } catch (error) {
+                console.error("Error fetching basket items: ", error);
+
+                // show error message to user
+
+            }
+        })();
     }, []);
 
     const [isDeliveryFormValid, setIsDeliveryFormValid] = useState(true);
 
-    const handleQuantityChange = (itemId: number, newQuantity: number) => {
+    const handleQuantityChange = (itemId: string, newQuantity: number) => {
         if (newQuantity < 1) {
             return;
         }
@@ -59,7 +62,7 @@ function App({ basketItems: testBasketItems }: AppProps) {
         setBasketItems(updatedItems);
     };
 
-    const handleGiftWrapChange = (itemId: number) => {
+    const handleGiftWrapChange = (itemId: string) => {
         const updatedItems = basketItems.map((item) => {
             if (item.id === itemId) {
                 return {...item, giftWrap: !item.giftWrap};
@@ -70,7 +73,7 @@ function App({ basketItems: testBasketItems }: AppProps) {
     };
 
     const handleRecurringOrderChange = (
-        itemId: number,
+        itemId: string,
         newRecurringOrder: RecurringOrder
     ) => {
         if (Object.values(RecurringOrder).includes(newRecurringOrder)) {
@@ -85,7 +88,7 @@ function App({ basketItems: testBasketItems }: AppProps) {
         }
     };
 
-    const handleRemove = (itemId: number) => {
+    const handleRemove = (itemId: string) => {
         setBasketItems(basketItems.filter((item) => item.id !== itemId));
     };
 

@@ -195,7 +195,7 @@ describe(App.name, () => {
     test('applies discount if purchase amount is above 300', async () => {
         const items = [
             {
-                id: '10001',
+                id: 'test1',
                 name: 'Test Item 1',
                 price: 299,
                 quantity: 1,
@@ -214,7 +214,7 @@ describe(App.name, () => {
         expect(getByText(/Total:/i).textContent).toBe('Total: 299.00,-');
         render(<App basketItems={items}/>);
 
-        const increaseButton = await screen.findByLabelText(`Increase quantity for item 10001`);
+        const increaseButton = await screen.findByLabelText(`Increase quantity for item ${items[0].id}`);
         fireEvent.click(increaseButton);
 
         const totalTexts = await screen.findAllByText(/Total:/i);
