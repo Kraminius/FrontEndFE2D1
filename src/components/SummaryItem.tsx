@@ -4,8 +4,6 @@ import {BasketItem} from "../types/Types.ts";
 import '../Styles/summary.css';
 // @ts-ignore
 import defaultImage from "../images/default-product.png";
-import {calculateItemTotal} from "./CustomerItemCard.tsx";
-
 interface SummaryItemProps {
     item: BasketItem;
 }
@@ -15,8 +13,8 @@ const SummaryItem: React.FC<SummaryItemProps> = ({item}) => {
     let normalPrice = item.price * item.quantity;
     let discountedPrice;
 
-    if (item.discount && item.quantity >= item.discount.itemAmountForDiscount) {
-        discountedPrice = (item.price * item.quantity) - item.discount.discountAmount;
+    if ((item.rebateQuantity > 0) && item.quantity >= item.rebateQuantity) {
+        discountedPrice = (item.price * item.quantity) - ((item.price * item.quantity) * item.rebatePercent / 100);
     }
 
     return (
@@ -28,7 +26,7 @@ const SummaryItem: React.FC<SummaryItemProps> = ({item}) => {
             <div className="summary-item-name">{item.name}</div>
             <div className="summary-item-total">
                 {discountedPrice ?
-                    <><s style={{color: 'grey', textDecoration: 'line-through'}}>{normalPrice},-</s> <span>{discountedPrice},-</span></>
+                    <><s style={{color: 'grey', textDecoration: 'line-through'}}>{normalPrice.toFixed(2)},-</s> <span>{discountedPrice.toFixed(2)},-</span></>
                     :
                     <>{normalPrice},-</>
                 }

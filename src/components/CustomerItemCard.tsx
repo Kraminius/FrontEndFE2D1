@@ -7,18 +7,18 @@ import { BasketItem, RecurringOrder } from '../types/Types';
 
 interface CustomerItemCardProps {
 	item: BasketItem;
-	onQuantityChange: (itemId: number, newQuantity: number) => void;
-	onGiftWrapChange: (itemId: number) => void;
-	onRecurringOrderChange: (itemId: number, newOrderType: RecurringOrder) => void;
-	onRemove: (itemId: number) => void;
+	onQuantityChange: (itemId: string, newQuantity: number) => void;
+	onGiftWrapChange: (itemId: string) => void;
+	onRecurringOrderChange: (itemId: string, newOrderType: RecurringOrder) => void;
+	onRemove: (itemId: string) => void;
 }
 
 export const calculateItemTotal = (item: BasketItem) => {
 	let totalPrice = item.price * item.quantity;
 
 
-	if (item.discount?.itemAmountForDiscount && item.quantity >= item.discount.itemAmountForDiscount) {
-		totalPrice = totalPrice - item.discount.discountAmount;
+	if (item.rebateQuantity && item.quantity >= item.rebateQuantity) {
+		totalPrice = totalPrice - (totalPrice * (item.rebatePercent / 100));
 
 	} else {
 		return totalPrice;
@@ -37,7 +37,7 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
 	const imageUrl = item.imageUrl || defaultImage;
 
 	let normalPrice = item.price * item.quantity;
-	let isPriceDiscounted = (item.discount && item.quantity >= item.discount.itemAmountForDiscount)
+	let isPriceDiscounted = ((item.rebateQuantity > 0) && item.quantity >= item.rebateQuantity)
 
 	// if the item is a single item, then we only show the single item price.
 	// if the item is more than one, then we show the total price and the single item price is grayed out, but still showing
@@ -68,16 +68,15 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
 				<div className="item-name">{item.name}</div>
 				<div className='item-price'>
 					<span className='item-price__currency'>DKK </span>
-					<span className={itemPriceClassesSingle}>{`${item.price},00`}</span>
-					{isPriceDiscounted && <div style={{color: 'grey', textDecoration: 'line-through'}}>{`${normalPrice},00`}</div>}
-					<div className={itemPriceClassesTotal}>{`${calculateItemTotal(item)},00`}</div>
+					<span className={itemPriceClassesSingle}>{`${item.price.toFixed(2)},-`}</span>
+					{isPriceDiscounted && <div style={{color: 'grey', textDecoration: 'line-through'}}>{`${normalPrice.toFixed(2)},-`}</div>}
+					<div className={itemPriceClassesTotal}>{`${calculateItemTotal(item).toFixed(2)},-`}</div>
 				</div>
 				<Quantity onQuantityChange={onQuantityChange} item={item} />
 				<div className="item-discount">
-					{item.discount?.itemAmountForDiscount ? `Buy ${item.discount.itemAmountForDiscount} to get a discount of ${item.discount.discountAmount},-` : ""}
+					{item.rebateQuantity ? `Buy ${item.rebateQuantity} to get a discount of ${item.rebatePercent}%` : ""}
 				</div>
 				<div className="item-id">{`ID: ${item.id}`}</div>
-				<div className="item-desc">{`Type: ${item.unit}`}</div>
 
 
 				<select
@@ -97,7 +96,7 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
 
 interface QuantityProps {
 	item: BasketItem;
-	onQuantityChange: (itemId: number, newQuantity: number) => void;
+	onQuantityChange: (itemId: string, newQuantity: number) => void;
 }
 
 const Quantity = ({ onQuantityChange, item }: QuantityProps) => (

@@ -21,7 +21,7 @@ export enum RecurringOrder {
 
 export interface BasketItem {
 	imageUrl: string | undefined;
-	id: number;
+	id: string;
 	name: string;
 	price: number;
 	quantity: number;
@@ -31,7 +31,6 @@ export interface BasketItem {
 	rebatePercent: number;
 	upsellProductId: string | null;
 	recurringOrder: RecurringOrder;
-	unit: string;
 }
 export type BasketItems = BasketItem[];
 

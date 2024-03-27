@@ -19,16 +19,17 @@ const creatorNames = [
     "Zenkert, Henrik Albert Erik",
 ];
 
-interface AppProps {
-    basketItems?: BasketItem[]; // Make it optional to maintain compatibility
-}
+ interface AppProps {
+     basketItems?: BasketItem[]; // Make it optional to maintain compatibility
+ }
 
 //const headerNames = ["Type", " ,- /stk.", "Quantity", "Sum", "Options"];
 
-function App() {
+function App({ basketItems: testBasketItems }: AppProps) {
 
     const [basketItems, setBasketItems] = useState<BasketItem[]>([]);
 
+    // Fetching the initial items
     useEffect(() => {
       (async () => {
         try {
@@ -37,7 +38,7 @@ function App() {
         } catch (error) {
             console.error("Error fetching basket items: ", error);
 
-            // handle errors here
+            // show error message to user
 
         }
       })();
