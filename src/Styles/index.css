@@ -1,3 +1,25 @@
+/* Dark mode (default)*/
+:root {
+	--mainColour: #FCA7A5;
+	--secondColour: #A76286;
+	--backgroundColour: #5A3E79;
+	--shadowColour: #383940;
+	--errorColour: red;
+}
+
+
+/* light mode */
+@media (prefers-color-scheme: light) {
+	:root {
+		--mainColour: #A98AB0;
+		--secondColour: #BEAFC2;
+		--thridColour: #383940;
+		--backgroundColour: #F1F1F0;
+		--shadowColour: #dddddd;
+		--errorColour: red;
+	}
+}
+
 :root {
 	font-family: "Roboto Light", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
@@ -11,6 +33,7 @@ body {
 	margin: auto;
 	max-width: 1200px;
 	padding: 0 1em;
+	background-color: var(--backgroundColour);
 }
 
 .summary {
@@ -20,7 +43,7 @@ body {
 
 .summaryDiscount {
 	text-align: right;
-	color: darkgreen;
+	color: var(--thridColour);
 	font-size: medium;
 }
 
@@ -33,16 +56,22 @@ body {
 .header {
 	height: 80px;
 	position: sticky;
-	background-color: #ffffff;
-	border-color: #dddddd;
+	background-color: var(--mainColour); /* Use custom property */
+	border-color: var(--shadowColour);
 	border-width: 0;
 	border-bottom-width: 2px;
 	top: 0;
 	padding: 10px;
 	z-index: 1000;
 	border-style: solid;
-
 }
+
+/* Over here fix me */
+.header__img {
+	width: 1%;
+	height: 60px;
+}
+
 
 .page_and_summary_container {
 	display: grid;
@@ -61,20 +90,20 @@ body {
 	width: 200px;
 	height: 36px;
 	border-radius: 15px;
-	border: #bbbbbb;
-	background-color: #007bff;
+	border: var(--shadowColour);
+	background-color: var(--thridColour);
 	color: #ffffff;
 	font-size: 18px;
 }
 
 .next-button:hover {
-	background-color: #0461c5;
+	background-color: var(--mainColour);
 }
 
 .title-card {
-	background-color: #ffffff;
+	background-color: var(--mainColour);
 	padding: 5px;
-	border: 1px solid #ccc;
+	border: 1px solid var(--thridColour);
 	border-radius: 5px;
 	text-align: center;
 	font-size: 150%;
@@ -110,6 +139,7 @@ body {
 }
 
 .summary-container {
+	background-color: var(--secondColour);
 	display: flex;
 	flex-direction: column;
 	border: 1px solid #ccc;
@@ -123,6 +153,7 @@ body {
 .promotion-box {
 	max-height: 35%;
 	height: 35%;
+	background-color: var(--secondColour);
 	display: flex;
 	flex-direction: column;
 	gap: 10px;

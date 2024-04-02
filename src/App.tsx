@@ -172,11 +172,14 @@ function App({basketItems: testBasketItems}: AppProps) {
         return (
             <div>
                 <div className="header">
-                    <h1>Shopping Basket</h1>
+                    <h1>BUY STUFF</h1>
+                    <div className="header__img">
+                        <img src="src/images/BuyStuffLogo.png"/>
+                    </div>
                 </div>
                 <div className="page_components">
                     <div className="page_and_summary_container">
-                        <div className="content-container">{renderContent()}</div>
+                    <div className="content-container">{renderContent()}</div>
                         <div className="user-info-container">
                             <div className="summary-container">
                                 <OrderSummary items={basketItems}/>
