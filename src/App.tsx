@@ -127,7 +127,7 @@ function App({ basketItems: testBasketItems }: AppProps) {
 				);
 			case 1: //Delivery Information
 				return (
-					<DeliveryComponent setIsDeliveryFormValid={setIsDeliveryFormValid} />
+					<DeliveryComponent isDeliveryFormValid={isDeliveryFormValid} setIsDeliveryFormValid={setIsDeliveryFormValid} />
 				);
 			case 2: //Payment
 				return <div>idk payment I suppose :b</div>;
@@ -143,26 +143,11 @@ function App({ basketItems: testBasketItems }: AppProps) {
 				<div className="phone-header"> Shopping Basket</div>
 				<div className="phone-page-components">
 					<div className="phone-content-container">{renderContent()}</div>
-					<div className="promotion-box">
-						<div className="title-card">See Also</div>
-						<div className="promotion-container">
-							{basketItems.map((item) => (
-								<PromotionCard key={item.id} item={item} />
-							))}
-						</div>
-					</div>
+					<PromoBox basketItems={basketItems} />
 					<div className="phone-summary-container">
 						<OrderSummary items={basketItems} />
 					</div>
-					<div className="continue">
-						<button
-							className="continue__button"
-							onClick={handleNextClick}
-							disabled={!isDeliveryFormValid}
-						>
-							Continue
-						</button>
-					</div>
+					<ContinueButton handleNextClick={handleNextClick} isDeliveryFormValid={isDeliveryFormValid} />
 				</div>
 				<Footer creatorNames={creatorNames} />
 			</div>
@@ -183,23 +168,8 @@ function App({ basketItems: testBasketItems }: AppProps) {
 							</div>
 						</div>
 					</div>
-					<div className="continue">
-						<button
-							className="continue__button"
-							onClick={handleNextClick}
-							disabled={!isDeliveryFormValid}
-						>
-							Continue
-						</button>
-					</div>
-					<div className="promotion-box">
-						<div className="title-card">See Also</div>
-						<div className="promotion-container">
-							{basketItems.map((item) => (
-								<PromotionCard key={item.id} item={item} />
-							))}
-						</div>
-					</div>
+					<ContinueButton handleNextClick={handleNextClick} isDeliveryFormValid={isDeliveryFormValid} />
+					<PromoBox basketItems={basketItems} />
 				</div>
 				<Footer creatorNames={creatorNames} />
 			</div>
@@ -207,12 +177,43 @@ function App({ basketItems: testBasketItems }: AppProps) {
 	}
 }
 
+interface PromoBoxProps {
+	basketItems: BasketItem[];
+
+}
+const PromoBox = ({ basketItems }: PromoBoxProps) => (
+
+	<div className="promotion-box">
+		<div className="title-card">See Also</div>
+		<div className="promotion-container">
+			{basketItems.map((item) => (
+				<PromotionCard key={item.id} item={item} />
+			))}
+		</div>
+	</div>
+)
+interface ContinueButtonProps {
+	handleNextClick: () => void;
+	isDeliveryFormValid: boolean;
+}
+const ContinueButton = ({ handleNextClick, isDeliveryFormValid }: ContinueButtonProps) => (
+	<div className="continue">
+		<button
+			className="continue__button"
+			onClick={handleNextClick}
+			disabled={!isDeliveryFormValid}
+		>
+			Continue
+		</button>
+	</div>
+)
+
 
 interface DeliveryComponentProps {
+	isDeliveryFormValid: boolean;
 	setIsDeliveryFormValid: (isValid: boolean) => void;
 }
-function DeliveryComponent({ setIsDeliveryFormValid }: DeliveryComponentProps) {
-	const [error, setError] = useState<string | null>(null);
+function DeliveryComponent({ isDeliveryFormValid, setIsDeliveryFormValid }: DeliveryComponentProps) {
 	const [formData, setFormData] = useState<DeliveryFormData>({
 		deliveryCountry: "DK",
 		deliveryZipCode: "",
@@ -235,41 +236,39 @@ function DeliveryComponent({ setIsDeliveryFormValid }: DeliveryComponentProps) {
 	});
 	const [isTOSAccepted, setIsTOSAccepted] = useState(false);
 
-	const validateForm = () => {
-		const isNotEmpty = (value: string) => value.trim() !== "";
-		const isValidEmail = (email: string): boolean => {
-			const regex = /^[^\s@]+@(?![.-])[^\s@]+\.[^\s@]+(?<!\.)$/;
-			return regex.test(email);
-		};
-
-		if (!isNotEmpty(formData.deliveryCountry)) return false;
-		if (formData.deliveryZipCode.length !== 4) return false;
-		if (!isNotEmpty(formData.deliveryCity)) return false;
-		if (!isNotEmpty(formData.deliveryAddressLine)) return false;
-		if (!isNotEmpty(formData.firstName)) return false;
-		if (!isNotEmpty(formData.lastName)) return false;
-		if (formData.phone.length !== 8) return false;
-		if (!isValidEmail(formData.email)) return false;
-
-		if (formData.billingAddressDifferent) {
-			if (formData.billingZipCode.length !== 4) return false;
-			if (!isNotEmpty(formData.billingCountry)) return false;
-			if (!isNotEmpty(formData.billingCity)) return false;
-			if (!isNotEmpty(formData.billingAddressLine)) return false;
-		}
-
-		return true;
-	};
-	const isDeliverySubmitable = validateForm() && isTOSAccepted;
-	console.log({ isDeliverySubmitable })
-	setIsDeliveryFormValid(isDeliverySubmitable);
+	setIsDeliveryFormValid(validateForm(formData) && isTOSAccepted);
 	return (
 		<Delivery>
-			<Delivery.Form setFormData={setFormData} formData={formData} error={error} setError={setError} />
+			<Delivery.Form setFormData={setFormData} formData={formData} />
 			<Delivery.Separator />
 			<Delivery.TermsOfService isTOSAccepted={isTOSAccepted} setIsTOSAccepted={setIsTOSAccepted} />
 		</Delivery>
 	);
 }
 
+function validateForm(formData: DeliveryFormData) {
+	const isNotEmpty = (value: string) => value.trim() !== "";
+	const isValidEmail = (email: string): boolean => {
+		const regex = /^[^\s@]+@(?![.-])[^\s@]+\.[^\s@]+(?<!\.)$/;
+		return regex.test(email);
+	};
+
+	if (!isNotEmpty(formData.deliveryCountry)) return false;
+	if (formData.deliveryZipCode.length !== 4) return false;
+	if (!isNotEmpty(formData.deliveryCity)) return false;
+	if (!isNotEmpty(formData.deliveryAddressLine)) return false;
+	if (!isNotEmpty(formData.firstName)) return false;
+	if (!isNotEmpty(formData.lastName)) return false;
+	if (formData.phone.length !== 8) return false;
+	if (!isValidEmail(formData.email)) return false;
+
+	if (formData.billingAddressDifferent) {
+		if (formData.billingZipCode.length !== 4) return false;
+		if (!isNotEmpty(formData.billingCountry)) return false;
+		if (!isNotEmpty(formData.billingCity)) return false;
+		if (!isNotEmpty(formData.billingAddressLine)) return false;
+	}
+
+	return true;
+}
 export default App;

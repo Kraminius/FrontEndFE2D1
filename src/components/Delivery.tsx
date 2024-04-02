@@ -3,12 +3,6 @@ import { DeliveryFormData } from "../types/Types";
 import "../Styles/delivery.css";
 import countries from "../countries.tsx";
 
-interface DeliveryComponentProps {
-	formData: DeliveryFormData;
-	setFormData: React.Dispatch<React.SetStateAction<DeliveryFormData>>;
-	error: string | null;
-	setError: React.Dispatch<React.SetStateAction<string | null>>;
-}
 
 
 interface DeliveryProps {
@@ -16,9 +10,9 @@ interface DeliveryProps {
 }
 const Delivery = ({ children }: DeliveryProps) => {
 	return (
-		<div>
+		<>
 			{children}
-		</div >
+		</ >
 	)
 }
 
@@ -44,14 +38,17 @@ const TermsOfService = ({ isTOSAccepted, setIsTOSAccepted }: TOSProps) => {
 
 }
 
+
+interface DeliveryComponentProps {
+	formData: DeliveryFormData;
+	setFormData: React.Dispatch<React.SetStateAction<DeliveryFormData>>;
+}
 const DeliveryForm: React.FC<DeliveryComponentProps> = ({
 	formData,
 	setFormData,
-	error,
-	setError
-
 }) => {
 
+	const [error, setError] = useState<string | null>(null);
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
 	) => {
@@ -393,6 +390,10 @@ const DeliveryForm: React.FC<DeliveryComponentProps> = ({
 		)
 	);
 };
+
+const Button = () => {
+	return <button />;
+}
 const Separator = () => {
 	return <hr />;
 }
@@ -400,4 +401,6 @@ const Separator = () => {
 Delivery.TermsOfService = TermsOfService;
 Delivery.Form = DeliveryForm;
 Delivery.Separator = Separator;
+Delivery.Button = Button;
+
 export default Delivery
