@@ -1,26 +1,27 @@
 :root {
-    font-family: "Roboto Light", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	font-family: "Roboto Light", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 body {
-    margin: auto;
-    max-width: 1200px;
+	margin: auto;
+	max-width: 1200px;
+	padding: 0 1em;
 }
 
 .summary {
-    text-align: right;
-    font-size: x-large;
+	text-align: right;
+	font-size: x-large;
 }
 
-.summaryDiscount{
-    text-align: right;
-    color: darkgreen;
-    font-size: medium;
+.summaryDiscount {
+	text-align: right;
+	color: darkgreen;
+	font-size: medium;
 }
 
 
@@ -28,101 +29,113 @@ body {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
-.header{
-    height: 80px;
-    position: sticky;
-    background-color: #ffffff;
-    border-color: #dddddd;
-    border-width: 0;
-    border-bottom-width: 2px;
-    top: 0;
-    padding: 10px;
-    z-index: 1000;
-    border-style: solid;
+
+.header {
+	height: 80px;
+	position: sticky;
+	background-color: #ffffff;
+	border-color: #dddddd;
+	border-width: 0;
+	border-bottom-width: 2px;
+	top: 0;
+	padding: 10px;
+	z-index: 1000;
+	border-style: solid;
 
 }
-.page_and_summary_container{
+
+.page_and_summary_container {
 	display: grid;
 	grid-template-columns: 400px 1fr;
 	gap: 2em;
 }
+
 .continue {
 	display: flex;
 	justify-content: flex-end;
 	padding: 20px;
 
 }
-.continue__button{
+
+.continue__button {
 	width: 200px;
-    height: 36px;
-    border-radius: 15px;
-    border: #bbbbbb;
-    background-color: #007bff;
-    color: #ffffff;
-    font-size: 18px;
+	height: 36px;
+	border-radius: 15px;
+	border: #bbbbbb;
+	background-color: #007bff;
+	color: #ffffff;
+	font-size: 18px;
 }
-.next-button:hover{
-    background-color: #0461c5;
+
+.next-button:hover {
+	background-color: #0461c5;
 }
-.title-card{
-    background-color: #ffffff;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 150%;
+
+.title-card {
+	background-color: #ffffff;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	text-align: center;
+	font-size: 150%;
 }
-.text-card{
-    padding: 20px 20px 20px 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    align-items: center;
-    background-color: #ffffff;
+
+.text-card {
+	padding: 20px 20px 20px 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	align-items: center;
+	background-color: #ffffff;
 }
-.page_components{
-    display: flex;
-    flex-direction: column;
-	padding-bottom:20px;
+
+.page_components {
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 20px;
 }
-.user-info-container{
- /* display: flex; */
- /* flex-direction: column; */
- /* gap: 10px; */
- /* width: 60%; */
- /* max-height: 100%; */ 
+
+.user-info-container {
+	/* display: flex; */
+	/* flex-direction: column; */
+	/* gap: 10px; */
+	/* width: 60%; */
+	/* max-height: 100%; */
 }
-.content-container{
+
+.content-container {
 	padding-top: 18px;
 	display: grid;
 	grid-template-columns: 1fr;
 	gap: 1em;
 }
-.summary-container{
-    display: flex;
+
+.summary-container {
+	display: flex;
 	flex-direction: column;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    position: sticky;
-    top: 120px;
-	margin-left:40px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	position: sticky;
+	top: 120px;
+	margin-left: 40px;
 	padding: 0 20px;
 }
-.promotion-box{
-    max-height: 35%;
-    height: 35%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 90%;
-}
-.promotion-container{
-    overflow-y: auto;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
 
+.promotion-box {
+	max-height: 35%;
+	height: 35%;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	width: 90%;
 }
 
+.promotion-container {
+	overflow-y: auto;
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+
+}
