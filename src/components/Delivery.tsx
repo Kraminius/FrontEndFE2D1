@@ -28,7 +28,6 @@ const TermsOfService = ({ isTOSAccepted, setIsTOSAccepted }: TOSProps) => {
 		setIsTOSAccepted(event.target.checked);
 
 	};
-	console.log("isTOSAccepted", isTOSAccepted)
 	return (
 		<label>
 			<input type="checkbox" defaultChecked={isTOSAccepted} onChange={onInputCheckboxChange} />
@@ -93,6 +92,7 @@ const DeliveryForm: React.FC<DeliveryComponentProps> = ({
 			(formData.deliveryCountry === "DK" || formData.billingCountry === "DK")
 		) {
 			try {
+				console.log('making network request to fetch city name')
 				const response = await fetch(
 					`https://api.dataforsyningen.dk/postnumre/${zipCode}`
 				);
@@ -391,9 +391,6 @@ const DeliveryForm: React.FC<DeliveryComponentProps> = ({
 	);
 };
 
-const Button = () => {
-	return <button />;
-}
 const Separator = () => {
 	return <hr />;
 }
@@ -401,6 +398,5 @@ const Separator = () => {
 Delivery.TermsOfService = TermsOfService;
 Delivery.Form = DeliveryForm;
 Delivery.Separator = Separator;
-Delivery.Button = Button;
 
 export default Delivery

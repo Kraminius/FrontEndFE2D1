@@ -19,6 +19,13 @@ const creatorNames = [
 	"Zenkert, Henrik Albert Erik",
 ];
 
+enum ContentFlow {
+	Basket,
+	DeliveryInformation,
+	Payment,
+	Receipt,
+}
+
 interface AppProps {
 	basketItems?: BasketItem[]; // Make it optional to maintain compatibility
 }
@@ -27,6 +34,30 @@ interface AppProps {
 // Alternatively we could use jest.mock to mock the fetchBasketItems function.
 function App({ basketItems: testBasketItems }: AppProps) {
 	const [basketItems, setBasketItems] = useState<BasketItem[]>([]);
+
+	const [contentFlow, setContentFlow] = useState(ContentFlow.Basket);
+	const [formData, setFormData] = useState<DeliveryFormData>({
+		deliveryCountry: "DK",
+		deliveryZipCode: "",
+		deliveryCity: "",
+		deliveryAddressLine: "",
+		deliveryAddressLine2: "",
+		firstName: "",
+		lastName: "",
+		phoneCode: "+45",
+		phone: "",
+		email: "",
+		companyName: "",
+		companyVat: "",
+		billingAddressDifferent: false,
+		billingCountry: "DK",
+		billingZipCode: "",
+		billingCity: "",
+		billingAddressLine: "",
+		billingAddressLine2: "",
+	});
+	const [isTOSAccepted, setIsTOSAccepted] = useState(false);
+	const isDeliveryFormValid = validateForm(formData) && isTOSAccepted;
 
 	// Fetching the initial items, if testBasketItems is provided, use that instead (for testing purposes).
 	useEffect(() => {
@@ -40,14 +71,10 @@ function App({ basketItems: testBasketItems }: AppProps) {
 				setBasketItems(items);
 			} catch (error) {
 				console.error("Error fetching basket items: ", error);
-
-				// show error message to user
-
 			}
 		})();
 	}, []);
 
-	const [isDeliveryFormValid, setIsDeliveryFormValid] = useState(true);
 
 	const handleQuantityChange = (itemId: string, newQuantity: number) => {
 		if (newQuantity < 1) {
@@ -96,19 +123,27 @@ function App({ basketItems: testBasketItems }: AppProps) {
 		return window.innerWidth <= window.innerHeight;
 	};
 
-	const [contentFlow, setContentFlow] = useState(0);
 
 	function handleNextClick() {
-		setContentFlow((prevContentFlow) => {
-			// If the current value is greater than 2, reset to 0 otherwise, increment (Change 2 if you add more pages Guys)
-			return prevContentFlow > 2 ? 0 : prevContentFlow + 1;
+		console.log("handleNextClick", contentFlow)
+		setContentFlow((prevFlow) => {
+			switch (prevFlow) {
+				case ContentFlow.Basket:
+					return ContentFlow.DeliveryInformation;
+				case ContentFlow.DeliveryInformation:
+					return ContentFlow.Payment;
+				case ContentFlow.Payment:
+					return ContentFlow.Receipt;
+				case ContentFlow.Receipt:
+					throw new Error("Invalid content flow state,");
+			}
 		});
 		window.scrollTo(0, 0);
 	}
 
 	function renderContent() {
 		switch (contentFlow) {
-			case 0: //Basket
+			case ContentFlow.Basket: //Basket
 				return basketItems.length > 0 ? (
 					basketItems.map((item) => (
 						<CustomerItemCard
@@ -125,14 +160,20 @@ function App({ basketItems: testBasketItems }: AppProps) {
 						Your basket is empty. <a href="/browse">Browse more items</a>
 					</div>
 				);
-			case 1: //Delivery Information
+			case ContentFlow.DeliveryInformation:
 				return (
-					<DeliveryComponent isDeliveryFormValid={isDeliveryFormValid} setIsDeliveryFormValid={setIsDeliveryFormValid} />
+					<Delivery>
+						<Delivery.Form setFormData={setFormData} formData={formData} />
+						<Delivery.Separator />
+						<Delivery.TermsOfService isTOSAccepted={isTOSAccepted} setIsTOSAccepted={setIsTOSAccepted} />
+					</Delivery>
 				);
-			case 2: //Payment
+			case ContentFlow.Payment:
 				return <div>idk payment I suppose :b</div>;
-			default: //Last Page - Receipt
+			case ContentFlow.Receipt:
 				return <div>Receipt page</div>;
+			default:
+				throw new Error("Invalid content flow state.");
 		}
 	}
 
@@ -147,7 +188,7 @@ function App({ basketItems: testBasketItems }: AppProps) {
 					<div className="phone-summary-container">
 						<OrderSummary items={basketItems} />
 					</div>
-					<ContinueButton handleNextClick={handleNextClick} isDeliveryFormValid={isDeliveryFormValid} />
+					<ContinueButton handleNextClick={handleNextClick} isDisabled={!isDeliveryFormValid && contentFlow === ContentFlow.DeliveryInformation} />
 				</div>
 				<Footer creatorNames={creatorNames} />
 			</div>
@@ -168,7 +209,7 @@ function App({ basketItems: testBasketItems }: AppProps) {
 							</div>
 						</div>
 					</div>
-					<ContinueButton handleNextClick={handleNextClick} isDeliveryFormValid={isDeliveryFormValid} />
+					<ContinueButton handleNextClick={handleNextClick} isDisabled={!isDeliveryFormValid && contentFlow === ContentFlow.DeliveryInformation} />
 					<PromoBox basketItems={basketItems} />
 				</div>
 				<Footer creatorNames={creatorNames} />
@@ -194,56 +235,19 @@ const PromoBox = ({ basketItems }: PromoBoxProps) => (
 )
 interface ContinueButtonProps {
 	handleNextClick: () => void;
-	isDeliveryFormValid: boolean;
+	isDisabled: boolean;
 }
-const ContinueButton = ({ handleNextClick, isDeliveryFormValid }: ContinueButtonProps) => (
-	<div className="continue">
+const ContinueButton = ({ handleNextClick, isDisabled }: ContinueButtonProps) => {
+	console.log("ContinueButton", isDisabled)
+	return <div className="continue" >
 		<button
 			className="continue__button"
 			onClick={handleNextClick}
-			disabled={!isDeliveryFormValid}
+			disabled={isDisabled}
 		>
 			Continue
 		</button>
-	</div>
-)
-
-
-interface DeliveryComponentProps {
-	isDeliveryFormValid: boolean;
-	setIsDeliveryFormValid: (isValid: boolean) => void;
-}
-function DeliveryComponent({ isDeliveryFormValid, setIsDeliveryFormValid }: DeliveryComponentProps) {
-	const [formData, setFormData] = useState<DeliveryFormData>({
-		deliveryCountry: "DK",
-		deliveryZipCode: "",
-		deliveryCity: "",
-		deliveryAddressLine: "",
-		deliveryAddressLine2: "",
-		firstName: "",
-		lastName: "",
-		phoneCode: "+45",
-		phone: "",
-		email: "",
-		companyName: "",
-		companyVat: "",
-		billingAddressDifferent: false,
-		billingCountry: "DK",
-		billingZipCode: "",
-		billingCity: "",
-		billingAddressLine: "",
-		billingAddressLine2: "",
-	});
-	const [isTOSAccepted, setIsTOSAccepted] = useState(false);
-
-	setIsDeliveryFormValid(validateForm(formData) && isTOSAccepted);
-	return (
-		<Delivery>
-			<Delivery.Form setFormData={setFormData} formData={formData} />
-			<Delivery.Separator />
-			<Delivery.TermsOfService isTOSAccepted={isTOSAccepted} setIsTOSAccepted={setIsTOSAccepted} />
-		</Delivery>
-	);
+	</div >
 }
 
 function validateForm(formData: DeliveryFormData) {
