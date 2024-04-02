@@ -1,72 +1,56 @@
-import React, { useState } from "react";
+import React, { ChangeEventHandler, useState } from "react";
 import { DeliveryFormData } from "../types/Types";
 import "../Styles/delivery.css";
 import countries from "../countries.tsx";
 
 interface DeliveryComponentProps {
-	onFormValidityChange: (isValid: boolean) => void;
+	formData: DeliveryFormData;
+	setFormData: React.Dispatch<React.SetStateAction<DeliveryFormData>>;
+	error: string | null;
+	setError: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 
-const TermsOfServiceComponent = () => {
+interface DeliveryProps {
+	children: React.ReactNode[];
+}
+const Delivery = ({ children }: DeliveryProps) => {
+	return (
+		<div>
+			{children}
+		</div >
+	)
+}
 
-	return
+
+interface TOSProps {
+	isTOSAccepted: boolean;
+	setIsTOSAccepted: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const TermsOfService = ({ isTOSAccepted, setIsTOSAccepted }: TOSProps) => {
+
+
+	const onInputCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setIsTOSAccepted(event.target.checked);
+
+	};
+	console.log("isTOSAccepted", isTOSAccepted)
+	return (
+		<label>
+			<input type="checkbox" defaultChecked={isTOSAccepted} onChange={onInputCheckboxChange} />
+			I agree to the terms of service
+		</label>
+	)
 
 }
-const DeliveryComponent: React.FC<DeliveryComponentProps> = ({
-	onFormValidityChange,
+
+const DeliveryForm: React.FC<DeliveryComponentProps> = ({
+	formData,
+	setFormData,
+	error,
+	setError
+
 }) => {
-	const [error, setError] = useState<string | null>(null);
-	const [formData, setFormData] = useState<DeliveryFormData>({
-		deliveryCountry: "DK",
-		deliveryZipCode: "",
-		deliveryCity: "",
-		deliveryAddressLine: "",
-		deliveryAddressLine2: "",
-		firstName: "",
-		lastName: "",
-		phoneCode: "+45",
-		phone: "",
-		email: "",
-		companyName: "",
-		companyVat: "",
-		billingAddressDifferent: false,
-		billingCountry: "DK",
-		billingZipCode: "",
-		billingCity: "",
-		billingAddressLine: "",
-		billingAddressLine2: "",
-	});
-
-	const isNotEmpty = (value: string) => value.trim() !== "";
-
-	const isValidEmail = (email: string): boolean => {
-		const regex = /^[^\s@]+@(?![.-])[^\s@]+\.[^\s@]+(?<!\.)$/;
-		return regex.test(email);
-	};
-
-	//Checking if submiting is allowed
-	const validateForm = () => {
-		if (!isNotEmpty(formData.deliveryCountry)) return false;
-		if (formData.deliveryZipCode.length !== 4) return false;
-		if (!isNotEmpty(formData.deliveryCity)) return false;
-		if (!isNotEmpty(formData.deliveryAddressLine)) return false;
-		if (!isNotEmpty(formData.firstName)) return false;
-		if (!isNotEmpty(formData.lastName)) return false;
-		if (formData.phone.length !== 8) return false;
-		if (!isValidEmail(formData.email)) return false;
-
-		if (formData.billingAddressDifferent) {
-			if (formData.billingZipCode.length !== 4) return false;
-			if (!isNotEmpty(formData.billingCountry)) return false;
-			if (!isNotEmpty(formData.billingCity)) return false;
-			if (!isNotEmpty(formData.billingAddressLine)) return false;
-		}
-
-		return true;
-	};
-
-	const isFormValid = validateForm();
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -163,7 +147,6 @@ const DeliveryComponent: React.FC<DeliveryComponentProps> = ({
 	};
 
 	return (
-		onFormValidityChange(isFormValid),
 		(
 			<div className="delivery-form-container">
 				<h1>Delivery Information</h1>
@@ -410,5 +393,11 @@ const DeliveryComponent: React.FC<DeliveryComponentProps> = ({
 		)
 	);
 };
+const Separator = () => {
+	return <hr />;
+}
 
-export default DeliveryComponent;
+Delivery.TermsOfService = TermsOfService;
+Delivery.Form = DeliveryForm;
+Delivery.Separator = Separator;
+export default Delivery

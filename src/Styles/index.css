@@ -139,3 +139,10 @@ body {
 	gap: 10px;
 
 }
+
+
+@media (max-width: 768px) {
+	.page_and_summary_container {
+		/* grid-template-columns: 1fr; */
+	}
+}
