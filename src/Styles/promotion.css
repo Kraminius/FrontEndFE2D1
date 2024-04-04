@@ -8,7 +8,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     align-items: center;
-    background-color: var(--backgroundColour);
+    background-color: var(--promColour);
 }
 .promotion-card:hover{
     background-color: #eeeeee;

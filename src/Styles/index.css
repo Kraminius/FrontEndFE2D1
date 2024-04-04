@@ -1,11 +1,14 @@
 /* Dark mode (default)*/
 :root {
-	--mainColour: #A98AB0;
-	--secondColour: #BEAFC2;
-	--thridColour: #383940;
-	--fourthColour: #AA1945;
-	--backgroundColour: #F1F1F0;
-	--shadowColour: #dddddd;
+	--mainColour: #7954A1;
+	--secondColour: #603F8B;
+	--thridColour: #3CACAE;
+	--fourthColour: #F6EEF0;
+	--backgroundColour: #0C2D48;
+	--promColour: #81599F;
+	--inputColour: #2E8BC0;
+	--textOnBack: #ffffff;
+	--shadowColour: #383940;
 	--white: #ffffff;
 	--errorColour: red;
 }
@@ -19,9 +22,13 @@
 		--thridColour: #383940;
 		--fourthColour: #AA1945;
 		--backgroundColour: #F1F1F0;
+		--promColour: #EFDCF9;
 		--shadowColour: #dddddd;
+		--inputColour: #ffffff;
+		--textOnBack: black;
 		--white: #ffffff;
 		--errorColour: red;
+
 	}
 }
 

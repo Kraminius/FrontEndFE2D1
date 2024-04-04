@@ -129,7 +129,7 @@
 .item-id {
 	font-size: 14px;
 	font-weight: bold;
-	color: #505050;
+	color: var(--thridColour);
 }
 
 .item-price__container {
