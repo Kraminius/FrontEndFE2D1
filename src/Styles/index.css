@@ -1,11 +1,11 @@
 /* Dark mode (default)*/
 :root {
-	--mainColour: #FCA7A5;
-	--secondColour: #A76286;
-	--thirdColour: #dddddd;
+	--mainColour: #A98AB0;
+	--secondColour: #BEAFC2;
+	--thridColour: #383940;
 	--fourthColour: #AA1945;
-	--backgroundColour: #5A3E79;
-	--shadowColour: #383940;
+	--backgroundColour: #F1F1F0;
+	--shadowColour: #dddddd;
 	--white: #ffffff;
 	--errorColour: red;
 }
