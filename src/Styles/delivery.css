@@ -26,13 +26,15 @@
 	justify-content: space-between;
 }
 
-.input-group > label > *{
+.input-group>label>* {
 	display: block;
 	width: 100%;
 }
-.input-group > label > select{
+
+.input-group>label>select {
 	margin-top: 4px;
 }
+
 .postal-error-message {
 	color: red;
 	margin-top: 5px;
@@ -44,12 +46,9 @@
 
 input,
 label,
-select {
-}
+select {}
 
-.input-group input {
-	
-}
+.input-group input {}
 
 
 
