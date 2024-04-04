@@ -1,29 +1,33 @@
 import "@testing-library/jest-dom/vitest";
-import { cleanup } from "@testing-library/react";
-import { afterEach } from "vitest";
+import { cleanup, fireEvent, render } from "@testing-library/react";
+import { afterEach, describe, expect, test, vi } from "vitest";
+import Delivery from "../components/Delivery";
 
 afterEach(cleanup);
 
-import { describe, expect, test } from "vitest";
-import Delivery from "../components/Delivery";
-import { fireEvent, render } from "@testing-library/react";
-
 describe(Delivery.name, () => {
   test("Renders Delivery component", () => {
-    const { getByText } = render(<Delivery />);
+    const mockOnFormValidityChange = vi.fn();
+    const { getByText } = render(
+      <Delivery onFormValidityChange={mockOnFormValidityChange} />
+    );
     expect(getByText(/Delivery Information/i)).toBeInTheDocument();
   });
 
-  test("Validates form fields before allowing submission", async () => {
-    const { getByText } = render(<Delivery />);
+  test("Check that form is invalid without input", async () => {
+    const mockOnFormValidityChange = vi.fn();
+    const { getByText } = render(
+      <Delivery onFormValidityChange={mockOnFormValidityChange} />
+    );
 
-    fireEvent.click(getByText("Submit"));
-
-    expect(getByText("Submit")).toBeDisabled();
+    expect(mockOnFormValidityChange).toHaveBeenCalledWith(false);
   });
 
   test("updates state on input change", () => {
-    const { getByLabelText } = render(<Delivery />);
+    const mockOnFormValidityChange = vi.fn();
+    const { getByLabelText } = render(
+      <Delivery onFormValidityChange={mockOnFormValidityChange} />
+    );
 
     const firstNameInput = getByLabelText(/First Name \*/i);
     fireEvent.change(firstNameInput, { target: { value: "Jakob" } });
@@ -31,8 +35,11 @@ describe(Delivery.name, () => {
     expect(firstNameInput).toHaveValue("Jakob");
   });
 
-  test("Enables submit button when form is valid", async () => {
-    const { getByLabelText, getByText } = render(<Delivery />);
+  test("Update onFormValidityChange when form is valid and invalid", async () => {
+    const mockOnFormValidityChange = vi.fn();
+    const { getByLabelText, getByText } = render(
+      <Delivery onFormValidityChange={mockOnFormValidityChange} />
+    );
 
     fireEvent.change(getByLabelText(/First Name \*/i), {
       target: { value: "Jakob" },
@@ -56,11 +63,18 @@ describe(Delivery.name, () => {
       target: { value: "2100" },
     });
 
-    expect(getByText("Submit")).toBeEnabled();
+    expect(mockOnFormValidityChange).toHaveBeenCalledWith(true);
+    fireEvent.change(getByLabelText(/Email \*/i), {
+      target: { value: "invalid" },
+    });
+    expect(mockOnFormValidityChange).toHaveBeenCalledWith(false);
   });
 
   test("disnables submit button when form is valid, but different billing address is chosen", async () => {
-    const { getByLabelText, getByText } = render(<Delivery />);
+    const mockOnFormValidityChange = vi.fn();
+    const { getByLabelText, getByText } = render(
+      <Delivery onFormValidityChange={mockOnFormValidityChange} />
+    );
 
     fireEvent.change(getByLabelText(/First Name \*/i), {
       target: { value: "Jakob" },
@@ -86,11 +100,14 @@ describe(Delivery.name, () => {
     const billingAddressCheckbox = getByLabelText(/Different billing address/);
     fireEvent.click(billingAddressCheckbox);
 
-    expect(getByText("Submit")).toBeDisabled();
+    expect(mockOnFormValidityChange).toHaveBeenCalledWith(false);
   });
 
   test("Enables submit button when form is valid, different billing address is chosen and form filled", async () => {
-    const { getByLabelText, getByText } = render(<Delivery />);
+    const mockOnFormValidityChange = vi.fn();
+    const { getByLabelText, getByText } = render(
+      <Delivery onFormValidityChange={mockOnFormValidityChange} />
+    );
 
     fireEvent.change(getByLabelText(/First Name \*/i), {
       target: { value: "Jakob" },
@@ -125,6 +142,6 @@ describe(Delivery.name, () => {
       target: { value: "4792" },
     });
 
-    expect(getByText("Submit")).toBeEnabled();
+    expect(mockOnFormValidityChange).toHaveBeenCalledWith(true);
   });
 });
