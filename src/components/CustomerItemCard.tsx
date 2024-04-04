@@ -69,7 +69,7 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
 				<div className='item-price'>
 					<span className='item-price__currency'>DKK </span>
 					<span className={itemPriceClassesSingle}>{`${item.price.toFixed(2)},-`}</span>
-					{isPriceDiscounted && <div style={{color: 'grey', textDecoration: 'line-through'}}>{`${normalPrice.toFixed(2)},-`}</div>}
+					{isPriceDiscounted && <div style={{ color: 'grey', textDecoration: 'line-through' }}>{`${normalPrice.toFixed(2)},-`}</div>}
 					<div className={itemPriceClassesTotal}>{`${calculateItemTotal(item).toFixed(2)},-`}</div>
 				</div>
 				<Quantity onQuantityChange={onQuantityChange} item={item} />
@@ -82,6 +82,7 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
 				<select
 					value={item.recurringOrder}
 					onChange={(e) => onRecurringOrderChange(item.id, e.target.value as RecurringOrder)}
+					id={item.id + "-recurring-order-" + item.recurringOrder.toLowerCase()}
 				>
 					{Object.values(RecurringOrder).map((order) => (
 						<option key={order} value={order}>

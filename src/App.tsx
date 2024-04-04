@@ -9,6 +9,7 @@ import PromotionCard from "./components/PromotionCard.tsx";
 import DeliveryComponent from "./components/Delivery.tsx";
 import OrderSummary from "./components/OrderSummary.tsx";
 import { fetchBasketItems } from "./network/BasketService.ts";
+import { ContinueButton } from "./components/reusable_components/Buttons.tsx";
 
 const creatorNames = [
 	"Christensen, Nicklas Thorbjørn",
@@ -33,6 +34,7 @@ interface AppProps {
 function App({ basketItems: testBasketItems }: AppProps) {
 	const [basketItems, setBasketItems] = useState<BasketItem[]>([]);
 	const [contentFlow, setContentFlow] = useState(ContentFlow.Basket);
+	const [isDeliveryFormValid, setIsDeliveryFormValid] = useState(true);
 	// Fetching the initial items, if testBasketItems is provided, use that instead (for testing purposes).
 	useEffect(() => {
 		if (testBasketItems) {
@@ -52,7 +54,6 @@ function App({ basketItems: testBasketItems }: AppProps) {
 		})();
 	}, []);
 
-	const [isDeliveryFormValid, setIsDeliveryFormValid] = useState(true);
 
 	const handleQuantityChange = (itemId: string, newQuantity: number) => {
 		if (newQuantity < 1) {
@@ -122,16 +123,19 @@ function App({ basketItems: testBasketItems }: AppProps) {
 		switch (contentFlow) {
 			case ContentFlow.Basket:
 				return basketItems.length > 0 ? (
-					basketItems.map((item) => (
-						<CustomerItemCard
-							key={item.id}
-							item={item}
-							onQuantityChange={handleQuantityChange}
-							onGiftWrapChange={handleGiftWrapChange}
-							onRecurringOrderChange={handleRecurringOrderChange}
-							onRemove={() => handleRemove(item.id)}
-						/>
-					))
+					<>
+						{basketItems.map((item) => (
+							<CustomerItemCard
+								key={item.id}
+								item={item}
+								onQuantityChange={handleQuantityChange}
+								onGiftWrapChange={handleGiftWrapChange}
+								onRecurringOrderChange={handleRecurringOrderChange}
+								onRemove={() => handleRemove(item.id)}
+							/>
+						))}
+						<ContinueButton onClick={handleNextClick} isDisabled={!isDeliveryFormValid} />
+					</>
 				) : (
 					<div className="empty-basket-message">
 						Your basket is empty. <a href="/browse">Browse more items</a>
@@ -153,17 +157,17 @@ function App({ basketItems: testBasketItems }: AppProps) {
 		return (
 			<div>
 
-                <div className="phone-header">
+				<div className="phone-header">
 
-                    <img src="src/images/BS_Logo.png" alt="Our Logo" className="phone-header_image"/>
-                    <label>BUY STUFF</label>
+					<img src="src/images/BS_Logo.png" alt="Our Logo" className="phone-header_image" />
+					<label>BbodyUY STUFF</label>
 
-                </div>
-                <div className="phone-page-components">
-                    <div className="phone-content-container">{renderContent()}</div>
-                    <div className="promotion-box">
-                        <div className="title-card">See Also</div>
-                        <div className="promotion-container">
+				</div>
+				<div className="phone-page-components">
+					<div className="phone-content-container">{renderContent()}</div>
+					<div className="promotion-box">
+						<div className="title-card">See Also</div>
+						<div className="promotion-container">
 							{basketItems.map((item) => (
 								<PromotionCard key={item.id} item={item} />
 							))}
@@ -172,15 +176,6 @@ function App({ basketItems: testBasketItems }: AppProps) {
 					<div className="phone-summary-container">
 						<OrderSummary items={basketItems} />
 					</div>
-					<div className="continue">
-						<button
-							className="continue__button"
-							onClick={handleNextClick}
-							disabled={!isDeliveryFormValid}
-						>
-							Continue
-						</button>
-					</div>
 				</div>
 				<Footer creatorNames={creatorNames} />
 			</div>
@@ -188,44 +183,36 @@ function App({ basketItems: testBasketItems }: AppProps) {
 	} else {
 		//Monitor View
 		return (
-            <div>
-                <div className="header">
+			<div>
+				<div className="header">
 
-                    <img src="src/images/BS_Logo.png" alt="Our Logo" className="header_image"/>
+					<img src="src/images/BS_Logo.png" alt="Our Logo" className="header_image" />
 
-                    <h1>BUY STUFF</h1>
-                </div>
-                <div className="page_components">
-                    <div className="page_and_summary_container">
-                        <div className="content-container">{renderContent()}</div>
-                        <div className="user-info-container">
-                            <div className="summary-container">
-                                <OrderSummary items={basketItems}/>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="continue">
-                        <button
-                            className="continue__button"
-                            onClick={handleNextClick}
-                            disabled={!isDeliveryFormValid}
-                        >
-                            Continue
-                        </button>
-                    </div>
-                    <div className="promotion-box">
-                        <div className="title-card">See Also</div>
-                        <div className="promotion-container">
-                            {basketItems.map((item) => (
-                                <PromotionCard key={item.id} item={item}/>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-                <Footer creatorNames={creatorNames}/>
-            </div>
-        );
-    }
+					<h1>BUY STUFF</h1>
+				</div>
+				<div className="page_components">
+					<div className="page_and_summary_container">
+						<div className="content-container">{renderContent()}</div>
+						<div className="user-info-container">
+							<div className="summary-container">
+								<OrderSummary items={basketItems} />
+							</div>
+						</div>
+					</div>
+					<div className="promotion-box">
+						<div className="title-card">See Also</div>
+						<div className="promotion-container">
+							{basketItems.map((item) => (
+								<PromotionCard key={item.id} item={item} />
+							))}
+						</div>
+					</div>
+				</div>
+				<Footer creatorNames={creatorNames} />
+			</div>
+		);
+	}
 }
+
 
 export default App;
