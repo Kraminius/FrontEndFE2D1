@@ -26,36 +26,32 @@
 	justify-content: space-between;
 }
 
-.input-group {
-	display: flex;
-	flex-direction: column;
+.input-group > label > *{
+	display: block;
+	width: 100%;
 }
-
+.input-group > label > select{
+	margin-top: 4px;
+}
 .postal-error-message {
 	color: red;
 	margin-top: 5px;
 }
 
-.input-group label {
-	display: block;
-	margin-bottom: 2px;
+.input-group {
+	margin-bottom: 8px;
 }
 
 input,
 label,
 select {
-	margin: 0 4px;
 }
 
 .input-group input {
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
+	
 }
 
-.input-group {
-	margin: 0 0 10px 0;
-}
+
 
 @media (max-width: 768px) {
 	.form-group--flex {

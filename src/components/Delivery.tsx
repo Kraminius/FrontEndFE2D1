@@ -165,6 +165,7 @@ const DeliveryComponent: React.FC<DeliveryComponentProps> = ({
         <h1>Delivery Information</h1>
         <form>
           <Label>
+            Country
             <select
               id="deliveryCountry"
               name="deliveryCountry"
@@ -290,8 +291,8 @@ const DeliveryComponent: React.FC<DeliveryComponentProps> = ({
           </CheckBox>
           {formData.billingAddressDifferent && (
             <>
-              <div className="input-group">
-                <label htmlFor="billingCountry">Billing Country *</label>
+              <Label>
+                Billing Country
                 <select
                   id="billingCountry"
                   name="billingCountry"
@@ -304,7 +305,7 @@ const DeliveryComponent: React.FC<DeliveryComponentProps> = ({
                     </option>
                   ))}
                 </select>
-              </div>
+              </Label>
 
               <NumberInput
                 name="billingZipCode"

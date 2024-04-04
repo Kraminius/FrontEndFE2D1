@@ -134,6 +134,6 @@
 	display: flex;
 }
 
-.page_and_summary_container > * {
+.page_and_summary_container * {
 	box-sizing: border-box;
 }
