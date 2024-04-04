@@ -2,10 +2,11 @@
 	width: 87%;
 	display: grid; 
 	grid-template-columns: 1fr 2fr; 
-	border: 1px solid #ccc; 
+	border: 1px solid var(--thridColour);
 	gap: 20px;
 	padding: 20px;
 	border-radius: 5px;
+	background-color: var(--secondColour);
 } 
 
 .item__options {
@@ -31,8 +32,9 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: #eeeeee;
+	background-color: var(--white);
 	border-radius: 15px;
+	padding: 5px;
 }
 
 .item__image img {
@@ -42,7 +44,7 @@
 }
 
 .quantity {
-	border: 1px solid #aaa;
+	border: 1px solid var(--thridColour);
 	border-radius: 18px;
 	align-items: center;
 	display: flex;
@@ -67,12 +69,12 @@
 
 .quantity__button:hover,
 .quantity__button:active {
-	background-color: lightgrey;
+	background-color: var(--mainColour);
 }
 
 .item-label {
 	font-size: 80%;
-	color: #808080;
+	color: var(--thridColour);
 }
 
 .item-remover {
@@ -80,14 +82,14 @@
 	background-color: transparent;
 	cursor: pointer;
 	border-radius: 0;
-	color: #808080;
+	color: var(--thridColour);
 	font-weight: bold;
 	font-size: 14px;
 }
 
 .item-discount {
 	font-size: 16px;
-	color: #e61818;
+	color: var(--fourthColour);
 	width: fit-content;
 }
 

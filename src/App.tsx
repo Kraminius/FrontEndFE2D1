@@ -141,7 +141,13 @@ function App({basketItems: testBasketItems}: AppProps) {
         //Phone View
         return (
             <div>
-                <div className="phone-header"> Shopping Basket</div>
+
+                <div className="phone-header">
+
+                    <img src="src/images/BS_Logo.png" alt="Our Logo" className="phone-header_image"/>
+                    <label>BUY STUFF</label>
+
+                </div>
                 <div className="phone-page-components">
                     <div className="phone-content-container">{renderContent()}</div>
                     <div className="promotion-box">
