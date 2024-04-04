@@ -26,9 +26,13 @@
 	justify-content: space-between;
 }
 
-.input-group {
-	display: flex;
-	flex-direction: column;
+.input-group>label>* {
+	display: block;
+	width: 100%;
+}
+
+.input-group>label>select {
+	margin-top: 4px;
 }
 
 .postal-error-message {
@@ -36,16 +40,13 @@
 	margin-top: 5px;
 }
 
-.input-group label {
-	display: block;
-	margin-bottom: 2px;
+.input-group {
+	margin-bottom: 8px;
 }
 
 input,
 label,
-select {
-	margin: 0 4px;
-}
+select {}
 
 .input-group input {
 	padding: 10px;
@@ -76,4 +77,24 @@ input[type=checkbox] {
 	vertical-align: bottom;
 	position: relative;
 	float: left;
+}
+
+label,
+textarea {
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+textarea {
+  padding: 10px;
+  max-width: 100%;
+  line-height: 1.5;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 1px 1px 1px #999;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
 }

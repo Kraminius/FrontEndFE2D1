@@ -35,24 +35,27 @@ export interface BasketItem {
 export type BasketItems = BasketItem[];
 
 export interface DeliveryFormData {
-	deliveryCountry: string | "",
-	deliveryZipCode: string | "",
-	deliveryCity: string | "",
-	deliveryAddressLine: string | "",
-	deliveryAddressLine2?: string,
-	firstName: string | "",
-	lastName: string | "",
-	phoneCode: string | "",
-	phone: string | "",
-	email: string | "",
-	companyName: string | "",
-	companyVat: string | "",
-	billingAddressDifferent: boolean | false,
-	billingCountry: string | "DK",
-	billingZipCode: string | "",
-	billingCity: string | "",
-	billingAddressLine: string | ""
-	billingAddressLine2?: string;
+	deliveryCountry: string;
+	deliveryZipCode: string;
+	deliveryCity: string;
+	deliveryAddressLine: string;
+	deliveryAddressLine2: string;
+	firstName: string;
+	lastName: string;
+	phoneCode: string;
+	phone: string;
+	email: string;
+	companyName: string;
+	companyVat: string;
+	billingAddressDifferent: boolean | false;
+	billingCountry: string | "DK";
+	billingZipCode: string | "";
+	billingCity: string | "";
+	billingAddressLine: string;
+	billingAddressLine2: string;
+	agreeToTerms: boolean;
+	agreeToMarketing: boolean;
+	deliveryMessage: string;
 }
 
 
