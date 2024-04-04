@@ -141,7 +141,6 @@ function App({basketItems: testBasketItems}: AppProps) {
         //Phone View
         return (
             <div>
-
                 <div className="phone-header">
 
                     <img src="src/images/BS_Logo.png" alt="Our Logo" className="phone-header_image"/>
