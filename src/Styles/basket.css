@@ -74,6 +74,7 @@
 
 .item-label {
 	font-size: 80%;
+	columns: 2;
 	color: var(--thridColour);
 }
 
@@ -96,7 +97,7 @@
 .item-name {
 	font-size: 1.4em;
 	font-weight: bold;
-	color: #101010;
+	color: var(--textOnBack);
 }
 
 .item-price {
@@ -104,7 +105,7 @@
 }
 
 .item-price__cost {
-	color: #101010;
+	color: var(--textOnBack);
 }
 
 .item-price__cost.item-price__cost--gray {
@@ -117,19 +118,19 @@
 
 .item-price__currency {
 	font-size: 0.7em;
-	color: #101010;
+	color: var(--textOnBack);
 }
 
 .item-desc {
 	font-size: 16px;
-	color: #505050;
+	color: var(--textOnBack);
 
 }
 
 .item-id {
 	font-size: 14px;
 	font-weight: bold;
-	color: var(--thridColour);
+	color: var(--textOnBack);
 }
 
 .item-price__container {

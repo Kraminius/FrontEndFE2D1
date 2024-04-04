@@ -11,7 +11,7 @@
     background-color: var(--promColour);
 }
 .promotion-card:hover{
-    background-color: #eeeeee;
+    background-color: var(--mainColour);
 }
 .promotion-image{
     width: 40%;
@@ -39,7 +39,9 @@
 .promotion-name{
     font-weight: bold;
     font-size: 80%;
+    color: var(--textOnBack)
 }
 .promotion-price{
     font-size: 14px;
+    color: var(--textOnBack)
 }

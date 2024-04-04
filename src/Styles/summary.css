@@ -20,16 +20,19 @@
     width: 78%;
     font-size: 100%;
     font-weight: bold;
+    color: var(--textOnBack)
 }
 .summary-item-amount{
     width: 15%;
     text-align: center;
     font-size: 100%;
+    color: var(--textOnBack)
 }
 .summary-item-total{
     width: 15%;
     text-align: right;
     font-size: 100%;
+    color: var(--textOnBack)
 }
 .summary-item-image {
     width: 16%;

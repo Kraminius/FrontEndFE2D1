@@ -160,8 +160,9 @@ function App({ basketItems: testBasketItems }: AppProps) {
 				<div className="phone-header">
 
 					<img src="src/images/BS_Logo.png" alt="Our Logo" className="phone-header_image" />
-					<label>BbodyUY STUFF</label>
-
+					<div className="phone-brand_name">
+					<label>BUY STUFF</label>
+					</div>
 				</div>
 				<div className="phone-page-components">
 					<div className="phone-content-container">{renderContent()}</div>
@@ -187,8 +188,9 @@ function App({ basketItems: testBasketItems }: AppProps) {
 				<div className="header">
 
 					<img src="src/images/BS_Logo.png" alt="Our Logo" className="header_image" />
-
+					<div className="brand_name">
 					<h1>BUY STUFF</h1>
+					</div>
 				</div>
 				<div className="page_components">
 					<div className="page_and_summary_container">

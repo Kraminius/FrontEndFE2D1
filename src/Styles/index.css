@@ -1,5 +1,6 @@
 /* Dark mode (default)*/
 :root {
+
 	--mainColour: #7954A1;
 	--secondColour: #603F8B;
 	--thridColour: #3CACAE;
@@ -28,7 +29,6 @@
 		--textOnBack: black;
 		--white: #ffffff;
 		--errorColour: red;
-
 	}
 }
 
@@ -51,6 +51,7 @@ body {
 .summary {
 	text-align: right;
 	font-size: x-large;
+	color: var(--textOnBack)
 }
 
 .summaryDiscount {
@@ -59,11 +60,17 @@ body {
 	font-size: medium;
 }
 
+.foot_paragraph {
+	color: var(--textOnBack);
+}
 
 #footer-list {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	color: var(--textOnBack);
 }
+
+
 
 .header {
 	height: 90px;
@@ -79,6 +86,10 @@ body {
 	display: flex;
 }
 
+.brand_name {
+	color: var(--textOnBack)
+}
+
 .header_image {
 	max-width: 70%;
 	height: auto;
@@ -91,6 +102,7 @@ body {
 	display: grid;
 	grid-template-columns: 400px 1fr;
 	gap: 2em;
+	margin-bottom: 20px;
 }
 
 .continue {
@@ -121,6 +133,7 @@ body {
 	border-radius: 5px;
 	text-align: center;
 	font-size: 150%;
+	color: var(--textOnBack)
 }
 
 .text-card {
@@ -162,6 +175,7 @@ body {
 	top: 120px;
 	margin-left: 40px;
 	padding: 0 20px;
+	color: var(--textOnBack)
 }
 
 .promotion-box {

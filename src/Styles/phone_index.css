@@ -17,6 +17,10 @@
     border-style: solid;
 }
 
+.brand_name {
+    color: var(--textOnBack)
+}
+
 
 .phone-header_image {
     width: auto;
@@ -42,4 +46,5 @@
 }
 .phone-summary-container{
     width: 90%;
+    color: var(--textOnBack)
 }
