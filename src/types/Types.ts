@@ -55,6 +55,7 @@ export interface DeliveryFormData {
 	billingAddressLine2: string;
 	agreeToTerms: boolean;
 	agreeToMarketing: boolean;
+	deliveryMessage: string;
 }
 
 

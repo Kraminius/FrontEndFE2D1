@@ -32,6 +32,7 @@ const DeliveryComponent: React.FC<DeliveryComponentProps> = ({
     billingAddressLine2: "",
     agreeToTerms: false,
     agreeToMarketing: true,
+    deliveryMessage: "",
   });
 
   const isNotEmpty = (value: string) => value.trim() !== "";
@@ -346,6 +347,15 @@ const DeliveryComponent: React.FC<DeliveryComponentProps> = ({
               </TextInput>
             </>
           )}
+          <label for="deliveryMessage"> Add delivery message:</label>
+          <textarea
+            id="deliveryMessage"
+            name="deliveryMessage"
+            rows="5"
+            cols="33"
+            value={formData.deliveryMessage}
+            onChange={handleChange}
+          ></textarea>
           <hr />
           <CheckBox
             isChecked={formData.agreeToTerms}
