@@ -159,11 +159,11 @@ function App({ basketItems: testBasketItems }: AppProps) {
                     <label>BUY STUFF</label>
 
                 </div>
-				<div className="phone-page-components">
-					<div className="phone-content-container">{renderContent()}</div>
-					<div className="promotion-box">
-						<div className="title-card">See Also</div>
-						<div className="promotion-container">
+                <div className="phone-page-components">
+                    <div className="phone-content-container">{renderContent()}</div>
+                    <div className="promotion-box">
+                        <div className="title-card">See Also</div>
+                        <div className="promotion-container">
 							{basketItems.map((item) => (
 								<PromotionCard key={item.id} item={item} />
 							))}
@@ -188,44 +188,44 @@ function App({ basketItems: testBasketItems }: AppProps) {
 	} else {
 		//Monitor View
 		return (
-			<div>
+            <div>
                 <div className="header">
 
                     <img src="src/images/BS_Logo.png" alt="Our Logo" className="header_image"/>
 
                     <h1>BUY STUFF</h1>
                 </div>
-				<div className="page_components">
-					<div className="page_and_summary_container">
-						<div className="content-container">{renderContent()}</div>
-						<div className="user-info-container">
-							<div className="summary-container">
-								<OrderSummary items={basketItems} />
-							</div>
-						</div>
-					</div>
-					<div className="continue">
-						<button
-							className="continue__button"
-							onClick={handleNextClick}
-							disabled={!isDeliveryFormValid}
-						>
-							Continue
-						</button>
-					</div>
-					<div className="promotion-box">
-						<div className="title-card">See Also</div>
-						<div className="promotion-container">
-							{basketItems.map((item) => (
-								<PromotionCard key={item.id} item={item} />
-							))}
-						</div>
-					</div>
-				</div>
-				<Footer creatorNames={creatorNames} />
-			</div>
-		);
-	}
+                <div className="page_components">
+                    <div className="page_and_summary_container">
+                        <div className="content-container">{renderContent()}</div>
+                        <div className="user-info-container">
+                            <div className="summary-container">
+                                <OrderSummary items={basketItems}/>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="continue">
+                        <button
+                            className="continue__button"
+                            onClick={handleNextClick}
+                            disabled={!isDeliveryFormValid}
+                        >
+                            Continue
+                        </button>
+                    </div>
+                    <div className="promotion-box">
+                        <div className="title-card">See Also</div>
+                        <div className="promotion-container">
+                            {basketItems.map((item) => (
+                                <PromotionCard key={item.id} item={item}/>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+                <Footer creatorNames={creatorNames}/>
+            </div>
+        );
+    }
 }
 
 export default App;
