@@ -136,6 +136,7 @@ function App({basketItems: testBasketItems}: AppProps) {
         }
     }
 
+
     if (isMobileScreenSize()) {
         //Phone View
         return (
@@ -172,14 +173,14 @@ function App({basketItems: testBasketItems}: AppProps) {
         return (
             <div>
                 <div className="header">
+
+                    <img src="src/images/BS_Logo.png" alt="Our Logo" className="header_image"/>
+
                     <h1>BUY STUFF</h1>
-                    <div className="header__img">
-                        <img src="src/images/BuyStuffLogo.png"/>
-                    </div>
                 </div>
                 <div className="page_components">
-                    <div className="page_and_summary_container">
-                    <div className="content-container">{renderContent()}</div>
+                <div className="page_and_summary_container">
+                        <div className="content-container">{renderContent()}</div>
                         <div className="user-info-container">
                             <div className="summary-container">
                                 <OrderSummary items={basketItems}/>
