@@ -159,6 +159,7 @@ const DeliveryComponent: React.FC<DeliveryComponentProps> = ({
 			billingAddressDifferent: !prevFormData.billingAddressDifferent,
 		}));
 	};
+	console.log({ isFormValid })
 
 	return (
 		onFormValidityChange(isFormValid),

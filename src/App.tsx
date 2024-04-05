@@ -2,7 +2,7 @@
 import { BasketItem, RecurringOrder } from "./types/Types";
 import { useEffect, useState } from "react";
 import "./styles/index.css";
-import Footer from "./components/Footer";
+import { Footer, Header } from "./components/FooterHeader.tsx";
 import CustomerItemCard from "./components/CustomerItemCard.tsx";
 import DeliveryComponent from "./components/Delivery.tsx";
 import OrderSummary from "./components/OrderSummary.tsx";
@@ -39,7 +39,8 @@ function App({ basketItems: testBasketItems }: AppProps) {
 		}
 		(async () => {
 			try {
-				const items = await fetchBasketItems();
+				let items = await fetchBasketItems();
+				items = items.slice(0, 3); // Limit to 3 items
 				setBasketItems(items);
 			} catch (error) {
 				console.error("Error fetching basket items: ", error);
@@ -48,21 +49,14 @@ function App({ basketItems: testBasketItems }: AppProps) {
 	}, []);
 	return (
 		<div>
-			<header className="header">
-				<img src="src/images/BS_Logo.png" alt="Our Logo" className="header_image" />
-				<div className="brand_name">
-					<h1>BUY STUFF</h1>
+			<Header />
+			<main className="page-components">
+				<div id="flow-container">
+					<FlowingContent basketItems={basketItems} setBasketItems={setBasketItems} />
 				</div>
-			</header>
-			<main className="page_components">
-				<div className="page_and_summary_container">
-					<div className="content-container">
-						<UserContent basketItems={basketItems} setBasketItems={setBasketItems} />
-					</div>
-					<OrderSummary items={basketItems} />
-				</div>
-				<PromotionBox basketItems={basketItems} />
+				<OrderSummary items={basketItems} />
 			</main>
+			<PromotionBox basketItems={basketItems} />
 			<Footer creatorNames={creatorNames} />
 		</div>
 	);
@@ -74,9 +68,10 @@ interface ContentFlowProps {
 	setBasketItems: (items: BasketItem[]) => void;
 }
 
-function UserContent({ basketItems, setBasketItems }: ContentFlowProps) {
+function FlowingContent({ basketItems, setBasketItems }: ContentFlowProps) {
 	const [contentFlow, setContentFlow] = useState(ContentFlow.Basket);
 	const [isDeliveryFormValid, setIsDeliveryFormValid] = useState(true);
+
 	function handleNextClick() {
 		setContentFlow((prevContentFlow) => {
 			switch (prevContentFlow) {
@@ -169,7 +164,7 @@ function Basket({
 		setBasketItems(basketItems.filter((item) => item.id !== itemId));
 	};
 	return basketItems.length > 0 ? (
-		<>
+		<div>
 			{basketItems.map((item) => (
 				<CustomerItemCard
 					key={item.id}
@@ -181,7 +176,7 @@ function Basket({
 				/>
 			))}
 			<ContinueButton onClick={handleNextClick} isDisabled={!isDeliveryFormValid} />
-		</>
+		</div>
 	) : (
 		<div className="empty-basket-message">
 			Your basket is empty. <a href="/browse">Browse more items</a>

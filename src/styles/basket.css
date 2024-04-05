@@ -1,13 +1,13 @@
-.item { 
+.item {
 	width: 87%;
-	display: grid; 
-	grid-template-columns: 1fr 2fr; 
+	display: grid;
+	grid-template-columns: 1fr 2fr;
 	border: 1px solid var(--thridColour);
 	gap: 20px;
 	padding: 20px;
 	border-radius: 5px;
 	background-color: var(--secondColour);
-} 
+}
 
 .item__options {
 	display: flex;
@@ -20,10 +20,11 @@
 .item__pane--left {
 	align-items: center;
 }
+
 .item__pane {
 	display: flex;
 	flex-direction: column;
-	gap: 10px; 
+	gap: 10px;
 	justify-content: space-between;
 }
 
@@ -56,13 +57,14 @@
 	border: none;
 	background-color: transparent;
 	cursor: pointer;
-	padding:10px;
+	padding: 10px;
 }
 
 .quantity__button--left {
 	border-radius: 18px 2px 2px 18px;
-	text-align:left;
+	text-align: left;
 }
+
 .quantity__button--right {
 	border-radius: 2px 18px 18px 2px;
 }
@@ -135,8 +137,4 @@
 
 .item-price__container {
 	display: flex;
-}
-
-.page_and_summary_container * {
-	box-sizing: border-box;
 }

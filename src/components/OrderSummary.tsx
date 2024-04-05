@@ -5,8 +5,8 @@ import '../styles/summary.css';
 
 function OrderSummary({ items }: BasketSummaryProps) {
 	return (
-		<div className="user-info-container">
-			<div className="summary-container">
+		<div id='summary-wrapper'>
+			<div id="summary-container">
 				<h1>Order Summary</h1>
 				<ul className="item-list">
 					{items.map((item, index) => (
