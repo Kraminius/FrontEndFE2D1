@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { DeliveryFormData } from "../../types/Types.ts";
 import "../../styles/delivery.css";
-import countries from "../../countries.tsx";
+import countries from "../../countries.ts";
 
 interface DeliveryProps {
 	setIsDeliveryFormValid: (isValid: boolean) => void;
