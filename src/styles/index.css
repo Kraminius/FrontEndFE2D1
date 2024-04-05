@@ -163,8 +163,8 @@ body {
 	border: 1px solid var(--thridColour);
 	border-radius: 5px;
 	position: sticky;
-	top: 120px;
-	margin-left: 40px;
+	/* top: 120px; */
+	/* margin-left: 40px; */
 	padding: 0 20px;
 	color: var(--textOnBack)
 }

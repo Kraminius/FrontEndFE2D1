@@ -1,12 +1,12 @@
-import { BasketSummaryProps } from "../types/Types";
-import { calculateItemTotal } from "../components/CustomerItemCard";
+import { BasketSummaryProps } from "../../types/Types";
+import { calculateItemTotal } from "../flowingContent/CustomerItemCard";
 
 function BasketSummary({ items }: BasketSummaryProps) {
 	const total = items.reduce((sum, item) => sum + calculateItemTotal(item), 0);
 	const above300 = total - 300;
 	const percentRebateOver300 = 10;
-	if(above300 >= 0) {
-		const totalWithRebate = total*0.9;
+	if (above300 >= 0) {
+		const totalWithRebate = total * 0.9;
 		return (
 			<><p className="summaryDiscount">10% discount added,- </p><p
 				className="summary">Total: {totalWithRebate.toFixed(2)},-</p></>

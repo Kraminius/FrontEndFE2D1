@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom/vitest";
 import { cleanup, fireEvent, render } from "@testing-library/react";
 import { afterEach, describe, expect, test, vi } from "vitest";
-import Delivery from "../components/Delivery";
+import Delivery from "../components/flowingContent/Delivery";
 
 afterEach(cleanup);
 
@@ -9,7 +9,7 @@ describe(Delivery.name, () => {
 	test("Renders Delivery component", () => {
 		const mockOnFormValidityChange = vi.fn();
 		const { getByText } = render(
-			<Delivery onFormValidityChange={mockOnFormValidityChange} />
+			<Delivery setIsDeliveryFormValid={mockOnFormValidityChange} />
 		);
 		expect(getByText(/Delivery Information/i)).toBeInTheDocument();
 	});
@@ -17,7 +17,7 @@ describe(Delivery.name, () => {
 	test("Check that form is invalid without input", async () => {
 		const mockOnFormValidityChange = vi.fn();
 		const { getByText } = render(
-			<Delivery onFormValidityChange={mockOnFormValidityChange} />
+			<Delivery setIsDeliveryFormValid={mockOnFormValidityChange} />
 		);
 
 		expect(mockOnFormValidityChange).toHaveBeenCalledWith(false);
@@ -26,7 +26,7 @@ describe(Delivery.name, () => {
 	test("updates state on input change", () => {
 		const mockOnFormValidityChange = vi.fn();
 		const { getByLabelText } = render(
-			<Delivery onFormValidityChange={mockOnFormValidityChange} />
+			<Delivery setIsDeliveryFormValid={mockOnFormValidityChange} />
 		);
 
 		const firstNameInput = getByLabelText(/First Name \*/i);
@@ -38,7 +38,7 @@ describe(Delivery.name, () => {
 	test("Update onFormValidityChange when form is valid and invalid", async () => {
 		const mockOnFormValidityChange = vi.fn();
 		const { getByLabelText, getByText } = render(
-			<Delivery onFormValidityChange={mockOnFormValidityChange} />
+			<Delivery setIsDeliveryFormValid={mockOnFormValidityChange} />
 		);
 
 		fireEvent.change(getByLabelText(/First Name \*/i), {
@@ -77,7 +77,7 @@ describe(Delivery.name, () => {
 	test("disnables submit button when form is valid, but different billing address is chosen", async () => {
 		const mockOnFormValidityChange = vi.fn();
 		const { getByLabelText, getByText } = render(
-			<Delivery onFormValidityChange={mockOnFormValidityChange} />
+			<Delivery setIsDeliveryFormValid={mockOnFormValidityChange} />
 		);
 
 		fireEvent.change(getByLabelText(/First Name \*/i), {
@@ -110,7 +110,7 @@ describe(Delivery.name, () => {
 	test("Enables submit button when form is valid, different billing address is chosen and form filled", async () => {
 		const mockOnFormValidityChange = vi.fn();
 		const { getByLabelText, getByText } = render(
-			<Delivery onFormValidityChange={mockOnFormValidityChange} />
+			<Delivery setIsDeliveryFormValid={mockOnFormValidityChange} />
 		);
 
 		fireEvent.change(getByLabelText(/First Name \*/i), {

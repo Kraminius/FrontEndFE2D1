@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { DeliveryFormData } from "../types/Types";
-import "../styles/delivery.css";
-import countries from "../countries.tsx";
+import { DeliveryFormData } from "../../types/Types.ts";
+import "../../styles/delivery.css";
+import countries from "../../countries.tsx";
 
-interface DeliveryComponentProps {
-	onFormValidityChange: (isValid: boolean) => void;
+interface DeliveryProps {
+	setIsDeliveryFormValid: (isValid: boolean) => void;
 }
 
-const DeliveryComponent: React.FC<DeliveryComponentProps> = ({
-	onFormValidityChange,
+export const Delivery: React.FC<DeliveryProps> = ({
+	setIsDeliveryFormValid: onFormValidityChange,
 }) => {
 	const [error, setError] = useState<string | null>(null);
 	const [formData, setFormData] = useState<DeliveryFormData>({
@@ -476,5 +476,3 @@ function Label({ children }: LabelProps) {
 		</div>
 	);
 }
-
-export default DeliveryComponent;

@@ -4,13 +4,13 @@ import '../styles/promotion.css';
 import defaultImage from "../images/default-product.png";
 import { BasketItem } from '../types/Types';
 
-interface PromotionCard {
+interface PromotionCardProps {
 	item: BasketItem;
 }
 
-const PromotionCard: React.FC<PromotionCard> = ({
+const PromotionCard = ({
 	item,
-}) => {
+}: PromotionCardProps) => {
 	const imageUrl = item.imageUrl || defaultImage;
 	return (
 		<div className="promotion-card">
