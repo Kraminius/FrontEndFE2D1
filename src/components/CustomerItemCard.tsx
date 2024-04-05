@@ -1,6 +1,6 @@
 
 import React from 'react';
-import '../Styles/basket.css';
+import '../styles/basket.css';
 // @ts-ignore
 import defaultImage from "../images/default-product.png";
 import { BasketItem, RecurringOrder } from '../types/Types';

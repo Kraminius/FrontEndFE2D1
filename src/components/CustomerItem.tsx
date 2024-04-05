@@ -1,6 +1,6 @@
 import { BasketItem, BasketItemProps, RecurringOrder } from "../types/Types";
 import { GiftSvg } from "../assets/GiftSvg";
-import "../Styles/index.css";
+import "../styles/index.css";
 
 export default function CustomerItem({
 	item,

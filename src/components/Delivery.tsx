@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { DeliveryFormData } from "../types/Types";
-import "../Styles/delivery.css";
+import "../styles/delivery.css";
 import countries from "../countries.tsx";
 
 interface DeliveryComponentProps {
