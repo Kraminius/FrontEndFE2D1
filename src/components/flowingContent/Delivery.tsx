@@ -164,222 +164,225 @@ export const Delivery: React.FC<DeliveryProps> = ({
 		onFormValidityChange(isFormValid),
 		(
 			<div className="delivery-form-container">
-				<h1>Delivery Information</h1>
+				<h2>Delivery Information</h2>
 				<form id='delivery-form' method="POST" action="https://enoacmo66ykxn.x.pipedream.net">
-					<Label>
-						Country
-						<select
-							id="deliveryCountry"
-							name="deliveryCountry"
-							value={formData.deliveryCountry}
-							onChange={handleCountryChange}
-						>
-							{countries.map((country) => (
-								<option key={country.code} value={country.code}>
-									{country.name}
-								</option>
-							))}
-						</select>
-					</Label>
-					<div className="form-group form-group--flex">
-						<TextInput
-							name="firstName"
-							value={formData.firstName}
-							onChange={handleChange}
-							placeholder="First Name"
-						>
-							First Name *
-						</TextInput>
+					<fieldset>
+						<legend style={{ color: 'white' }}>Enter your delivery information</legend>
+						<Label>
+							Country
+							<select
+								id="deliveryCountry"
+								name="deliveryCountry"
+								value={formData.deliveryCountry}
+								onChange={handleCountryChange}
+							>
+								{countries.map((country) => (
+									<option key={country.code} value={country.code}>
+										{country.name}
+									</option>
+								))}
+							</select>
+						</Label>
+						<div className="form-group form-group--flex">
+							<TextInput
+								name="firstName"
+								value={formData.firstName}
+								onChange={handleChange}
+								placeholder="First Name"
+							>
+								First Name *
+							</TextInput>
+
+							<TextInput
+								name="lastName"
+								value={formData.lastName}
+								onChange={handleChange}
+								placeholder="Last Name"
+							>
+								Last Name *
+							</TextInput>
+						</div>
 
 						<TextInput
-							name="lastName"
-							value={formData.lastName}
+							name="deliveryAddressLine"
+							value={formData.deliveryAddressLine}
 							onChange={handleChange}
-							placeholder="Last Name"
+							placeholder="Address"
 						>
-							Last Name *
+							Address *
 						</TextInput>
-					</div>
-
-					<TextInput
-						name="deliveryAddressLine"
-						value={formData.deliveryAddressLine}
-						onChange={handleChange}
-						placeholder="Address"
-					>
-						Address *
-					</TextInput>
-					<TextInput
-						name="deliveryAddressLine2"
-						value={formData.deliveryAddressLine2}
-						onChange={handleChange}
-						placeholder="Secondary Address"
-					>
-						Address Line 2
-					</TextInput>
-					<NumberInput
-						name="deliveryZipCode"
-						value={formData.deliveryZipCode}
-						onChange={(e) => handleZipCodeChange(e, "delivery")}
-						length={4}
-						placeholder="Zip Code"
-					>
-						Zip Code *
-					</NumberInput>
-					{error && <div className="postal-error-message">{error}</div>}
-					<TextInput
-						name="deliveryCity"
-						value={formData.deliveryCity}
-						onChange={handleChange}
-						placeholder="City"
-					>
-						City *
-					</TextInput>
-					<div className="form-group form-group--flex">
 						<TextInput
-							name="phoneCode"
-							value={formData.phoneCode}
+							name="deliveryAddressLine2"
+							value={formData.deliveryAddressLine2}
 							onChange={handleChange}
-							placeholder=""
+							placeholder="Secondary Address"
 						>
-							Phone Code *
+							Address Line 2
 						</TextInput>
-
 						<NumberInput
-							name="phone"
-							value={formData.phone}
-							onChange={handleChange}
-							length={8}
-							placeholder="Phone Number"
+							name="deliveryZipCode"
+							value={formData.deliveryZipCode}
+							onChange={(e) => handleZipCodeChange(e, "delivery")}
+							length={4}
+							placeholder="Zip Code"
 						>
-							Phone *
+							Zip Code *
 						</NumberInput>
-					</div>
-					<TextInput
-						name="email"
-						value={formData.email}
-						onChange={handleChange}
-						placeholder="Email"
-					>
-						Email *
-					</TextInput>
-					<div className="form-group form-group--flex">
+						{error && <div className="postal-error-message">{error}</div>}
 						<TextInput
-							name="companyName"
-							value={formData.companyName}
+							name="deliveryCity"
+							value={formData.deliveryCity}
 							onChange={handleChange}
-							placeholder="Company"
+							placeholder="City"
 						>
-							Company Name
+							City *
 						</TextInput>
-
-						<NumberInput
-							name="companyVat"
-							value={formData.companyVat}
-							onChange={handleChange}
-							length={8}
-							placeholder="VAT"
-						>
-							VAT
-						</NumberInput>
-					</div>
-
-					<CheckBox
-						isChecked={formData.billingAddressDifferent}
-						onChange={handleToggleBillingAddress}
-						name={"billingAddressDifferent"}
-					>
-						Different billing address
-					</CheckBox>
-					{formData.billingAddressDifferent && (
-						<>
-							<Label>
-								Billing Country
-								<select
-									id="billingCountry"
-									name="billingCountry"
-									value={formData.billingCountry}
-									onChange={handleChange}
-								>
-									{countries.map((country) => (
-										<option key={country.code} value={country.code}>
-											{country.name}
-										</option>
-									))}
-								</select>
-							</Label>
+						<div className="form-group form-group--flex">
+							<TextInput
+								name="phoneCode"
+								value={formData.phoneCode}
+								onChange={handleChange}
+								placeholder=""
+							>
+								Phone Code *
+							</TextInput>
 
 							<NumberInput
-								name="billingZipCode"
-								value={formData.billingZipCode}
-								onChange={(e) => handleZipCodeChange(e, "billing")}
-								length={4}
-								placeholder="Zip Code"
+								name="phone"
+								value={formData.phone}
+								onChange={handleChange}
+								length={8}
+								placeholder="Phone Number"
 							>
-								Billing Zip Code *
+								Phone *
 							</NumberInput>
-
-							<TextInput
-								name="billingCity"
-								value={formData.billingCity}
-								onChange={handleChange}
-								placeholder="City"
-							>
-								Billing City *
-							</TextInput>
-
-							<TextInput
-								name="billingAddressLine"
-								value={formData.billingAddressLine}
-								onChange={handleChange}
-								placeholder="Address"
-							>
-								Billing Address *
-							</TextInput>
-
-							<TextInput
-								name="billingAddressLine2"
-								value={formData.billingAddressLine2}
-								onChange={handleChange}
-								placeholder="Secondary Address"
-							>
-								Billing Address Line 2
-							</TextInput>
-						</>
-					)}
-					<Label>  Add delivery message:
-						<textarea
-							id="deliveryMessage"
-							name="deliveryMessage"
-							rows={5}
-							cols={33}
-							value={formData.deliveryMessage}
+						</div>
+						<TextInput
+							name="email"
+							value={formData.email}
 							onChange={handleChange}
-						></textarea>
-					</Label>
-					<hr />
-					<CheckBox
-						isChecked={formData.agreeToTerms}
-						onChange={(e) =>
-							setFormData({ ...formData, agreeToTerms: e.target.checked })
-						}
-						name={"agreeToTerms"}
-					>
-						I agree to terms of service
-					</CheckBox>
+							placeholder="Email"
+						>
+							Email *
+						</TextInput>
+						<div className="form-group form-group--flex">
+							<TextInput
+								name="companyName"
+								value={formData.companyName}
+								onChange={handleChange}
+								placeholder="Company"
+							>
+								Company Name
+							</TextInput>
 
-					<CheckBox
-						isChecked={formData.agreeToMarketing}
-						onChange={(e) =>
-							setFormData({ ...formData, agreeToMarketing: e.target.checked })
-						}
-						name={"agreeToMarketing"}
-					>
-						I agree to recieve marketing emails
-					</CheckBox>
-					<div className="continue">
-						<input type="submit" className="continue__button" value="Continue" disabled={!isFormValid} />
-					</div>
+							<NumberInput
+								name="companyVat"
+								value={formData.companyVat}
+								onChange={handleChange}
+								length={8}
+								placeholder="VAT"
+							>
+								VAT
+							</NumberInput>
+						</div>
+
+						<CheckBox
+							isChecked={formData.billingAddressDifferent}
+							onChange={handleToggleBillingAddress}
+							name={"billingAddressDifferent"}
+						>
+							Different billing address
+						</CheckBox>
+						{formData.billingAddressDifferent && (
+							<>
+								<Label>
+									Billing Country
+									<select
+										id="billingCountry"
+										name="billingCountry"
+										value={formData.billingCountry}
+										onChange={handleChange}
+									>
+										{countries.map((country) => (
+											<option key={country.code} value={country.code}>
+												{country.name}
+											</option>
+										))}
+									</select>
+								</Label>
+
+								<NumberInput
+									name="billingZipCode"
+									value={formData.billingZipCode}
+									onChange={(e) => handleZipCodeChange(e, "billing")}
+									length={4}
+									placeholder="Zip Code"
+								>
+									Billing Zip Code *
+								</NumberInput>
+
+								<TextInput
+									name="billingCity"
+									value={formData.billingCity}
+									onChange={handleChange}
+									placeholder="City"
+								>
+									Billing City *
+								</TextInput>
+
+								<TextInput
+									name="billingAddressLine"
+									value={formData.billingAddressLine}
+									onChange={handleChange}
+									placeholder="Address"
+								>
+									Billing Address *
+								</TextInput>
+
+								<TextInput
+									name="billingAddressLine2"
+									value={formData.billingAddressLine2}
+									onChange={handleChange}
+									placeholder="Secondary Address"
+								>
+									Billing Address Line 2
+								</TextInput>
+							</>
+						)}
+						<Label>  Add delivery message:
+							<textarea
+								id="deliveryMessage"
+								name="deliveryMessage"
+								rows={5}
+								cols={33}
+								value={formData.deliveryMessage}
+								onChange={handleChange}
+							></textarea>
+						</Label>
+						<hr />
+						<CheckBox
+							isChecked={formData.agreeToTerms}
+							onChange={(e) =>
+								setFormData({ ...formData, agreeToTerms: e.target.checked })
+							}
+							name={"agreeToTerms"}
+						>
+							I agree to terms of service
+						</CheckBox>
+
+						<CheckBox
+							isChecked={formData.agreeToMarketing}
+							onChange={(e) =>
+								setFormData({ ...formData, agreeToMarketing: e.target.checked })
+							}
+							name={"agreeToMarketing"}
+						>
+							I agree to recieve marketing emails
+						</CheckBox>
+						<div className="continue">
+							<input type="submit" className="continue__button" value="Continue" disabled={!isFormValid} />
+						</div>
+					</fieldset>
 				</form>
 			</div>
 		)
