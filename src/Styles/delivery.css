@@ -21,9 +21,13 @@
 	background-color: #0056b3;
 }
 
+#delivery-form * {
+	box-sizing: border-box;
+}
 
 .form-group--flex {
 	display: flex;
+	gap: 8px;
 	justify-content: space-between;
 }
 
@@ -45,10 +49,6 @@
 	margin-bottom: 8px;
 }
 
-input,
-label,
-select {}
-
 .input-group input {
 	padding: 10px;
 	border: 1px solid var(--thridColour);
@@ -59,7 +59,7 @@ select {}
 	margin: 0 0 10px 0;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
 	.form-group--flex {
 		flex-direction: column;
 	}

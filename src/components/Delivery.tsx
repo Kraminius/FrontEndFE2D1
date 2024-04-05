@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { DeliveryFormData } from "../types/Types";
 import "../Styles/delivery.css";
 import countries from "../countries.tsx";
-import { ContinueButton } from "./reusable_components/Buttons.tsx";
 
 interface DeliveryComponentProps {
 	onFormValidityChange: (isValid: boolean) => void;
@@ -166,7 +165,7 @@ const DeliveryComponent: React.FC<DeliveryComponentProps> = ({
 		(
 			<div className="delivery-form-container">
 				<h1>Delivery Information</h1>
-				<form method="POST" action="https://enoacmo66ykxn.x.pipedream.net">
+				<form id='delivery-form' method="POST" action="https://enoacmo66ykxn.x.pipedream.net">
 					<Label>
 						Country
 						<select
