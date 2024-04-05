@@ -28,7 +28,7 @@
 - [ ] Let user submit their order
   - [x] Let user accept terms & conditions
   - [x] Let user accept to receive marketing emails
-  - [ ] Let user enter an optional order comment
+  - [x] Let user enter an optional order comment
   - [x] Either (1) create an end-point on requestbin.com, or (2) create end-point on your own server (if you also follow the backend course)
       - Submit all relevant information to the end-point
   - [ ] Include loading indicator and error reporting
