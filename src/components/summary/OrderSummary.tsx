@@ -1,7 +1,6 @@
 import { BasketSummaryProps } from "../../types/Types.ts";
 import BasketSummary from "./BasketSummary.tsx";
 import SummaryItem from "./SummaryItem.tsx";
-import '../../styles/summary.css';
 
 function OrderSummary({ items }: BasketSummaryProps) {
 	return (

@@ -1,5 +1,3 @@
-import React from 'react';
-import '../styles/promotion.css';
 // @ts-ignore
 import defaultImage from "../images/default-product.png";
 import { BasketItem } from '../types/Types';
@@ -15,7 +13,8 @@ const PromotionCard = ({
 	return (
 		<div className="promotion-card">
 			<div className="promotion-image">
-				<img src={imageUrl} alt={item.name} />
+				<img
+					src={imageUrl} alt={item.name} />
 			</div>
 			<div className="promotion-info">
 				<div className="promotion-name">{item.name}</div>

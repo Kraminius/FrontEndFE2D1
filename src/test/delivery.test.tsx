@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom/vitest";
 import { cleanup, fireEvent, render } from "@testing-library/react";
 import { afterEach, describe, expect, test, vi } from "vitest";
-import Delivery from "../components/flowingContent/Delivery";
+import { Delivery } from "../components/flowingContent/Delivery";
 
 afterEach(cleanup);
 

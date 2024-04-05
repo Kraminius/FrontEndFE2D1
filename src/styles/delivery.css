@@ -45,9 +45,13 @@
 	margin-top: 4px;
 }
 
+.input-group {
+	flex: 1;
+}
+
 .input-group input {
 	padding: 8px;
-	border: 1px solid var(--thridColour);
+	border: 1px solid var(--thirdColour);
 	border-radius: 4px;
 }
 

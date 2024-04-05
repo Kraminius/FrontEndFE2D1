@@ -1,5 +1,4 @@
 
-import '../../styles/basket.css'
 import React from 'react';
 // @ts-ignore
 import defaultImage from "../../images/default-product.png";

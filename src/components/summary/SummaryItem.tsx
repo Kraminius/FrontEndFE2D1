@@ -1,5 +1,4 @@
 import { BasketItem } from "../../types/Types.ts";
-import '../../styles/summary.css';
 // @ts-ignore
 import defaultImage from "../../images/default-product.png";
 interface SummaryItemProps {

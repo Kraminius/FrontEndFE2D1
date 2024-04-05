@@ -112,19 +112,21 @@ function Basket({
 		setBasketItems(basketItems.filter((item) => item.id !== itemId));
 	};
 	return basketItems.length > 0 ? (
-		<div>
-			{basketItems.map((item) => (
-				<CustomerItemCard
-					key={item.id}
-					item={item}
-					onQuantityChange={handleQuantityChange}
-					onGiftWrapChange={handleGiftWrapChange}
-					onRecurringOrderChange={handleRecurringOrderChange}
-					onRemove={() => handleRemove(item.id)}
-				/>
-			))}
+		<>
+			<div className="basket-items">
+				{basketItems.map((item) => (
+					<CustomerItemCard
+						key={item.id}
+						item={item}
+						onQuantityChange={handleQuantityChange}
+						onGiftWrapChange={handleGiftWrapChange}
+						onRecurringOrderChange={handleRecurringOrderChange}
+						onRemove={() => handleRemove(item.id)}
+					/>
+				))}
+			</div>
 			<ContinueButton onClick={handleNextClick} isDisabled={!isDeliveryFormValid} />
-		</div>
+		</>
 	) : (
 		<div className="empty-basket-message">
 			Your basket is empty. <a href="/browse">Browse more items</a>

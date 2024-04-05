@@ -1,5 +1,4 @@
 .item {
-	width: 87%;
 	display: grid;
 	grid-template-columns: 1fr 2fr;
 	border: 1px solid var(--thridColour);
@@ -29,7 +28,7 @@
 }
 
 .item__image {
-	width: 80%;
+	max-width: 100px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -137,4 +136,9 @@
 
 .item-price__container {
 	display: flex;
+}
+
+.basket-items {
+	display: grid;
+	gap: 8px;
 }

@@ -1,7 +1,12 @@
 //import CustomerItem from "./components/CustomerItem";
-import { BasketItem, RecurringOrder } from "./types/Types";
+import { BasketItem } from "./types/Types";
 import { useEffect, useState } from "react";
 import "./styles/index.css";
+import './styles/promotion.css';
+import './styles/summary.css';
+import './styles/summary.css';
+import "./styles/delivery.css";
+import './styles/basket.css'
 import { Footer, Header } from "./components/FooterHeader.tsx";
 import OrderSummary from "./components/summary/OrderSummary.tsx";
 import { fetchBasketItems } from "./network/BasketService.ts";
@@ -32,7 +37,7 @@ function App({ basketItems: testBasketItems }: AppProps) {
 		(async () => {
 			try {
 				let items = await fetchBasketItems();
-				items = items.slice(0, 3); // Limit to 3 items
+				items = items.slice(0, 10); // Limit to 3 items
 				setBasketItems(items);
 			} catch (error) {
 				console.error("Error fetching basket items: ", error);
@@ -40,17 +45,19 @@ function App({ basketItems: testBasketItems }: AppProps) {
 		})();
 	}, []);
 	return (
-		<div>
+		<>
 			<Header />
-			<main className="page-components">
-				<div id="flow-container">
-					<FlowingContent basketItems={basketItems} setBasketItems={setBasketItems} />
-				</div>
-				<OrderSummary items={basketItems} />
-			</main>
-			<PromotionBox basketItems={basketItems} />
+			<div id="content">
+				<main className="page-components">
+					<div id="flow-container">
+						<FlowingContent basketItems={basketItems} setBasketItems={setBasketItems} />
+					</div>
+					<OrderSummary items={basketItems} />
+				</main>
+				<PromotionBox basketItems={basketItems} />
+			</div>
 			<Footer creatorNames={creatorNames} />
-		</div>
+		</>
 	);
 }
 
