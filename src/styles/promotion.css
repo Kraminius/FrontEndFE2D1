@@ -29,11 +29,10 @@
 
 .promotion-info {
 	display: flex;
-	flex-direction: row;
 	justify-content: space-between;
+	align-items: center;
 	gap: 10px;
 	padding: 1px 5px 1px 5px;
-	width: 100px;
 }
 
 .promotion-name {
@@ -44,5 +43,6 @@
 
 .promotion-price {
 	font-size: 14px;
-	color: var(--textOnBack)
+	color: var(--textOnBack);
+	white-space: nowrap;
 }
