@@ -37,7 +37,6 @@ function App({ basketItems: testBasketItems }: AppProps) {
 		(async () => {
 			try {
 				let items = await fetchBasketItems();
-				items = items.slice(0, 3); // Limit to 3 items
 				setBasketItems(items);
 			} catch (error) {
 				console.error("Error fetching basket items: ", error);
