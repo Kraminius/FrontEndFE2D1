@@ -1,9 +1,9 @@
-.delivery-form-container {
+.delivery-form {
 	max-width: 100%;
 	margin: 0 auto;
 }
 
-.delivery-form-container {
+.delivery-form {
 
 	h1,
 	h2,
@@ -30,8 +30,27 @@
 	background-color: #0056b3;
 }
 
-#delivery-form * {
+.delivery-form__form * {
 	box-sizing: border-box;
+}
+
+.delivery-form__status {
+	/* card */
+	border-radius: 4px;
+	padding: 8px;
+	color: var(--firstColour);
+	background-color: var(--fourthColour);
+	border: 1px solid var(--shadowColour);
+
+	&.delivery-form__status--error {
+		font-weight: bold;
+		color: var(--errorColour);
+	}
+
+	&.delivery-form__status--success {
+		font-weight: bold;
+		color: var(--successColour);
+	}
 }
 
 .form-group--flex {

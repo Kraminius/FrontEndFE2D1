@@ -1,7 +1,7 @@
 .item {
 	display: grid;
 	grid-template-columns: 1fr 2fr;
-	border: 1px solid var(--thridColour);
+	border: 1px solid var(--thirdColour);
 	gap: 20px;
 	padding: 20px;
 	border-radius: 5px;
@@ -44,7 +44,7 @@
 }
 
 .quantity {
-	border: 1px solid var(--thridColour);
+	border: 1px solid var(--thirdColour);
 	border-radius: 18px;
 	align-items: center;
 	display: flex;
@@ -76,7 +76,7 @@
 .item-label {
 	font-size: 80%;
 	columns: 2;
-	color: var(--thridColour);
+	color: var(--thirdColour);
 }
 
 .item-remover {
@@ -84,7 +84,7 @@
 	background-color: transparent;
 	cursor: pointer;
 	border-radius: 0;
-	color: var(--thridColour);
+	color: var(--thirdColour);
 	font-weight: bold;
 	font-size: 14px;
 }

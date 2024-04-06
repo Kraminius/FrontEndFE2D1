@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom/vitest";
 import { cleanup, fireEvent, render } from "@testing-library/react";
 import { afterEach, describe, expect, test, vi } from "vitest";
-import { Delivery } from "../components/flowingContent/Delivery";
+import { Delivery } from "../components/flowingContent/delivery/Delivery";
 
 afterEach(cleanup);
 
@@ -11,7 +11,7 @@ describe(Delivery.name, () => {
 		const { getByText } = render(
 			<Delivery setIsDeliveryFormValid={mockOnFormValidityChange} />
 		);
-		expect(getByText(/Delivery Information/i)).toBeInTheDocument();
+		expect(getByText(/Delivery Information/)).toBeInTheDocument();
 	});
 
 	test("Check that form is invalid without input", async () => {

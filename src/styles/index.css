@@ -3,7 +3,7 @@
 
 	--mainColour: #7954A1;
 	--secondColour: #603F8B;
-	--thridColour: #3CACAE;
+	--thirdColour: #3CACAE;
 	--fourthColour: #F6EEF0;
 	--backgroundColour: #0C2D48;
 	--promColour: #81599F;
@@ -12,6 +12,7 @@
 	--shadowColour: #383940;
 	--white: #ffffff;
 	--errorColour: red;
+	--successColour: green;
 }
 
 
@@ -20,7 +21,7 @@
 	:root {
 		--mainColour: #A98AB0;
 		--secondColour: #BEAFC2;
-		--thridColour: #383940;
+		--thirdColour: #383940;
 		--fourthColour: #AA1945;
 		--backgroundColour: #F1F1F0;
 		--promColour: #EFDCF9;
@@ -29,11 +30,12 @@
 		--textOnBack: black;
 		--white: #ffffff;
 		--errorColour: red;
+		--successColour: green;
 	}
 }
 
 :root {
-	font-family: "Roboto Light", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	font-family: system-ui, Inter, "Roboto Light", Avenir, Helvetica, Arial, sans-serif;
 
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
@@ -54,7 +56,7 @@ body {
 
 .summaryDiscount {
 	text-align: right;
-	color: var(--thridColour);
+	color: var(--thirdColour);
 	font-size: medium;
 }
 
@@ -107,9 +109,15 @@ body {
 	height: 36px;
 	border-radius: 15px;
 	border: var(--shadowColour);
-	background-color: var(--thridColour);
+	background-color: var(--thirdColour);
 	color: #ffffff;
 	font-size: 18px;
+}
+
+/* if disabled continue button */
+.continue__button:disabled {
+	background-color: var(--shadowColour);
+	color: grey;
 }
 
 .next-button:hover {
@@ -119,7 +127,7 @@ body {
 .title-card {
 	background-color: var(--mainColour);
 	padding: 5px;
-	border: 1px solid var(--thridColour);
+	border: 1px solid var(--thirdColour);
 	border-radius: 5px;
 	text-align: center;
 	font-size: 150%;
@@ -172,11 +180,9 @@ main {
 	background-color: var(--secondColour);
 	display: flex;
 	flex-direction: column;
-	border: 1px solid var(--thridColour);
+	border: 1px solid var(--thirdColour);
 	border-radius: 5px;
 	position: sticky;
-	/* top: 120px; */
-	/* margin-left: 40px; */
 	padding: 0 20px;
 	color: var(--textOnBack)
 }

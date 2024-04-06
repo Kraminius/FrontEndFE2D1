@@ -6,40 +6,41 @@
 	border-bottom-width: 1px;
 	border-color: #dddddd;
 	border-style: solid;
+
 }
 
 .summary-item {
-	margin: 1%;
-	display: flex;
-	flex-direction: row;
+	margin-bottom: 8px;
+	display: grid;
+	grid-template-columns: 1fr 50px 2fr 100px;
 	width: 100%;
-	gap: 8%;
 	align-items: center;
 }
 
 .summary-item-name {
-	width: 78%;
+	/* width: 78%; */
 	font-size: 100%;
 	font-weight: bold;
 	color: var(--textOnBack)
 }
 
 .summary-item-amount {
-	width: 15%;
+	/* width: 15%; */
 	text-align: center;
 	font-size: 100%;
 	color: var(--textOnBack)
 }
 
 .summary-item-total {
-	width: 15%;
+	/* width: 15%; */
 	text-align: right;
 	font-size: 100%;
 	color: var(--textOnBack)
 }
 
 .summary-item-image {
-	width: 16%;
+	/* width: 16%; */
+
 	padding: 1%;
 	display: flex;
 	justify-content: center;

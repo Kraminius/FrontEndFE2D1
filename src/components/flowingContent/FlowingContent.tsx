@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BasketItem, RecurringOrder } from "../../types/Types";
 import CustomerItemCard from "./CustomerItemCard";
 import { ContinueButton } from "./Buttons";
-import { Delivery } from "./Delivery";
+import { Delivery } from "./delivery/Delivery";
 
 enum ContentFlow {
 	Basket,
