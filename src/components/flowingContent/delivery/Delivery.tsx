@@ -6,6 +6,7 @@ import { s } from "vitest/dist/reporters-MmQN-57K.js";
 
 interface DeliveryProps {
 	setIsDeliveryFormValid: (isValid: boolean) => void;
+	handleNextClick: () => void;
 }
 
 // view requests here
@@ -20,7 +21,8 @@ enum FormStatus {
 }
 
 export const Delivery: React.FC<DeliveryProps> = ({
-	setIsDeliveryFormValid
+	setIsDeliveryFormValid,
+	handleNextClick
 }) => {
 	const [formData, setFormData] = useState<DeliveryFormData>({
 		deliveryCountry: "DK",
@@ -57,10 +59,11 @@ export const Delivery: React.FC<DeliveryProps> = ({
 
 		if (status === 200) {
 			setFormStatus(FormStatus.SUCCESS);
+			await new Promise((resolve) => setTimeout(resolve, 1000));
+			handleNextClick();
 		} else {
 			setFormStatus(FormStatus.FAILURE);
 		}
-		console.log(status)
 
 
 	}

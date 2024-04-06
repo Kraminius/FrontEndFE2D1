@@ -45,10 +45,14 @@ export function FlowingContent({ basketItems, setBasketItems }: FlowingContentPr
 			/>
 		case ContentFlow.Delivery:
 			return (
-				<Delivery setIsDeliveryFormValid={setIsDeliveryFormValid} />
+				<Delivery setIsDeliveryFormValid={setIsDeliveryFormValid}
+					handleNextClick={handleNextClick}
+				/>
 			);
 		case ContentFlow.Payment:
-			return <Payment />;
+			return <Payment
+				handleNextClick={handleNextClick}
+			/>;
 		case ContentFlow.Receipt:
 			return <Receipt />;
 	}
@@ -134,8 +138,13 @@ function Basket({
 	);
 }
 
-function Payment() {
-	return <div>idk payment I suppose :b</div>;
+interface PaymentProps {
+	handleNextClick: () => void;
+}
+function Payment({ handleNextClick }: PaymentProps) {
+	return <div>idk payment I suppose :b
+		<button onClick={handleNextClick}>Continue</button>
+	</div>;
 }
 
 function Receipt() {
