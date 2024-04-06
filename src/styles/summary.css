@@ -12,7 +12,7 @@
 .summary-item {
 	margin-bottom: 8px;
 	display: grid;
-	grid-template-columns: 1fr 50px 2fr 100px;
+	grid-template-columns: minmax(70px, 1fr) 50px 1fr 100px;
 	width: 100%;
 	align-items: center;
 }
@@ -39,8 +39,6 @@
 }
 
 .summary-item-image {
-	/* width: 16%; */
-
 	padding: 1%;
 	display: flex;
 	justify-content: center;
