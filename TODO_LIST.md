@@ -36,7 +36,7 @@
 ### FETCH DATA
 ***Ansvarlig: FREDERIK***
 
-- [ ] Fetch data instead of using local JSON copies
+- [x] Fetch data instead of using local JSON copies
   -  Product data: https://raw.githubusercontent.com/larsthorup/checkout-data/main/product-v2.json
   -  DK zip codes: https://api.dataforsyningen.dk/postnumre
   -  Include loading indicators and error reporting
@@ -63,10 +63,10 @@
 	- Gode tests, som både dækker UI men også unit tests af funktioner.
 	- Del gerne jeg tests op i flere filer, så er det lidt nemmre at finde ud af hvad de tester hver især. Jeg så gerne at der også var tests på telefonnummer og postnummer ved validering af DK postnumre
 	- Test af hele formen med Vitest mangler.
-- [ ] Fejlhåndtering: validering:
+- [x] Fejlhåndtering: validering:
     - Man kan klikke continue, selvom man ikke har skrevet noget i formen.
 - [ ] Jeres order summary viser forkert pris hvis man har valgt 1 item med rabat. e.g Kartofler x 3 = 5, i order summary står der 6. Hvis det er menigen er det kunne der godt have stået hvordan total bliver regnet ud.  Måske subtotal og total.
-- [ ] Det er ikke så klart hvilken fejl man får hvis man skriver tekt i telefonnummer, zipcode.
+- [ ] er ikke så klart hvilken fejl man får hvis man skriver tekt i telefonnummer, zipcode.
 - [ ] Der er ingen måde at komme tilbage til kurven når man er gået videre.
 - [ ] Overvej at lave jeres above300 i BasketSummary til en boolean og det samme med percentRebateOver300
 - [ ] Overvej om I skal bruge disabled i inputfelter som man ikke må ændre i. phoneCode. Det er ikke så tydeligt at man ikke kan skrive i det.
