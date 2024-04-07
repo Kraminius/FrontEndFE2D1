@@ -35,10 +35,13 @@ function App({basketItems: testBasketItems}: AppProps) {
     const [basketItems, setBasketItems] = useState<BasketItem[]>([])
     const [contentFlow, setContentFlow] = useState(ContentFlow.Basket)
     const [error, setError] = useState("")
+    const [isLoading, setIsLoading] = useState(true)
+
 
     useEffect(() => {
         if (testBasketItems) {
             setBasketItems(testBasketItems)
+            setIsLoading(false)
             return;
         }
         (async () => {
@@ -46,18 +49,23 @@ function App({basketItems: testBasketItems}: AppProps) {
                 let items = await fetchBasketItems()
                 setBasketItems(items)
                 setError("")
+                setIsLoading(false)
             } catch (error) {
                 console.error("Error fetching basket items: ", error)
                 setError("Error fetching your items, please try reloading the page...")
+                setIsLoading(false)
             }
         })();
     }, []);
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <>
             <Header/>
             <ProgressBar currentFlow={contentFlow}/>
-
-            // Show the error message if basket cannot be fetched
             <div id="content">
                 {error &&
                     <div className="error">
