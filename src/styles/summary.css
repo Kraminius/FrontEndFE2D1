@@ -46,12 +46,13 @@
 	background-color: var(--white);
 	border-radius: 15px;
 	overflow: hidden;
-
+	width: 90px;
+	height: 90px;
 }
 
 /* Image styling */
 .summary-item-image img {
-	max-width: 100%;
-	max-height: 100%;
+	max-width: 80px;
+	max-height: 80px;
 	object-fit: contain;
 }
