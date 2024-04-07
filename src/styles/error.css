@@ -1,0 +1,23 @@
+.error {
+    color: red;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    font-family: system-ui;
+    font-size: x-large;
+    font-weight: bold;
+    text-align: center;
+    padding: 12px;
+    border: 2px solid red;
+    border-radius: 5px;
+}
+
+.refresh-button {
+    background-color: var(--mainColour);
+    color: var(--textOnBack);
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    font-size: x-large;
+    cursor: pointer;
+    margin-top: 12px
+}

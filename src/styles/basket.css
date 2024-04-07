@@ -142,3 +142,8 @@
 	display: grid;
 	gap: 8px;
 }
+
+.empty-basket-message {
+	font-size: x-large;
+	color: var(--thirdColour);
+}
