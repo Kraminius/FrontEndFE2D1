@@ -3,9 +3,13 @@ import CardInputs from "./CardInformation.tsx";
 import MobilePayInputs from "./MobilePayInformation.tsx";
 import GiftCardInputs from "./GiftCardInformation.tsx";
 import {BasketItem} from "../../../types/Types.ts";
+// @ts-ignore
 import visa from "../../../images/visa.png";
+// @ts-ignore
 import mastercard from "../../../images/mastercard.png"
+// @ts-ignore
 import mobilepay from "../../../images/mobilepay.png"
+// @ts-ignore
 import bslogo from "../../../images/BS_Logo.png"
 
 interface PaymentPageProps {
