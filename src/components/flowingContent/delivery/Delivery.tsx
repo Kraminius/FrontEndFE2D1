@@ -81,7 +81,7 @@ export const Delivery: React.FC<DeliveryProps> = ({
             {/* <form id='delivery-form' method="POST" action="https://enoacmo66ykxn.x.pipedream.net"> */}
             <form className='delivery-form__form' onSubmit={handleSubmit}>
                 <fieldset>
-                    <legend style={{color: 'black'}}>Enter your delivery information</legend>
+                    <legend>Enter your delivery information</legend>
                     <DeliveryInputs formData={formData} setFormData={setFormData}/>
                     <ContinueButton
                         onClick={handleNextClick}

@@ -48,6 +48,10 @@ body {
 	background-color: var(--backgroundColour);
 }
 
+legend {
+	color: var(--textOnBack);
+}
+
 .summary {
 	text-align: right;
 	font-size: x-large;
