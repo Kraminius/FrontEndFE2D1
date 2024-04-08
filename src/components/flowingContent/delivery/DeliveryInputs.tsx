@@ -12,6 +12,8 @@ export function DeliveryInputs({ formData, setFormData }: DeliveryInputsProps) {
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
 	) => {
 		const { name, value } = e.target;
+		if(name == "phone" && value && !/^\d+$/.test(value)) return;
+
 		setFormData((prev) => ({
 			...prev,
 			[name]: value,
@@ -29,12 +31,6 @@ export function DeliveryInputs({ formData, setFormData }: DeliveryInputsProps) {
 				deliveryCountry: selectedCountry,
 				phoneCode: selectedCountryData.phoneCode,
 			}));
-		} else {
-			setFormData((prev) => ({
-				...prev,
-				deliveryCountry: "",
-				phoneCode: "",
-			}));
 		}
 	};
 
@@ -49,6 +45,13 @@ export function DeliveryInputs({ formData, setFormData }: DeliveryInputsProps) {
 		addressType: "delivery" | "billing"
 	) => {
 		const newZipCode = e.target.value;
+
+		if (newZipCode.length < 4) {
+			setError('');
+		}
+
+		if (!/^\d*$/.test(newZipCode)) return;
+
 		if (addressType === "delivery") {
 			setFormData({ ...formData, deliveryZipCode: newZipCode });
 			if (newZipCode.length === 4 && formData.deliveryCountry === "DK") {
@@ -171,25 +174,29 @@ export function DeliveryInputs({ formData, setFormData }: DeliveryInputsProps) {
 		>
 			City *
 		</TextInput>
-		<div className="form-group form-group--flex">
-			<TextInput
-				name="phoneCode"
-				value={formData.phoneCode}
-				onChange={handleChange}
-				placeholder=""
-			>
-				Phone Code *
-			</TextInput>
-
-			<NumberInput
-				name="phone"
-				value={formData.phone}
-				onChange={handleChange}
-				length={8}
-				placeholder="Phone Number"
-			>
-				Phone *
-			</NumberInput>
+		<div className="phone-input-group">
+			<div className="input-group phone-code">
+				<TextInput
+					name="phoneCode"
+					value={formData.phoneCode}
+					readOnly={true}
+					onChange={handleChange}
+					placeholder=""
+				>
+					Phone Code *
+				</TextInput>
+			</div>
+			<div className="input-group phone-number">
+				<NumberInput
+					name="phone"
+					value={formData.phone}
+					onChange={handleChange}
+					length={8}
+					placeholder="Phone Number"
+				>
+					Phone *
+				</NumberInput>
+			</div>
 		</div>
 		<TextInput
 			name="email"
@@ -283,7 +290,7 @@ export function DeliveryInputs({ formData, setFormData }: DeliveryInputsProps) {
 				</TextInput>
 			</>
 		)}
-		<Label>  Add delivery message:
+		<Label> Add delivery message:
 			<textarea
 				id="deliveryMessage"
 				name="deliveryMessage"
@@ -293,11 +300,11 @@ export function DeliveryInputs({ formData, setFormData }: DeliveryInputsProps) {
 				onChange={handleChange}
 			></textarea>
 		</Label>
-		<hr />
+		<hr/>
 		<CheckBox
 			isChecked={formData.agreeToTerms}
 			onChange={(e) =>
-				setFormData({ ...formData, agreeToTerms: e.target.checked })
+				setFormData({...formData, agreeToTerms: e.target.checked})
 			}
 			name={"agreeToTerms"}
 		>
@@ -307,7 +314,7 @@ export function DeliveryInputs({ formData, setFormData }: DeliveryInputsProps) {
 		<CheckBox
 			isChecked={formData.agreeToMarketing}
 			onChange={(e) =>
-				setFormData({ ...formData, agreeToMarketing: e.target.checked })
+				setFormData({...formData, agreeToMarketing: e.target.checked})
 			}
 			name={"agreeToMarketing"}
 		>
@@ -321,18 +328,17 @@ export function DeliveryInputs({ formData, setFormData }: DeliveryInputsProps) {
 //Checking if submiting is allowed
 
 
-
-
 interface CheckBoxProps {
 	isChecked: boolean;
 	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	name: string;
 	children: React.ReactNode;
 }
-function CheckBox({ children, isChecked, onChange, name }: CheckBoxProps) {
+
+function CheckBox({children, isChecked, onChange, name}: CheckBoxProps) {
 	return (
 		<div className="input-group">
-			<label style={{ display: "flex", alignItems: "center" }}>
+			<label style={{display: "flex", alignItems: "center"}}>
 				{children}
 				<input
 					type="checkbox"
@@ -350,6 +356,7 @@ interface TextInputProps {
 	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	name: string;
 	placeholder: string;
+	readOnly?: boolean;
 	children: React.ReactNode;
 }
 
@@ -370,6 +377,8 @@ function NumberInput({
 			{children}
 			<input
 				type="text"
+				inputMode="numeric"
+				pattern = "\d*"
 				name={name}
 				value={value}
 				onChange={onChange}
@@ -387,6 +396,7 @@ function TextInput({
 	onChange,
 	name,
 	placeholder = "",
+    readOnly = false,
 }: TextInputProps) {
 	return (
 		<Label>
@@ -397,6 +407,7 @@ function TextInput({
 				value={value}
 				onChange={onChange}
 				placeholder={placeholder}
+				readOnly={readOnly}
 			/>
 		</Label>
 	);

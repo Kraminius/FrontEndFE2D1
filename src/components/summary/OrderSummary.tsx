@@ -9,7 +9,7 @@ function OrderSummary({ items }: BasketSummaryProps) {
 				<h2>Order Summary</h2>
 				<ul className="item-list">
 					{items.map((item, index) => (
-						<SummaryItem key={index} item={item} /> // Use SummaryItem for each item
+						<SummaryItem key={index} item={item} />
 					))}
 				</ul>
 				<BasketSummary items={items} />

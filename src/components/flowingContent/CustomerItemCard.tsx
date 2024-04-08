@@ -4,6 +4,7 @@ import React from 'react';
 import defaultImage from "../../images/default-product.png";
 import { BasketItem, RecurringOrder } from '../../types/Types';
 import {calculateItemTotal} from "../../utils/utilfunctions.tsx";
+import {BasketItem, RecurringOrder} from '../../types/Types';
 
 interface CustomerItemCardProps {
 	item: BasketItem;
@@ -22,7 +23,11 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
 	onRemove,
 }) => {
 
-	const imageUrl = item.imageUrl || defaultImage;
+	const [imageSrc, setImageSrc] = React.useState(item.imageUrl || defaultImage);
+
+	const handleImageError = () => {
+		setImageSrc(defaultImage);
+	};
 
 	let normalPrice = item.price * item.quantity;
 	let isPriceDiscounted = ((item.rebateQuantity > 0) && item.quantity >= item.rebateQuantity)
@@ -36,7 +41,7 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
 		<div className="item">
 			<div className="item__pane item__pane--left">
 				<div className="item__image">
-					<img src={imageUrl} alt={item.name} />
+					<img src={imageSrc} alt={item.name} onError={handleImageError}/>
 				</div>
 
 				<div className='item__options'>
@@ -58,7 +63,7 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
 					<span className='item-price__currency'>DKK </span>
 					<span className={itemPriceClassesSingle}>{`${item.price.toFixed(2)},-`}</span>
 					{isPriceDiscounted && <div style={{ color: 'grey', textDecoration: 'line-through' }}>{`${normalPrice.toFixed(2)},-`}</div>}
-					<div className={itemPriceClassesTotal}>{`${calculateItemTotal(item).toFixed(2)},-`}</div>
+					<div className={itemPriceClassesTotal}>{`${CalculateSubTotal(item).toFixed(2)},-`}</div>
 				</div>
 				<Quantity onQuantityChange={onQuantityChange} item={item} />
 				<div className="item-discount">

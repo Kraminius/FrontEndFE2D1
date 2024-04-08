@@ -74,7 +74,7 @@ describe(Delivery.name, () => {
 		expect(mockOnFormValidityChange).toHaveBeenCalledWith(false);
 	});
 
-	test("disnables submit button when form is valid, but different billing address is chosen", async () => {
+	test("disables submit button when form is valid, but different billing address is chosen", async () => {
 		const mockOnFormValidityChange = vi.fn();
 		const { getByLabelText, getByText } = render(
 			<Delivery setIsDeliveryFormValid={mockOnFormValidityChange} />

@@ -13,6 +13,7 @@
 	"dependencies": {
 		"@testing-library/react": "^14.2.1",
 		"@testing-library/user-event": "^14.5.2",
+		"firebase": "^10.8.1",
 		"jsdom": "^24.0.0",
 		"netlify-cli": "^17.17.0",
 		"react": "^18.2.0",
