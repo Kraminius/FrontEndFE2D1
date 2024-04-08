@@ -9,7 +9,7 @@ export async function fetchBasketItems(): Promise<BasketItem[]> {
     }
 
     // Setting timout to showcase loading state
-    await new Promise(resolve => setTimeout(resolve, 5000));
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
     const items: BasketItems = await response.json();
     return items.map((item) => ({

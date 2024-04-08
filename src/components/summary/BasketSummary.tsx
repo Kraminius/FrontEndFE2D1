@@ -3,7 +3,7 @@ import {calculateItemTotal} from "../../utils/utilfunctions.tsx";
 
 function BasketSummary({ items }: BasketSummaryProps) {
 	const subtotal = items.reduce((sum, item) => sum + calculateItemTotal(item), 0);
-	const largeOrderRebate = subtotal > 300;
+	const largeOrderRebate = subtotal >= 300;
 	const percentRebateOver300 = 10;
 	let discount = 0;
 	let totalWithRebate = subtotal;

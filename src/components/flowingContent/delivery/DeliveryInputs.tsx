@@ -88,8 +88,8 @@ export function DeliveryInputs({ formData, setFormData }: DeliveryInputsProps) {
 					const errorData = await response.json();
 					if (errorData.type === "ResourceNotFoundError") {
 						setError(`Zip code ${errorData.details.nr} not found.`);
-					} else {
-						setError("Failed to fetch city name due to an unexpected error.");
+					} else if (errorData.type === "ResourcePathFormatError"){
+						setError(`Zip code is ill formed.`);
 					}
 					return undefined;
 				}
@@ -97,8 +97,9 @@ export function DeliveryInputs({ formData, setFormData }: DeliveryInputsProps) {
 				setError(null); // Clear any existing errors on successful fetch
 				return data.navn;
 			} catch (error) {
-				console.error("Failed to fetch city name:", error);
-				setError("Failed to fetch city name due to an unexpected error.");
+				console.error("Failed to fetch city name: ", error);
+				let errorTest = `Failed to fetch city name due to: ${error}`;
+				setError(errorTest);
 				return undefined;
 			}
 		}

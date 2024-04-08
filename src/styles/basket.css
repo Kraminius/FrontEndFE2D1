@@ -52,8 +52,14 @@
 
 }
 
+.quantity-text {
+	color: var(--textOnBack)
+
+}
+
 .quantity__button {
 	border: none;
+	color: var(--textOnBack);
 	background-color: transparent;
 	cursor: pointer;
 	padding: 10px;

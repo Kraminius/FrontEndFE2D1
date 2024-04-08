@@ -2,7 +2,6 @@
     color: var(--errorColour);
     margin-top: 12px;
     margin-bottom: 12px;
-    font-family: system-ui;
     font-size: x-large;
     font-weight: bold;
     text-align: center;

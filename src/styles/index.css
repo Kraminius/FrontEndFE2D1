@@ -1,47 +1,50 @@
 /* Dark mode (default)*/
-:root {
-
-	--mainColour: #7954A1;
-	--secondColour: #603F8B;
-	--thirdColour: #3CACAE;
-	--fourthColour: #F6EEF0;
-	--backgroundColour: #0C2D48;
-	--promColour: #81599F;
-	--inputColour: #2E8BC0;
-	--textOnBack: #ffffff;
-	--shadowColour: #383940;
-	--white: #ffffff;
-	--errorColour: red;
-	--successColour: green;
+@media (prefers-color-scheme: dark) {
+	:root {
+		--mainColour: #303030;
+		--secondColour: #303030;
+		--thirdColour: #8FA0A0;
+		--fourthColour: #BCBCBC;
+		--backgroundColour: #6F6866;
+		--promColour: #303030;
+		--shadowColour: #222;
+		--inputColour: #444;
+		--textOnBack: white;
+		--white: #EEEEEE;
+		--errorColour: red;
+		--successColour: #673F72;
+	}
 }
 
 
 /* light mode */
 @media (prefers-color-scheme: light) {
-	:root {
-		--mainColour: #A98AB0;
-		--secondColour: #BEAFC2;
-		--thirdColour: #383940;
-		--fourthColour: #AA1945;
+		:root {
+		--mainColour: #FEFEFE;
+		--secondColour: #FEFEFE;
+		--thirdColour: #788585;
+		--fourthColour: #25AF47;
 		--backgroundColour: #F1F1F0;
-		--promColour: #EFDCF9;
+		--promColour: #FEFEFE;
 		--shadowColour: #dddddd;
 		--inputColour: #ffffff;
 		--textOnBack: black;
 		--white: #ffffff;
 		--errorColour: red;
-		--successColour: green;
+		--successColour: #673F72;
 	}
 }
 
 :root {
-	font-family: system-ui, Inter, "Roboto Light", Avenir, Helvetica, Arial, sans-serif;
-
+	font-family: "Roboto", system-ui, Inter, "Roboto Light", Avenir, Helvetica, Arial, sans-serif;
+	font-weight: 300;
+	font-style: normal;
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+
 
 body {
 	margin: auto;
@@ -91,6 +94,7 @@ legend {
 }
 
 .brand_name {
+	font-family: "Roboto", system-ui, Inter, "Roboto Light", Avenir, Helvetica, Arial, sans-serif;
 	color: var(--textOnBack)
 }
 
