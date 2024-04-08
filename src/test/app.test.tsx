@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import App from "../App";
-import { calculateItemTotal } from '../components/flowingContent/CustomerItemCard.tsx';
+import { CalculateSubTotal } from '../components/flowingContent/CustomerItemCard.tsx';
 import { BasketItem, RecurringOrder } from '../types/Types';
 import BasketSummary from "../components/summary/BasketSummary.tsx";
 import { isValidEmail } from "../utils/utilfunctions.tsx";
@@ -23,7 +23,7 @@ describe(App.name, () => {
 			upsellProductId: null,
 		};
 
-		const total = calculateItemTotal(item);
+		const total = CalculateSubTotal(item);
 		expect(total).toBe(20);
 
 	});
@@ -43,7 +43,7 @@ describe(App.name, () => {
 			upsellProductId: null,
 		};
 
-		const total = calculateItemTotal(item);
+		const total = CalculateSubTotal(item);
 
 		expect(total).toBe(15);
 	});
@@ -63,7 +63,7 @@ describe(App.name, () => {
 			upsellProductId: null,
 		};
 
-		const total = calculateItemTotal(item);
+		const total = CalculateSubTotal(item);
 
 		expect(total).toBe(20);
 	});

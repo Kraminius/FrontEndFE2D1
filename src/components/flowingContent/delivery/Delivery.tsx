@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {DeliveryFormData} from "../../../types/Types";
 import {DeliveryInputs} from "./DeliveryInputs";
 import {postDeliveryForm} from "../../../network/SubmitDeliveryFormService";
@@ -72,7 +72,10 @@ export const Delivery: React.FC<DeliveryProps> = ({
     }
 
     const isFormValid = validateForm(formData);
-    setIsDeliveryFormValid(isFormValid);
+
+    useEffect(() => {
+        setIsDeliveryFormValid(isFormValid);
+    }, [isFormValid, setIsDeliveryFormValid]);
 
     return (
         <div className="delivery-form">
@@ -80,7 +83,7 @@ export const Delivery: React.FC<DeliveryProps> = ({
             {/* <form id='delivery-form' method="POST" action="https://enoacmo66ykxn.x.pipedream.net"> */}
             <form className='delivery-form__form' onSubmit={handleSubmit}>
                 <fieldset>
-                    <legend style={{color: 'white'}}>Enter your delivery information</legend>
+                    <legend style={{color: 'black'}}>Enter your delivery information</legend>
                     <DeliveryInputs formData={formData} setFormData={setFormData}/>
                     <ContinueButton
                         onClick={handleNextClick}

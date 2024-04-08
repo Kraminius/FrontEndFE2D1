@@ -55,7 +55,7 @@ body {
 }
 
 .summaryDiscount {
-	text-align: right;
+	text-align: left;
 	color: var(--thirdColour);
 	font-size: medium;
 }

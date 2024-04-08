@@ -120,6 +120,41 @@ label {
 	color: var(--textOnBack);
 }
 
+.phone-input-group {
+	display: flex;
+	gap: 4px;
+}
+
+.phone-input-group .input-group {
+	flex-grow: 0;
+	margin-right: 0px;
+}
+
+.phone-input-group .input-group.phone-code {
+	width: auto;
+	flex-grow: 1;
+}
+
+.phone-input-group .input-group.phone-number {
+	flex-grow: 2;
+}
+
+
+.phone-input-group input[type="text"] {
+	width: 100%;
+}
+
+@media (max-width: 390px) {
+	.phone-input-group {
+		display: flex;
+		gap: 4px;
+	}
+	.phone-input-group .input-group {
+		width: 100%;
+	}
+}
+
+
 @media (max-width: 480px) {
 	.form-group--flex {
 		flex-direction: column;

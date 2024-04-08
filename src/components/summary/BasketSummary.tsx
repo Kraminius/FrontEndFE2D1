@@ -1,19 +1,38 @@
 import { BasketSummaryProps } from "../../types/Types";
-import { calculateItemTotal } from "../flowingContent/CustomerItemCard";
+import { CalculateSubTotal } from "../flowingContent/CustomerItemCard";
 
 function BasketSummary({ items }: BasketSummaryProps) {
-	const total = items.reduce((sum, item) => sum + calculateItemTotal(item), 0);
-	const above300 = total - 300;
+	const subtotal = items.reduce((sum, item) => sum + CalculateSubTotal(item), 0);
+	const largeOrderRebate = subtotal > 300;
 	const percentRebateOver300 = 10;
-	if (above300 >= 0) {
-		const totalWithRebate = total * 0.9;
-		return (
-			<><p className="summaryDiscount">10% discount added,- </p><p
-				className="summary">Total: {totalWithRebate.toFixed(2)},-</p></>
-		);
-	} else return (
-		<><p className="summaryDiscount"> Order for {Math.abs(above300)},- more to get {percentRebateOver300}%
-			discount.</p><p className="summary">Total: {total.toFixed(2)},-</p></>
+	let discount = 0;
+	let totalWithRebate = subtotal;
+
+	// Check if the subtotal is above the threshold for a rebate
+	if (largeOrderRebate) {
+		discount = subtotal * (percentRebateOver300 / 100); // Calculate the discount
+		totalWithRebate = subtotal - discount; // Subtract the discount from the subtotal
+	}
+
+	const amountUntilDiscount = 300 - subtotal; // Calculate the amount until discount
+
+	return (
+		<>
+			<p className="summaryDiscount">Subtotal: {subtotal.toFixed(2)},-</p>
+			{largeOrderRebate ? (
+				<>
+					<p className="summaryDiscount">Discount applied ({percentRebateOver300}%): -{discount.toFixed(2)},-</p>
+					<p className="summaryTotal">Total: {totalWithRebate.toFixed(2)},-</p>
+				</>
+			) : (
+				<>
+					<p className="summaryDiscount">
+						Add {amountUntilDiscount.toFixed(2)},- more to your basket to get a {percentRebateOver300}% discount.
+					</p>
+					<p className="summaryTotal">Total: {subtotal.toFixed(2)},-</p>
+				</>
+			)}
+		</>
 	);
 }
 
