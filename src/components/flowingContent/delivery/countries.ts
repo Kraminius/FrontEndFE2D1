@@ -2,9 +2,10 @@ interface Country {
 	code: string;
 	name: string;
 	phoneCode: string;
+	phoneNumberLength? : number; //TODO: Apply length for each country to validate number length in deliveryform.
 }
 const countries: Country[] = [
-	{ code: "AF", name: "Afghanistan", phoneCode: "+93" },
+	{ code: "AF", name: "Afghanistan", phoneCode: "+93"},
 	{ code: "AL", name: "Albania", phoneCode: "+355" },
 	{ code: "DZ", name: "Algeria", phoneCode: "+213" },
 	{ code: "AS", name: "American Samoa", phoneCode: "+1-684" },

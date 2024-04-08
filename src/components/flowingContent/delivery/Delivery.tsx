@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {DeliveryFormData} from "../../../types/Types";
 import {DeliveryInputs} from "./DeliveryInputs";
 import {postDeliveryForm} from "../../../network/SubmitDeliveryFormService";
-import {s} from "vitest/dist/reporters-MmQN-57K.js";
 import {BackButton, ContinueButton} from "../Buttons.tsx";
 
 interface DeliveryProps {

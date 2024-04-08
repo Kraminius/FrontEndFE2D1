@@ -2,7 +2,7 @@
 import React from 'react';
 // @ts-ignore
 import defaultImage from "../../images/default-product.png";
-import {BasketItem, BasketSummaryProps, RecurringOrder} from '../../types/Types';
+import {BasketItem, RecurringOrder} from '../../types/Types';
 
 interface CustomerItemCardProps {
 	item: BasketItem;

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'; // Ensure useState is imported
+import {useState} from 'react';
 import defaultImage from '../images/default-product.png';
 import { BasketItem } from '../types/Types';
 
