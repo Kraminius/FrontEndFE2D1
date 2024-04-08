@@ -3,6 +3,10 @@ import CardInputs from "./CardInformation.tsx";
 import MobilePayInputs from "./MobilePayInformation.tsx";
 import GiftCardInputs from "./GiftCardInformation.tsx";
 import {BasketItem} from "../../../types/Types.ts";
+import visa from "../../../images/visa.png";
+import mastercard from "../../../images/mastercard.png"
+import mobilepay from "../../../images/mobilepay.png"
+import bslogo from "../../../images/BS_Logo.png"
 
 interface PaymentPageProps {
     items: BasketItem[];
@@ -71,7 +75,7 @@ function GiftCard({items, onValidated} : GiftCardProps) {
             <div className='payment-option-background'>
                 <div className='payment-option-aligner'>
                     <div className="payment-option-image">
-                        <img src={"src/images/BS_Logo.png"} alt="Payment Method"/>
+                        <img src={bslogo} alt="Payment Method"/>
                     </div>
                     <div className="payment-option-title">
                         BuyStuff Giftcard
@@ -97,7 +101,7 @@ function MobilePay({ open, onClick, onValidated} : MobilePayProps) {
             <div className='payment-option-background'>
                 <div className='payment-option-aligner'>
                     <div className="payment-option-image">
-                        <img src={"src/images/mobilepay.png"} alt="Payment Method"/>
+                        <img src={mobilepay} alt="Payment Method"/>
                     </div>
                     <div className="payment-option-title">
                         MobilePay
@@ -124,8 +128,8 @@ function Cards({ open, onClick, onValidated } : CardsProps) {
             <div className='payment-option-background'>
                 <div className='payment-option-aligner'>
                     <div className="payment-option-image">
-                        <img src={"src/images/visa.png"} alt="Payment Method"/>
-                        <img src={"src/images/mastercard.png"} alt="Payment Method"/>
+                        <img src={visa} alt="Payment Method"/>
+                        <img src={mastercard} alt="Payment Method"/>
                     </div>
                     <div className="payment-option-title">
                         Card

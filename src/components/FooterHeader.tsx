@@ -1,3 +1,6 @@
+// @ts-ignore
+import logo from '../images/BS_Logo.png'
+
 interface FooterProps {
 	creatorNames: string[];
 }
@@ -5,7 +8,7 @@ interface FooterProps {
 function Header() {
 	return (
 		<header className="header">
-			<img src="src/images/BS_Logo.png" alt="Our Logo" className="header_image" />
+			<img src={logo} alt="Our Logo" className="header_image" />
 			<div className="brand_name">
 				<h1>BUY STUFF</h1>
 			</div>
