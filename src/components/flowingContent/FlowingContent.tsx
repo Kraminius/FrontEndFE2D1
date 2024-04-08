@@ -79,7 +79,6 @@ export function FlowingContent({
                     basketItems={basketItems}
                     setBasketItems={setBasketItems}
                     handleNextClick={handleNextClick}
-                    isDeliveryFormValid={isDeliveryFormValid}
                 />
             );
         case ContentFlow.Delivery:
@@ -102,14 +101,12 @@ interface BasketProps {
     basketItems: BasketItem[];
     setBasketItems: (items: BasketItem[]) => void;
     handleNextClick: () => void;
-    isDeliveryFormValid: boolean;
 }
 
 function Basket({
                     basketItems,
                     setBasketItems,
                     handleNextClick,
-                    isDeliveryFormValid,
                 }: BasketProps) {
     const handleQuantityChange = (itemId: string, newQuantity: number) => {
         if (newQuantity < 1) {
@@ -169,7 +166,7 @@ function Basket({
             </div>
             <ContinueButton
                 onClick={handleNextClick}
-                isDisabled={!isDeliveryFormValid}
+                //isDisabled={!isDeliveryFormValid}
             />
         </>
     ) : (
