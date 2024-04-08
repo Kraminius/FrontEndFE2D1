@@ -145,5 +145,5 @@
 
 .empty-basket-message {
 	font-size: x-large;
-	color: var(--thirdColour);
+	color: var(--textOnBack);
 }

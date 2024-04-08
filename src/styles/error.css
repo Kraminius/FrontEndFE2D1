@@ -1,5 +1,5 @@
 .error {
-    color: red;
+    color: var(--errorColour);
     margin-top: 12px;
     margin-bottom: 12px;
     font-family: system-ui;
@@ -7,7 +7,7 @@
     font-weight: bold;
     text-align: center;
     padding: 12px;
-    border: 2px solid red;
+    border: 2px solid var(--errorColour);
     border-radius: 5px;
 }
 

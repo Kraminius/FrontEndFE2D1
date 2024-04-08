@@ -1,0 +1,24 @@
+.loading-text {
+    position: relative;
+    font-size: x-large;
+    font-weight: bold;
+    color: var(--textOnBack);
+    text-align: center;
+    padding: 12px;
+    margin-top: 12px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-wheel {
+    border: 16px solid initial;
+    border-top: 16px solid var(--mainColour);
+    border-radius: 100%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin: 12px auto;
+}

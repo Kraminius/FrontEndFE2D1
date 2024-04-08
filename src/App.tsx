@@ -8,6 +8,7 @@ import "./styles/summary.css";
 import "./styles/delivery.css";
 import "./styles/basket.css";
 import "./styles/error.css";
+import "./styles/loading.css";
 import {Footer, Header} from "./components/FooterHeader.tsx";
 import OrderSummary from "./components/summary/OrderSummary.tsx";
 import {fetchBasketItems} from "./network/BasketService.ts";
@@ -58,10 +59,6 @@ function App({basketItems: testBasketItems}: AppProps) {
         })();
     }, []);
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
     return (
         <>
             <Header/>
@@ -75,6 +72,12 @@ function App({basketItems: testBasketItems}: AppProps) {
                 }
                 <main className="page-components">
                     <div id="flow-container">
+                        {isLoading && (
+                            <>
+                                <div className="loading-text"> Loading your basket...</div>
+                                <div className="loading-wheel"></div>
+                            </>
+                        )}
                     <FlowingContent
                             basketItems={basketItems}
                             setBasketItems={setBasketItems}
