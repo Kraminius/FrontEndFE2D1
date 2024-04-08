@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {BasketItem, RecurringOrder} from "../../types/Types";
 import CustomerItemCard from "./CustomerItemCard";
-import {ContinueButton} from "./Buttons";
+import {BackButton, ContinueButton} from "./Buttons";
 import {Delivery} from "./delivery/Delivery";
 
 export enum ContentFlow {
@@ -166,7 +166,6 @@ function Basket({
             </div>
             <ContinueButton
                 onClick={handleNextClick}
-                //isDisabled={!isDeliveryFormValid}
             />
         </>
     ) : (
@@ -185,20 +184,20 @@ function Payment({handleNextClick, handleBackClick}: PaymentProps) {
     return (
         <div>
             idk payment I suppose :b
-            <div className="continue">
-                <button className="continue__button" onClick={handleNextClick}>Continue</button>
-            </div>
-            <div className="back">
-                <button className="back-button" onClick={handleBackClick}>Back</button>
-            </div>
+            <ContinueButton
+                onClick={handleNextClick}
+            />
+            <BackButton
+                onClick={handleBackClick}
+            />
         </div>
     );
 }
 
 function Receipt({handleBackClick}: { handleBackClick: () => void }) {
     return <div>receipt :b
-        <div className="back">
-        <button className="back-button" onClick={handleBackClick}>Back</button>
-        </div>
+        <BackButton
+            onClick={handleBackClick}
+        />
     </div>;
 }

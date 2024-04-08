@@ -3,6 +3,7 @@ import {DeliveryFormData} from "../../../types/Types";
 import {DeliveryInputs} from "./DeliveryInputs";
 import {postDeliveryForm} from "../../../network/SubmitDeliveryFormService";
 import {s} from "vitest/dist/reporters-MmQN-57K.js";
+import {BackButton, ContinueButton} from "../Buttons.tsx";
 
 interface DeliveryProps {
     setIsDeliveryFormValid: (isValid: boolean) => void;
@@ -81,12 +82,13 @@ export const Delivery: React.FC<DeliveryProps> = ({
                 <fieldset>
                     <legend style={{color: 'white'}}>Enter your delivery information</legend>
                     <DeliveryInputs formData={formData} setFormData={setFormData}/>
-                    <div className="continue">
-                        <input type="submit" className="continue__button" value="Continue" disabled={!isFormValid}/>
-                    </div>
-                    <div className="back">
-                        <button className="back-button" onClick={handleBackClick}>Back</button>
-                    </div>
+                    <ContinueButton
+                        onClick={handleNextClick}
+                        isDisabled={!isFormValid}
+                    />
+                    <BackButton
+                        onClick={handleBackClick}
+                    />
                 </fieldset>
 
             </form>

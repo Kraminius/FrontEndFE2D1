@@ -15,3 +15,9 @@ export const ContinueButton = ({isDisabled, ...rest}: ContinueButtonProps) => (
         </button>
     </div>
 )
+
+export const BackButton = ({onClick}: {onClick: () => void}) => (
+	<div className="back">
+		<button className="back-button" onClick={onClick}>Back</button>
+	</div>
+)
