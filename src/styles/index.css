@@ -216,7 +216,7 @@ main {
 	border: 1px solid var(--thirdColour);
 	border-radius: 5px;
 	position: sticky;
-	padding: 0 15px;
+	padding: 0 15px 25px 0;
 	align-items: center;
 	color: var(--textOnBack);
 }

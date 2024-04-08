@@ -1,16 +1,15 @@
 import {SetStateAction, useEffect, useState} from 'react';
-import {ContinueButton} from "../Buttons.tsx";
 import CardInputs from "./CardInformation.tsx";
 import MobilePayInputs from "./MobilePayInformation.tsx";
 import GiftCardInputs from "./GiftCardInformation.tsx";
 import {BasketItem} from "../../../types/Types.ts";
 
 interface PaymentPageProps {
-    onNextClick: () => void;
     items: BasketItem[];
+    isContinueDisabled: (isValid: boolean) => void;
 }
 
-function PaymentPage({onNextClick, items}: PaymentPageProps) {
+function PaymentPage({items, isContinueDisabled}: PaymentPageProps) {
     const [activeOption, setActiveOption] = useState('Cards');
     const [isValid, setIsValid] = useState(false);
     const [isGiftCardValid, setIsGiftCardValid] = useState(false);
@@ -20,7 +19,7 @@ function PaymentPage({onNextClick, items}: PaymentPageProps) {
     const handleOptionClick = (option: SetStateAction<string>) => {
         setActiveOption(option);
     };
-
+    isContinueDisabled(!isValid);
     useEffect(() => {
         // Check if the currently active option is valid
         switch (activeOption) {
@@ -33,6 +32,7 @@ function PaymentPage({onNextClick, items}: PaymentPageProps) {
             default:
                 setIsValid(isGiftCardValid); // No option is active, only if Gift card is enough
         }
+
     }, [activeOption, isGiftCardValid, isMobilePayValid, isCardValid]); // Dependencies on these states
 
     return (
@@ -54,10 +54,7 @@ function PaymentPage({onNextClick, items}: PaymentPageProps) {
                 onValidated={setIsGiftCardValid}
                 items={items}
             />
-            <ContinueButton
-                onClick={onNextClick}
-                isDisabled={!isValid}
-            />
+
         </div>
     );
 }

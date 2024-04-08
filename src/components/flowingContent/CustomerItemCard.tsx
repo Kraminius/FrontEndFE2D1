@@ -4,7 +4,6 @@ import React from 'react';
 import defaultImage from "../../images/default-product.png";
 import { BasketItem, RecurringOrder } from '../../types/Types';
 import {calculateItemTotal} from "../../utils/utilfunctions.tsx";
-import {BasketItem, RecurringOrder} from '../../types/Types';
 
 interface CustomerItemCardProps {
 	item: BasketItem;
@@ -63,7 +62,7 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
 					<span className='item-price__currency'>DKK </span>
 					<span className={itemPriceClassesSingle}>{`${item.price.toFixed(2)},-`}</span>
 					{isPriceDiscounted && <div style={{ color: 'grey', textDecoration: 'line-through' }}>{`${normalPrice.toFixed(2)},-`}</div>}
-					<div className={itemPriceClassesTotal}>{`${CalculateSubTotal(item).toFixed(2)},-`}</div>
+					<div className={itemPriceClassesTotal}>{`${calculateItemTotal(item).toFixed(2)},-`}</div>
 				</div>
 				<Quantity onQuantityChange={onQuantityChange} item={item} />
 				<div className="item-discount">

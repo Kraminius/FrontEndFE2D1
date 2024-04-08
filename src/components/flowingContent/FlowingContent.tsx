@@ -1,10 +1,8 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import {BasketItem, RecurringOrder} from "../../types/Types";
 import CustomerItemCard from "./CustomerItemCard";
 import {BackButton, ContinueButton} from "./Buttons";
 import {Delivery} from "./delivery/Delivery";
-import { ContinueButton } from "./Buttons";
-import { Delivery } from "./delivery/Delivery";
 import PaymentPage from "./payment/PaymentPage.tsx";
 
 export enum ContentFlow {
@@ -24,6 +22,28 @@ interface FlowingContentProps {
 export function FlowingContent({basketItems, setBasketItems}: FlowingContentProps) {
 	const [contentFlow, setContentFlow] = useState(ContentFlow.Basket);
 	const [isDeliveryFormValid, setIsDeliveryFormValid] = useState(true);
+    function handleNextClick() {
+        let nextContentFlow: ContentFlow;
+        switch (contentFlow) {
+            case ContentFlow.Basket:
+                nextContentFlow = ContentFlow.Delivery;
+                break;
+            case ContentFlow.Delivery:
+                nextContentFlow = ContentFlow.Payment;
+                break;
+            case ContentFlow.Payment:
+                nextContentFlow = ContentFlow.Receipt;
+                break;
+            case ContentFlow.Receipt:
+                throw new Error(
+                    "Invalid content flow state, cannot continue from receipt."
+                );
+            default:
+                throw new Error("Invalid content flow state.");
+        }
+        setContentFlow(nextContentFlow);
+        window.scrollTo(0, 0);
+    }
     function handleBackClick() {
         let nextContentFlow: ContentFlow;
         switch (contentFlow) {
@@ -66,7 +86,8 @@ export function FlowingContent({basketItems, setBasketItems}: FlowingContentProp
             );
         case ContentFlow.Payment:
             return <Payment handleNextClick={handleNextClick}
-                            handleBackClick={handleBackClick}/>;
+                            handleBackClick={handleBackClick}
+                            items={basketItems}/>;
         case ContentFlow.Receipt:
             return <Receipt handleBackClick={handleBackClick}/>;
     }
@@ -153,22 +174,7 @@ function Basket({
 interface PaymentProps {
     handleNextClick: () => void;
     handleBackClick: () => void;
-	handleNextClick: () => void;
 	items : BasketItem[]
-}
-
-function Payment({handleNextClick, handleBackClick}: PaymentProps) {
-    return (
-        <div>
-            idk payment I suppose :b
-            <ContinueButton
-                onClick={handleNextClick}
-            />
-            <BackButton
-                onClick={handleBackClick}
-            />
-        </div>
-    );
 }
 
 function Receipt({handleBackClick}: { handleBackClick: () => void }) {
@@ -177,11 +183,21 @@ function Receipt({handleBackClick}: { handleBackClick: () => void }) {
             onClick={handleBackClick}
         />
     </div>;
-function Payment({ handleNextClick, items} : PaymentProps) {
+}
+function Payment({ handleNextClick, handleBackClick, items} : PaymentProps) {
+    const [isContinueDisabled, setIsContinueDisabled] = useState(false)
 	return (
 		<div>
-			<PaymentPage onNextClick={handleNextClick} items={items}/>
+			<PaymentPage items={items} isContinueDisabled={setIsContinueDisabled}/>
+            <ContinueButton
+                onClick={handleNextClick}
+                isDisabled={isContinueDisabled}
+            />
+            <BackButton
+                onClick={handleBackClick}
+            />
 		</div>
 	);
 }
+
 

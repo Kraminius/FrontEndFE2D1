@@ -7,6 +7,7 @@ import "./styles/summary.css";
 import "./styles/summary.css";
 import "./styles/delivery.css";
 import "./styles/basket.css";
+import "./styles/payment.css";
 import "./styles/error.css";
 import "./styles/loading.css";
 import {Footer, Header} from "./components/FooterHeader.tsx";
