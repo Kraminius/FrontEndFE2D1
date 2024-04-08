@@ -14,7 +14,6 @@ enum ContentFlow {
 interface FlowingContentProps {
 	basketItems: BasketItem[];
 	setBasketItems: (items: BasketItem[]) => void;
-	total : number;
 }
 
 export function FlowingContent({ basketItems, setBasketItems}: FlowingContentProps) {

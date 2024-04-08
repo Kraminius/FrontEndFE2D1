@@ -4,17 +4,17 @@
     padding: 5px;
 }
 .payment-option-cards{
-    height: 220px;
+    height: 260px;
     width: 80%;
     padding: 5px;
 }
 .payment-option-mobilepay{
-    height: 120px;
+    height: 170px;
     width: 80%;
     padding: 5px;
 }
 .payment-option-giftcards{
-    height: 180px;
+    height: 190px;
     width: 80%;
     padding: 5px;
 }
@@ -107,5 +107,9 @@
 }
 .payment-paragraph-styling{
     color: #494141;
+    padding-left: 10px;
+}
+.error-paragraph-styling{
+    color: #ff1818;
     padding-left: 10px;
 }

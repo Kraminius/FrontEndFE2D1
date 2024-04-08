@@ -6,7 +6,7 @@ interface CardInputsProps{
     onValidated: (isValid: boolean) => void;
 }
 function CardInputs({onValidated} : CardInputsProps) {
-
+    const [error, setError] = useState('');
     const [form, setForm] = useState<CardInformationForm>({
         cardHolder: '',
         cardNumber: '',
@@ -15,7 +15,8 @@ function CardInputs({onValidated} : CardInputsProps) {
     });
 
     useEffect(() => {
-        const isValid = validateCardForm(form);
+        setError(validateCardForm(form));
+        const isValid = (validateCardForm(form) === '');
         onValidated(isValid);
     }, [form]);
 
@@ -43,6 +44,7 @@ function CardInputs({onValidated} : CardInputsProps) {
                     onChange={handleChange('cvc')}
                 />
             </div>
+            <p className="error-paragraph-styling">{error}</p>
 
         </div>
     );
@@ -80,15 +82,15 @@ const validateCardForm = (formData: CardInformationForm) => {
         return regex.test(num);
     }
 
-    if (isEmpty(formData.cardHolder)) return false;
-    if(!isValidFullName(formData.cardHolder)) return false;
-    if (isEmpty(formData.cardNumber)) return false;
-    if(!isValidCardNumber(formData.cardNumber)) return false;
-    if (isEmpty(formData.expireDate)) return false;
-    if(!isValidExpiryDate(formData.expireDate)) return false;
-    if (isEmpty(formData.cvc)) return false;
-    if(!isValidCVC(formData.cvc)) return false;
-    return true;
+    if (isEmpty(formData.cardHolder)) return '';
+    if(!isValidFullName(formData.cardHolder)) return 'Name is not valid';
+    if (isEmpty(formData.cardNumber)) return '';
+    if(!isValidCardNumber(formData.cardNumber)) return 'Cardnumber is not valid';
+    if (isEmpty(formData.expireDate)) return '';
+    if(!isValidExpiryDate(formData.expireDate)) return 'Expire date is not valid';
+    if (isEmpty(formData.cvc)) return '';
+    if(!isValidCVC(formData.cvc)) return 'CVC/CVV is not valid';
+    return '';
 };
 
 export default CardInputs
