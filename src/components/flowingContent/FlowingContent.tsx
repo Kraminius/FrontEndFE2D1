@@ -25,7 +25,7 @@ export function FlowingContent({
   contentFlow,
   setContentFlow,
 }: FlowingContentProps) {
-  const [isDeliveryFormValid, setIsDeliveryFormValid] = useState(true);
+  const [, setIsDeliveryFormValid] = useState(true);
   function handleNextClick() {
     let nextContentFlow: ContentFlow;
     switch (contentFlow) {
