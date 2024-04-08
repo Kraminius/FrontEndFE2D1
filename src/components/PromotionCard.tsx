@@ -1,4 +1,5 @@
 import {useState} from 'react';
+// @ts-ignore
 import defaultImage from '../images/default-product.png';
 import { BasketItem } from '../types/Types';
 

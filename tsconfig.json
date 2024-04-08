@@ -26,6 +26,5 @@
 	"include": [
 		"src",
 		"./vitest.setup.ts",
-		"./images.d.ts"
 	],
 }
