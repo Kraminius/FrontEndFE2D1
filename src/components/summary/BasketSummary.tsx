@@ -1,5 +1,5 @@
 import { BasketSummaryProps } from "../../types/Types";
-import { calculateItemTotal } from "../flowingContent/CustomerItemCard";
+import {calculateItemTotal} from "../../utils/utilfunctions.tsx";
 
 function BasketSummary({ items }: BasketSummaryProps) {
 	const total = items.reduce((sum, item) => sum + calculateItemTotal(item), 0);

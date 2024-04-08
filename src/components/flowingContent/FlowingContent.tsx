@@ -3,6 +3,7 @@ import { BasketItem, RecurringOrder } from "../../types/Types";
 import CustomerItemCard from "./CustomerItemCard";
 import { ContinueButton } from "./Buttons";
 import { Delivery } from "./delivery/Delivery";
+import PaymentPage from "./payment/PaymentPage.tsx";
 
 enum ContentFlow {
 	Basket,
@@ -13,9 +14,10 @@ enum ContentFlow {
 interface FlowingContentProps {
 	basketItems: BasketItem[];
 	setBasketItems: (items: BasketItem[]) => void;
+	total : number;
 }
 
-export function FlowingContent({ basketItems, setBasketItems }: FlowingContentProps) {
+export function FlowingContent({ basketItems, setBasketItems}: FlowingContentProps) {
 	const [contentFlow, setContentFlow] = useState(ContentFlow.Basket);
 	const [isDeliveryFormValid, setIsDeliveryFormValid] = useState(true);
 
@@ -51,6 +53,7 @@ export function FlowingContent({ basketItems, setBasketItems }: FlowingContentPr
 			);
 		case ContentFlow.Payment:
 			return <Payment
+				items = {basketItems}
 				handleNextClick={handleNextClick}
 			/>;
 		case ContentFlow.Receipt:
@@ -140,12 +143,16 @@ function Basket({
 
 interface PaymentProps {
 	handleNextClick: () => void;
+	items : BasketItem[]
 }
-function Payment({ handleNextClick }: PaymentProps) {
-	return <div>idk payment I suppose :b
-		<button onClick={handleNextClick}>Continue</button>
-	</div>;
+function Payment({ handleNextClick, items} : PaymentProps) {
+	return (
+		<div>
+			<PaymentPage onNextClick={handleNextClick} items={items}/>
+		</div>
+	);
 }
+
 
 function Receipt() {
 	return <div>receipt :b</div>;

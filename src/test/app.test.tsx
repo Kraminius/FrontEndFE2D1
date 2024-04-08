@@ -1,10 +1,9 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import App from "../App";
-import { calculateItemTotal } from '../components/flowingContent/CustomerItemCard.tsx';
 import { BasketItem, RecurringOrder } from '../types/Types';
 import BasketSummary from "../components/summary/BasketSummary.tsx";
-import { isValidEmail } from "../utils/utilfunctions.tsx";
+import {calculateItemTotal, isValidEmail} from "../utils/utilfunctions.tsx";
 
 // Tests for discount calculation
 describe(App.name, () => {

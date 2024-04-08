@@ -3,6 +3,7 @@ import React from 'react';
 // @ts-ignore
 import defaultImage from "../../images/default-product.png";
 import { BasketItem, RecurringOrder } from '../../types/Types';
+import {calculateItemTotal} from "../../utils/utilfunctions.tsx";
 
 interface CustomerItemCardProps {
 	item: BasketItem;
@@ -12,18 +13,6 @@ interface CustomerItemCardProps {
 	onRemove: (itemId: string) => void;
 }
 
-export const calculateItemTotal = (item: BasketItem) => {
-	let totalPrice = item.price * item.quantity;
-
-
-	if (item.rebateQuantity && item.quantity >= item.rebateQuantity) {
-		totalPrice = totalPrice - (totalPrice * (item.rebatePercent / 100));
-
-	} else {
-		return totalPrice;
-	}
-	return totalPrice;
-};
 
 const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
 	item,

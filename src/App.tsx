@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import "./styles/index.css";
 import './styles/promotion.css';
 import './styles/summary.css';
-import './styles/summary.css';
+import './styles/payment.css';
 import "./styles/delivery.css";
 import './styles/basket.css'
 import { Footer, Header } from "./components/FooterHeader.tsx";

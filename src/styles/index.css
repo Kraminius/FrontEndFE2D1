@@ -185,7 +185,19 @@ main {
 	position: sticky;
 	padding: 0 20px;
 	align-items: center;
-	color: var(--textOnBack)
+	color: var(--textOnBack);
+}
+
+#payment-container {
+	background-color: var(--secondColour);
+	display: flex;
+	flex-direction: column;
+	border: 1px solid var(--thirdColour);
+	border-radius: 5px;
+	position: sticky;
+	padding: 0 15px;
+	align-items: center;
+	color: var(--textOnBack);
 }
 
 
