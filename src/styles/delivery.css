@@ -38,7 +38,7 @@
 	/* card */
 	border-radius: 4px;
 	padding: 8px;
-	color: var(--firstColour);
+	color: var(--mainColour);
 	background-color: var(--fourthColour);
 	border: 1px solid var(--shadowColour);
 

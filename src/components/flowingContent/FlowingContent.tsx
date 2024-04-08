@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import {BasketItem, RecurringOrder} from "../../types/Types";
 import CustomerItemCard from "./CustomerItemCard";
 import {ContinueButton} from "./Buttons";
@@ -188,14 +188,20 @@ function Payment({handleNextClick, handleBackClick}: PaymentProps) {
     return (
         <div>
             idk payment I suppose :b
-            <button onClick={handleNextClick}>Continue</button>
-            <button onClick={handleBackClick}>Back</button>
+            <div className="continue">
+                <button className="continue__button" onClick={handleNextClick}>Continue</button>
+            </div>
+            <div className="back">
+                <button className="back-button" onClick={handleBackClick}>Back</button>
+            </div>
         </div>
     );
 }
 
 function Receipt({handleBackClick}: { handleBackClick: () => void }) {
     return <div>receipt :b
-        <button onClick={handleBackClick}>Back</button>
+        <div className="back">
+        <button className="back-button" onClick={handleBackClick}>Back</button>
+        </div>
     </div>;
 }

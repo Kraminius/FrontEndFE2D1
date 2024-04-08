@@ -99,12 +99,29 @@ body {
 
 .continue {
 	display: flex;
-	justify-content: flex-end;
-	padding: 20px;
+	justify-content: center;
+	padding: 12px;
 
 }
 
 .continue__button {
+	width: 200px;
+	height: 36px;
+	border-radius: 15px;
+	border: var(--shadowColour);
+	background-color: var(--thirdColour);
+	color: #ffffff;
+	font-size: 18px;
+}
+
+.back {
+	display: flex;
+	justify-content: center;
+	padding: 12px;
+
+}
+
+.back-button {
 	width: 200px;
 	height: 36px;
 	border-radius: 15px;

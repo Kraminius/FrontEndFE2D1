@@ -81,15 +81,12 @@ export const Delivery: React.FC<DeliveryProps> = ({
                 <fieldset>
                     <legend style={{color: 'white'}}>Enter your delivery information</legend>
                     <DeliveryInputs formData={formData} setFormData={setFormData}/>
-                    <div className="button-container">
-                        <div className="continue">
-                            <input type="submit" className="continue__button" value="Continue" disabled={!isFormValid}/>
-                        </div>
-                        <div className="back">
-                            <button className="back-button" onClick={handleBackClick}>Back</button>
-                        </div>
+                    <div className="continue">
+                        <input type="submit" className="continue__button" value="Continue" disabled={!isFormValid}/>
                     </div>
-
+                    <div className="back">
+                        <button className="back-button" onClick={handleBackClick}>Back</button>
+                    </div>
                 </fieldset>
 
             </form>
@@ -100,7 +97,7 @@ export const Delivery: React.FC<DeliveryProps> = ({
             {formStatus === FormStatus.FAILURE &&
                 <p className="delivery-form__status delivery-form__status--failure">Form submission failed</p>}
         </div>
-)
+    )
 };
 
 //Checking if submiting is allowed
