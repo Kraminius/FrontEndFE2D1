@@ -70,7 +70,6 @@ export const Delivery: React.FC<DeliveryProps> = ({
 
 
     }
-
     const isFormValid = validateForm(formData);
 
     useEffect(() => {

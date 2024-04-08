@@ -25,11 +25,11 @@ export const CalculateSubTotal = (item: BasketItem) => {
 	return subtotalPrice;
 };
 
-export const calculateTotal = (items: BasketSummaryProps) => {
+/*export const calculateTotal = (items: BasketSummaryProps) => {
 	const subtotal = items.reduce((sum, item) => sum + CalculateSubTotal(item), 0);
 
 		return 10;
-}
+}*/
 
 const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
 	item,
@@ -39,7 +39,11 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
 	onRemove,
 }) => {
 
-	const imageUrl = item.imageUrl || defaultImage;
+	const [imageSrc, setImageSrc] = React.useState(item.imageUrl || defaultImage);
+
+	const handleImageError = () => {
+		setImageSrc(defaultImage);
+	};
 
 	let normalPrice = item.price * item.quantity;
 	let isPriceDiscounted = ((item.rebateQuantity > 0) && item.quantity >= item.rebateQuantity)
@@ -53,7 +57,7 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
 		<div className="item">
 			<div className="item__pane item__pane--left">
 				<div className="item__image">
-					<img src={imageUrl} alt={item.name} />
+					<img src={imageSrc} alt={item.name} onError={handleImageError}/>
 				</div>
 
 				<div className='item__options'>

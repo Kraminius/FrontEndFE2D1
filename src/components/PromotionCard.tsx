@@ -8,14 +8,9 @@ interface PromotionCardProps {
 
 const PromotionCard = ({ item }: PromotionCardProps) => {
 	const [imageSrc, setImageSrc] = useState(item.imageUrl || defaultImage);
-	const [imgKey, setImgKey] = useState(Date.now());
-
 	const handleImageError = () => {
-		console.log("Error loading image at: ", imageSrc);
-		console.log("Link to default image", defaultImage);
 		if (imageSrc !== defaultImage) {
 			setImageSrc(defaultImage);
-			setImgKey(Date.now());
 		}
 	};
 
@@ -23,7 +18,7 @@ const PromotionCard = ({ item }: PromotionCardProps) => {
 		<div className="promotion-card">
 			<div className="promotion-image">
 				{}
-				<img key={imgKey} src={imageSrc} alt={item.name} onError={handleImageError}/>
+				<img src={imageSrc} alt={item.name} onError={handleImageError}/>
 			</div>
 			<div className="promotion-info">
 				<div className="promotion-name">{item.name}</div>
