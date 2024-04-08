@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { DeliveryFormData } from "../../../types/Types";
-import { DeliveryInputs } from "./DeliveryInputs";
-import { postDeliveryForm } from "../../../network/SubmitDeliveryFormService";
-import { s } from "vitest/dist/reporters-MmQN-57K.js";
+import React, {useState} from "react";
+import {DeliveryFormData} from "../../../types/Types";
+import {DeliveryInputs} from "./DeliveryInputs";
+import {postDeliveryForm} from "../../../network/SubmitDeliveryFormService";
+import {s} from "vitest/dist/reporters-MmQN-57K.js";
 
 interface DeliveryProps {
-	setIsDeliveryFormValid: (isValid: boolean) => void;
-	handleNextClick: () => void;
+    setIsDeliveryFormValid: (isValid: boolean) => void;
+    handleNextClick: () => void;
+    handleBackClick: () => void;
 }
 
 // view requests here
@@ -14,110 +15,122 @@ interface DeliveryProps {
 const FORM_POST_URL = new URL("https://enoacmo66ykxn.x.pipedream.net");
 
 enum FormStatus {
-	NOT_SUBMITTED,
-	SUBMITTING,
-	SUCCESS,
-	FAILURE
+    NOT_SUBMITTED,
+    SUBMITTING,
+    SUCCESS,
+    FAILURE
 }
 
 export const Delivery: React.FC<DeliveryProps> = ({
-	setIsDeliveryFormValid,
-	handleNextClick
-}) => {
-	const [formData, setFormData] = useState<DeliveryFormData>({
-		deliveryCountry: "DK",
-		deliveryZipCode: "",
-		deliveryCity: "",
-		deliveryAddressLine: "",
-		deliveryAddressLine2: "",
-		firstName: "",
-		lastName: "",
-		phoneCode: "+45",
-		phone: "",
-		email: "",
-		companyName: "",
-		companyVat: "",
-		billingAddressDifferent: false,
-		billingCountry: "DK",
-		billingZipCode: "",
-		billingCity: "",
-		billingAddressLine: "",
-		billingAddressLine2: "",
-		agreeToTerms: false,
-		agreeToMarketing: true,
-		deliveryMessage: "",
-	});
+                                                      setIsDeliveryFormValid,
+                                                      handleNextClick,
+                                                      handleBackClick
+                                                  }) => {
+    const [formData, setFormData] = useState<DeliveryFormData>({
+        deliveryCountry: "DK",
+        deliveryZipCode: "",
+        deliveryCity: "",
+        deliveryAddressLine: "",
+        deliveryAddressLine2: "",
+        firstName: "",
+        lastName: "",
+        phoneCode: "+45",
+        phone: "",
+        email: "",
+        companyName: "",
+        companyVat: "",
+        billingAddressDifferent: false,
+        billingCountry: "DK",
+        billingZipCode: "",
+        billingCity: "",
+        billingAddressLine: "",
+        billingAddressLine2: "",
+        agreeToTerms: false,
+        agreeToMarketing: true,
+        deliveryMessage: "",
+    });
 
-	const [formStatus, setFormStatus] = useState<FormStatus>(FormStatus.NOT_SUBMITTED);
-
-
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		setFormStatus(FormStatus.SUBMITTING);
-		e.preventDefault();
-
-		let status = await postDeliveryForm(FORM_POST_URL, formData);
-
-		if (status === 200) {
-			setFormStatus(FormStatus.SUCCESS);
-			await new Promise((resolve) => setTimeout(resolve, 1000));
-			handleNextClick();
-		} else {
-			setFormStatus(FormStatus.FAILURE);
-		}
+    const [formStatus, setFormStatus] = useState<FormStatus>(FormStatus.NOT_SUBMITTED);
 
 
-	}
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        setFormStatus(FormStatus.SUBMITTING);
+        e.preventDefault();
 
-	const isFormValid = validateForm(formData);
-	setIsDeliveryFormValid(isFormValid);
+        let status = await postDeliveryForm(FORM_POST_URL, formData);
 
-	return (
-		<div className="delivery-form">
-			<h2>Delivery Information</h2>
-			{/* <form id='delivery-form' method="POST" action="https://enoacmo66ykxn.x.pipedream.net"> */}
-			<form className='delivery-form__form' onSubmit={handleSubmit}>
-				<fieldset>
-					<legend style={{ color: 'white' }}>Enter your delivery information</legend>
-					<DeliveryInputs formData={formData} setFormData={setFormData} />
-					<div className="continue">
-						<input type="submit" className="continue__button" value="Continue" disabled={!isFormValid} />
-					</div>
-				</fieldset>
+        if (status === 200) {
+            setFormStatus(FormStatus.SUCCESS);
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            handleNextClick();
+        } else {
+            setFormStatus(FormStatus.FAILURE);
+        }
 
-			</form>
-			{formStatus === FormStatus.SUBMITTING && <p className="delivery-form__status delivery-form__status--submitting">⌛ Form is being submitted. ⌛</p>}
-			{formStatus === FormStatus.SUCCESS && <p className="delivery-form__status delivery-form__status--success">Form submitted successfully</p>}
-			{formStatus === FormStatus.FAILURE && <p className="delivery-form__status delivery-form__status--failure">Form submission failed</p>}
-		</div>
-	)
+
+    }
+
+    const isFormValid = validateForm(formData);
+    setIsDeliveryFormValid(isFormValid);
+
+    return (
+        <div className="delivery-form">
+            <h2>Delivery Information</h2>
+            {/* <form id='delivery-form' method="POST" action="https://enoacmo66ykxn.x.pipedream.net"> */}
+            <form className='delivery-form__form' onSubmit={handleSubmit}>
+                <fieldset>
+                    <legend style={{color: 'white'}}>Enter your delivery information</legend>
+                    <DeliveryInputs formData={formData} setFormData={setFormData}/>
+                    <div className="button-container">
+                        <div className="continue">
+                            <input type="submit" className="continue__button" value="Continue" disabled={!isFormValid}/>
+                        </div>
+                        <div className="back">
+                            <button className="back-button" onClick={handleBackClick}>Back</button>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+            </form>
+            {formStatus === FormStatus.SUBMITTING &&
+                <p className="delivery-form__status delivery-form__status--submitting">⌛ Form is being submitted. ⌛</p>}
+            {formStatus === FormStatus.SUCCESS &&
+                <p className="delivery-form__status delivery-form__status--success">Form submitted successfully</p>}
+            {formStatus === FormStatus.FAILURE &&
+                <p className="delivery-form__status delivery-form__status--failure">Form submission failed</p>}
+        </div>
+)
 };
 
 //Checking if submiting is allowed
 const validateForm = (formData: DeliveryFormData) => {
 
-	function isNotEmpty(value: string) {
-		return value.trim() !== "";
-	}
-	function isValidEmail(email: string): boolean {
-		const regex = /^[^\s@]+@(?![.-])[^\s@]+\.[^\s@]+(?<!\.)$/;
-		return regex.test(email);
-	}
-	if (!isNotEmpty(formData.deliveryCountry)) return false;
-	if (formData.deliveryZipCode.length !== 4) return false;
-	if (!isNotEmpty(formData.deliveryCity)) return false;
-	if (!isNotEmpty(formData.deliveryAddressLine)) return false;
-	if (!isNotEmpty(formData.firstName)) return false;
-	if (!isNotEmpty(formData.lastName)) return false;
-	if (formData.phone.length !== 8) return false;
-	if (!isValidEmail(formData.email)) return false;
-	if (!formData.agreeToTerms) return false;
+    function isNotEmpty(value: string) {
+        return value.trim() !== "";
+    }
 
-	if (formData.billingAddressDifferent) {
-		if (formData.billingZipCode.length !== 4) return false;
-		if (!isNotEmpty(formData.billingCountry)) return false;
-		if (!isNotEmpty(formData.billingCity)) return false;
-		if (!isNotEmpty(formData.billingAddressLine)) return false;
-	}
+    function isValidEmail(email: string): boolean {
+        const regex = /^[^\s@]+@(?![.-])[^\s@]+\.[^\s@]+(?<!\.)$/;
+        return regex.test(email);
+    }
 
-	return true;
+    if (!isNotEmpty(formData.deliveryCountry)) return false;
+    if (formData.deliveryZipCode.length !== 4) return false;
+    if (!isNotEmpty(formData.deliveryCity)) return false;
+    if (!isNotEmpty(formData.deliveryAddressLine)) return false;
+    if (!isNotEmpty(formData.firstName)) return false;
+    if (!isNotEmpty(formData.lastName)) return false;
+    if (formData.phone.length !== 8) return false;
+    if (!isValidEmail(formData.email)) return false;
+    if (!formData.agreeToTerms) return false;
+
+    if (formData.billingAddressDifferent) {
+        if (formData.billingZipCode.length !== 4) return false;
+        if (!isNotEmpty(formData.billingCountry)) return false;
+        if (!isNotEmpty(formData.billingCity)) return false;
+        if (!isNotEmpty(formData.billingAddressLine)) return false;
+    }
+
+    return true;
 };
