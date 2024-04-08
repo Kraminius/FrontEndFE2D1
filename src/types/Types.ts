@@ -20,7 +20,7 @@ export enum RecurringOrder {
 
 
 export interface BasketItem {
-	imageUrl: string | undefined;
+	imageUrl?: string;
 	id: string;
 	name: string;
 	price: number;
