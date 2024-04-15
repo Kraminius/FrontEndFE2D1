@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import InputField from "./InputField.tsx";
-import { calculateTotal } from "../../../utils/utilfunctions.tsx";
+import { calculateTotal } from "../../../utils/utilFunctions.tsx";
 import { BasketItem } from "../../../types/Types.ts";
 
 interface GiftCardProps {

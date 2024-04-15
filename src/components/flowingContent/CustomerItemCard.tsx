@@ -1,7 +1,7 @@
 import React from "react";
 import defaultImage from "../../images/default-product.png";
 import { BasketItem, RecurringOrder } from "../../types/Types";
-import { calculateItemTotal } from "../../utils/utilfunctions.tsx";
+import { calculateItemTotal } from "../../utils/utilFunctions.tsx";
 
 interface CustomerItemCardProps {
   item: BasketItem;

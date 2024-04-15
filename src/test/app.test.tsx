@@ -3,7 +3,7 @@ import { describe, expect, test } from "vitest";
 import App from "../App";
 import { BasketItem, RecurringOrder } from "../types/Types";
 import BasketSummary from "../components/summary/BasketSummary.tsx";
-import { calculateItemTotal, isValidEmail } from "../utils/utilfunctions.tsx";
+import { calculateItemTotal, isValidEmail } from "../utils/utilFunctions.tsx";
 
 // Tests for discount calculation
 describe(App.name, () => {
@@ -145,6 +145,48 @@ describe(App.name, () => {
     const lastTotalText = totalTexts[totalTexts.length - 1];
 
     expect(lastTotalText.textContent).toContain("538.20,-");
+  });
+
+  test("calculates total price", () => {
+    const ignoredValues = {
+      imageUrl: "",
+      id: "",
+      name: "",
+      currency: "",
+      giftWrap: false,
+      upsellProductId: "",
+      recurringOrder: RecurringOrder.Once,
+    };
+    const items: BasketItem[] = [
+      {
+        price: 10,
+        quantity: 3,
+        rebateQuantity: 2,
+        rebatePercent: 50,
+        ...ignoredValues,
+      },
+      {
+        price: 1,
+        quantity: 2,
+        rebateQuantity: 2,
+        rebatePercent: 50,
+        ...ignoredValues,
+      },
+      {
+        price: 100,
+        quantity: 2,
+        rebateQuantity: 3,
+        rebatePercent: 100,
+        ...ignoredValues,
+      },
+    ];
+
+    // TODO should we rethink the rebate strategy?
+    const itemPrices = [15, 1, 200];
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      expect(calculateItemTotal(item)).toBe(itemPrices[i]);
+    }
   });
 
   test("validates email correctly", () => {
