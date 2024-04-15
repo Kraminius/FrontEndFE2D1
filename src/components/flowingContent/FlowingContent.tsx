@@ -40,7 +40,7 @@ export function FlowingContent({
         break;
       case ContentFlow.Receipt:
         throw new Error(
-          "Invalid content flow state, cannot continue from receipt."
+          "Invalid content flow state, cannot continue from receipt.",
         );
       default:
         throw new Error("Invalid content flow state.");
@@ -53,7 +53,7 @@ export function FlowingContent({
     switch (contentFlow) {
       case ContentFlow.Basket:
         throw new Error(
-          "Invalid content flow state, cannot go back from basket."
+          "Invalid content flow state, cannot go back from basket.",
         );
       case ContentFlow.Delivery:
         nextContentFlow = ContentFlow.Basket;
@@ -133,13 +133,13 @@ function Basket({ basketItems, setBasketItems, handleNextClick }: BasketProps) {
 
   const handleRecurringOrderChange = (
     itemId: string,
-    newRecurringOrder: RecurringOrder
+    newRecurringOrder: RecurringOrder,
   ) => {
     if (Object.values(RecurringOrder).includes(newRecurringOrder)) {
       const updatedBasketItems = basketItems.map((item) =>
         item.id === itemId
           ? { ...item, recurringOrder: newRecurringOrder as RecurringOrder }
-          : item
+          : item,
       );
       setBasketItems(updatedBasketItems);
     } else {

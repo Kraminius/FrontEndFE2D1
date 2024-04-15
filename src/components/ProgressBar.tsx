@@ -7,7 +7,7 @@ interface ProgressBarProps {
 
 export const ProgressBar: React.FC<ProgressBarProps> = ({ currentFlow }) => {
   const numEnumValues = Object.values(ContentFlow).filter(
-    (value) => typeof value === "number"
+    (value) => typeof value === "number",
   ).length;
   const progressPercentage = ((currentFlow + 1) / numEnumValues) * 100;
   return (
