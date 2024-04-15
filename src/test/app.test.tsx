@@ -3,7 +3,7 @@ import { describe, expect, test } from "vitest";
 import App from "../App";
 import { BasketItem, RecurringOrder } from '../types/Types';
 import BasketSummary from "../components/summary/BasketSummary.tsx";
-import {calculateItemTotal, isValidEmail} from "../utils/utilfunctions.tsx";
+import { calculateItemTotal, isValidEmail } from "../utils/utilfunctions.tsx";
 
 // Tests for discount calculation
 describe(App.name, () => {
@@ -112,7 +112,7 @@ describe(App.name, () => {
 
 		const { getByText } = render(<BasketSummary items={items} />);
 
-		expect(getByText(/Total:/i).textContent).toBe('Total: 52.50,-');
+		expect(getByText(/Total:/).textContent).toBe('Total: 52.50,-');
 
 	});
 
@@ -135,13 +135,13 @@ describe(App.name, () => {
 		const { getByText } = render(<BasketSummary items={items} />);
 
 
-		expect(getByText(/Total:/i).textContent).toBe('Total: 299.00,-');
+		expect(getByText(/Total:/).textContent).toBe('Total: 299.00,-');
 		render(<App basketItems={items} />);
 
 		const increaseButton = await screen.findByLabelText(`Increase quantity for item ${items[0].id}`);
 		fireEvent.click(increaseButton);
 
-		const totalTexts = await screen.findAllByText(/Total:/i);
+		const totalTexts = await screen.findAllByText(/Total:/);
 
 		const lastTotalText = totalTexts[totalTexts.length - 1];
 
