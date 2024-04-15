@@ -194,6 +194,7 @@ function App({ basketItems: testBasketItems }: AppProps) {
 				</div>
 				<div className="page_components">
 					<div className="page_and_summary_container">
+
 						<div className="content-container">{renderContent()}</div>
 						<div className="user-info-container">
 							<div className="summary-container">
