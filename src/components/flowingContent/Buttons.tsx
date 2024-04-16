@@ -3,9 +3,16 @@ interface ContinueButtonProps {
   isDisabled?: boolean;
 }
 
-export const ContinueButton = ({ isDisabled }: ContinueButtonProps) => (
+export const ContinueButton = ({
+  isDisabled,
+  onClick,
+}: ContinueButtonProps) => (
   <div className="continue">
-    <button className="continue__button" disabled={isDisabled}>
+    <button
+      className="continue__button"
+      disabled={isDisabled}
+      onClick={onClick}
+    >
       Continue
     </button>
   </div>
