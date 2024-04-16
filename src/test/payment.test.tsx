@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import PaymentPage from "../components/flowingContent/payment/PaymentPage";
 import { BasketItem, RecurringOrder } from "../types/Types";
+import { renderWithRouter } from "./helper";
 
 const ignoredValues = {
   imageUrl: "",
@@ -41,10 +42,12 @@ const mockIsContinueDisabled = vi.fn();
 describe("PaymentPage component", () => {
   beforeEach(() => {
     render(
-      <PaymentPage
-        items={sampleBasketItems}
-        isContinueDisabled={mockIsContinueDisabled}
-      />,
+      renderWithRouter(
+        <PaymentPage
+          items={sampleBasketItems}
+          isContinueDisabled={mockIsContinueDisabled}
+        />,
+      ),
     );
   });
 

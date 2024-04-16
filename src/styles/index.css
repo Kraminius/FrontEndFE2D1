@@ -19,7 +19,7 @@
 
 /* light mode */
 @media (prefers-color-scheme: light) {
-		:root {
+	:root {
 		--mainColour: #FEFEFE;
 		--secondColour: #FEFEFE;
 		--thirdColour: #788585;
@@ -80,6 +80,7 @@ legend {
 
 
 .header {
+	cursor: pointer;
 	height: 90px;
 	position: sticky;
 	background-color: var(--mainColour);
@@ -240,12 +241,12 @@ footer {
 }
 
 .progress-bar {
-	height: 20px; 
+	height: 20px;
 	width: 100%;
 	background-color: var(--mainColour);
-  }
-  
-  .progress-bar__fill {
+}
+
+.progress-bar__fill {
 	height: 100%;
 	background-color: var(--successColour);
-  }
+}

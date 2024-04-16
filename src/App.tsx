@@ -47,7 +47,9 @@ function App({ basketItems: testBasketItems }: AppProps) {
     }
     (async () => {
       try {
-        const items = await fetchBasketItems();
+        let items = await fetchBasketItems();
+        items = items.slice(0, 3);
+
         setBasketItems(items);
         setError("");
         setIsLoading(false);

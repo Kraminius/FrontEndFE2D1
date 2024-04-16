@@ -6,7 +6,7 @@ interface FooterProps {
 
 function Header() {
   return (
-    <header className="header">
+    <header onClick={() => (window.location.href = "/")} className="header">
       <img src={logo} alt="Our Logo" className="header_image" />
       <div className="brand_name">
         <h1>BUY STUFF</h1>

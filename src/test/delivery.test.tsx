@@ -2,21 +2,28 @@ import "@testing-library/jest-dom/vitest";
 import { cleanup, fireEvent, render } from "@testing-library/react";
 import { afterEach, describe, expect, test, vi } from "vitest";
 import { Delivery } from "../components/flowingContent/delivery/Delivery";
+import { renderWithRouter } from "./helper";
 
 afterEach(cleanup);
-
+vi.mock("react-router-dom", async () => {
+  const mod = await vi.importActual("react-router-dom");
+  return {
+    ...mod,
+    useParams: () => ({}),
+  };
+});
 describe(Delivery.name, () => {
   const mockHandleNextClick = vi.fn();
-  const mockHandleBackClick = vi.fn();
 
   test("Renders Delivery component", () => {
     const mockOnFormValidityChange = vi.fn();
     const { getByText } = render(
-      <Delivery
-        setIsDeliveryFormValid={mockOnFormValidityChange}
-        handleNextClick={mockHandleNextClick}
-        handleBackClick={mockHandleBackClick}
-      />,
+      renderWithRouter(
+        <Delivery
+          setIsDeliveryFormValid={mockOnFormValidityChange}
+          handleNextClick={mockHandleNextClick}
+        />,
+      ),
     );
     expect(getByText(/Delivery Information/)).toBeInTheDocument();
   });
@@ -24,11 +31,12 @@ describe(Delivery.name, () => {
   test("Check that form is invalid without input", async () => {
     const mockOnFormValidityChange = vi.fn();
     render(
-      <Delivery
-        setIsDeliveryFormValid={mockOnFormValidityChange}
-        handleNextClick={mockHandleNextClick}
-        handleBackClick={mockHandleBackClick}
-      />,
+      renderWithRouter(
+        <Delivery
+          setIsDeliveryFormValid={mockOnFormValidityChange}
+          handleNextClick={mockHandleNextClick}
+        />,
+      ),
     );
 
     expect(mockOnFormValidityChange).toHaveBeenCalledWith(false);
@@ -37,11 +45,12 @@ describe(Delivery.name, () => {
   test("updates state on input change", () => {
     const mockOnFormValidityChange = vi.fn();
     const { getByLabelText } = render(
-      <Delivery
-        setIsDeliveryFormValid={mockOnFormValidityChange}
-        handleNextClick={mockHandleNextClick}
-        handleBackClick={mockHandleBackClick}
-      />,
+      renderWithRouter(
+        <Delivery
+          setIsDeliveryFormValid={mockOnFormValidityChange}
+          handleNextClick={mockHandleNextClick}
+        />,
+      ),
     );
 
     const firstNameInput = getByLabelText(/First Name \*/i);
@@ -53,11 +62,12 @@ describe(Delivery.name, () => {
   test("Update onFormValidityChange when form is valid and invalid", async () => {
     const mockOnFormValidityChange = vi.fn();
     const { getByLabelText } = render(
-      <Delivery
-        setIsDeliveryFormValid={mockOnFormValidityChange}
-        handleNextClick={mockHandleNextClick}
-        handleBackClick={mockHandleBackClick}
-      />,
+      renderWithRouter(
+        <Delivery
+          setIsDeliveryFormValid={mockOnFormValidityChange}
+          handleNextClick={mockHandleNextClick}
+        />,
+      ),
     );
 
     fireEvent.change(getByLabelText(/First Name \*/i), {
@@ -97,11 +107,12 @@ describe(Delivery.name, () => {
   test("disables submit button when form is valid, but different billing address is chosen", async () => {
     const mockOnFormValidityChange = vi.fn();
     const { getByLabelText } = render(
-      <Delivery
-        setIsDeliveryFormValid={mockOnFormValidityChange}
-        handleNextClick={mockHandleNextClick}
-        handleBackClick={mockHandleBackClick}
-      />,
+      renderWithRouter(
+        <Delivery
+          setIsDeliveryFormValid={mockOnFormValidityChange}
+          handleNextClick={mockHandleNextClick}
+        />,
+      ),
     );
 
     fireEvent.change(getByLabelText(/First Name \*/i), {
@@ -134,11 +145,12 @@ describe(Delivery.name, () => {
   test("Enables submit button when form is valid, different billing address is chosen and form filled", async () => {
     const mockOnFormValidityChange = vi.fn();
     const { getByLabelText } = render(
-      <Delivery
-        setIsDeliveryFormValid={mockOnFormValidityChange}
-        handleNextClick={mockHandleNextClick}
-        handleBackClick={mockHandleBackClick}
-      />,
+      renderWithRouter(
+        <Delivery
+          setIsDeliveryFormValid={mockOnFormValidityChange}
+          handleNextClick={mockHandleNextClick}
+        />,
+      ),
     );
 
     fireEvent.change(getByLabelText(/First Name \*/i), {
