@@ -14,9 +14,10 @@ import {Footer, Header} from "./components/FooterHeader.tsx";
 import OrderSummary from "./components/summary/OrderSummary.tsx";
 import {fetchBasketItems} from "./network/BasketService.ts";
 import PromotionBox from "./components/PromotionCard.tsx";
-import {FlowingContent} from "./components/flowingContent/FlowingContent.tsx";
+//import {FlowingContent} from "./components/flowingContent/FlowingContent.tsx";
 import {ProgressBar} from "./components/ProgressBar.tsx";
 import {ContentFlow} from "./components/flowingContent/FlowingContent";
+import {Outlet} from "react-router-dom";
 
 const creatorNames = [
     "Christensen, Nicklas Thorbjørn",
@@ -35,7 +36,7 @@ interface AppProps {
 // Alternatively we could use jest.mock to mock the fetchBasketItems function.
 function App({basketItems: testBasketItems}: AppProps) {
     const [basketItems, setBasketItems] = useState<BasketItem[]>([])
-    const [contentFlow, setContentFlow] = useState(ContentFlow.Basket)
+    //const [contentFlow, setContentFlow] = useState(ContentFlow.Basket)
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(true)
 
@@ -79,12 +80,7 @@ function App({basketItems: testBasketItems}: AppProps) {
                                 <div className="loading-wheel"></div>
                             </>
                         )}
-                    <FlowingContent
-                            basketItems={basketItems}
-                            setBasketItems={setBasketItems}
-                            contentFlow={contentFlow}
-                            setContentFlow={setContentFlow}
-                        />
+                     <Outlet />
                     </div>
                     <OrderSummary items={basketItems}/>
                 </main>
