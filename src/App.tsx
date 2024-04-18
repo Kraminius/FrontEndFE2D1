@@ -17,6 +17,10 @@ import PromotionBox from "./components/PromotionCard.tsx";
 import { FlowingContent } from "./components/flowingContent/FlowingContent.tsx";
 import { ProgressBar } from "./components/ProgressBar.tsx";
 import { ContentFlow } from "./components/flowingContent/FlowingContent";
+import BasketRender from "./BasketRender.tsx";
+import {Delivery} from "./components/flowingContent/delivery/Delivery.tsx";
+import DeliveryRender from "./DeliveryRender.tsx";
+import {Outlet} from "react-router-dom";
 
 const creatorNames = [
   "Christensen, Nicklas Thorbjørn",
@@ -83,12 +87,9 @@ function App({ basketItems: testBasketItems }: AppProps) {
                 <div className="loading-wheel"></div>
               </>
             )}
-            <FlowingContent
-              basketItems={basketItems}
-              setBasketItems={setBasketItems}
-              contentFlow={contentFlow}
-              setContentFlow={setContentFlow}
-            />
+
+            <DeliveryRender basketItems={basketItems} setBasketItems={setBasketItems} contentFlow={contentFlow} setContentFlow={setContentFlow} />
+
           </div>
           <OrderSummary items={basketItems} />
         </main>
