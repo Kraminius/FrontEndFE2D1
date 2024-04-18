@@ -88,7 +88,7 @@ function App({ basketItems: testBasketItems}: AppProps) {
               </>
             )}
 
-            <BasketRender />
+            <Outlet />
 
           </div>
           <OrderSummary items={basketItems} />

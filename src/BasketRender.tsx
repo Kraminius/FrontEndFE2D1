@@ -15,13 +15,6 @@ export enum ContentFlow {
     Receipt,
 }
 
-interface FlowingContentProps {
-    basketItems: BasketItem[];
-    setBasketItems: (items: BasketItem[]) => void;
-    contentFlow: ContentFlow;
-    setContentFlow: (contentFlow: ContentFlow) => void;
-}
-
 export function BasketRender() {
 
     const { basketItems, setBasketItems, contentFlow, setContentFlow } = useBasket();

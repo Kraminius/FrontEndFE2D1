@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(document.getElementById("root")!); // Make sure
 root.render(
     <React.StrictMode>
         <RenditionProvider>
-            <App />
+            <RouterProvider router={router}/>
         </RenditionProvider>
     </React.StrictMode>
 );
