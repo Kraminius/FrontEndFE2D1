@@ -11,8 +11,27 @@ interface BasketContextType {
 
 const BasketContext = createContext<BasketContextType | undefined>(undefined);
 
+//NEW
+const saveToLocalStorage = (items) => {
+    localStorage.setItem('basketItems', JSON.stringify(items));
+};
+
+const loadFromLocalStorage = () => {
+    const storedItems = localStorage.getItem('basketItems');
+    return storedItems ? JSON.parse(storedItems) : [];
+};
+
+const handleSetBasketItems = (items) => {
+    RenditionProvider(items);
+    saveToLocalStorage(items);
+};
+
+//GOOD
+
 export const RenditionProvider: React.FC = ({ children }) => {
-    const [basketItems, setBasketItems] = useState<BasketItem[]>([]);
+
+    const [basketItems, setBasketItems] = useState(loadFromLocalStorage());
+    // const [basketItems, setBasketItems] = useState<BasketItem[]>([]);
     const [contentFlow, setContentFlow] = useState(ContentFlow.Basket);
 
     return (
