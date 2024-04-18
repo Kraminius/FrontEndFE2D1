@@ -17,6 +17,7 @@ import PromotionBox from "./components/PromotionCard.tsx";
 import { FlowingContent } from "./components/flowingContent/FlowingContent.tsx";
 import { ProgressBar } from "./components/ProgressBar.tsx";
 import { ContentFlow } from "./components/flowingContent/FlowingContent";
+import {useBasketDispatchContext} from "./context/BasketContext.tsx";
 
 const creatorNames = [
   "Christensen, Nicklas Thorbjørn",
@@ -38,17 +39,19 @@ function App({ basketItems: testBasketItems }: AppProps) {
   const [contentFlow, setContentFlow] = useState(ContentFlow.Basket);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useBasketDispatchContext();
 
   useEffect(() => {
+
     if (testBasketItems) {
-      setBasketItems(testBasketItems);
+      dispatch({ type: 'SET_ITEMS', payload: testBasketItems });
       setIsLoading(false);
       return;
     }
     (async () => {
       try {
         const items = await fetchBasketItems();
-        setBasketItems(items);
+        dispatch({ type: 'SET_ITEMS', payload: items });
         setError("");
         setIsLoading(false);
       } catch (error) {
@@ -84,13 +87,11 @@ function App({ basketItems: testBasketItems }: AppProps) {
               </>
             )}
             <FlowingContent
-              basketItems={basketItems}
-              setBasketItems={setBasketItems}
               contentFlow={contentFlow}
               setContentFlow={setContentFlow}
             />
           </div>
-          <OrderSummary items={basketItems} />
+          <OrderSummary />
         </main>
         <PromotionBox basketItems={basketItems} />
       </div>

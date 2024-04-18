@@ -4,6 +4,8 @@ import CustomerItemCard from "./CustomerItemCard";
 import { BackButton, ContinueButton } from "./Buttons";
 import { Delivery } from "./delivery/Delivery";
 import PaymentPage from "./payment/PaymentPage.tsx";
+import {BasketProvider, useBasketContext, useBasketDispatchContext} from '../../context/BasketContext';
+
 
 export enum ContentFlow {
   Basket,
@@ -13,15 +15,11 @@ export enum ContentFlow {
 }
 
 interface FlowingContentProps {
-  basketItems: BasketItem[];
-  setBasketItems: (items: BasketItem[]) => void;
   contentFlow: ContentFlow;
   setContentFlow: (contentFlow: ContentFlow) => void;
 }
 
 export function FlowingContent({
-  basketItems,
-  setBasketItems,
   contentFlow,
   setContentFlow,
 }: FlowingContentProps) {
@@ -74,11 +72,11 @@ export function FlowingContent({
   switch (contentFlow) {
     case ContentFlow.Basket:
       return (
-        <Basket
-          basketItems={basketItems}
-          setBasketItems={setBasketItems}
-          handleNextClick={handleNextClick}
-        />
+          <BasketProvider>
+            {contentFlow === ContentFlow.Basket && (
+                <Basket handleNextClick={handleNextClick} />
+            )}
+          </BasketProvider>
       );
     case ContentFlow.Delivery:
       return (
@@ -102,54 +100,38 @@ export function FlowingContent({
 }
 
 interface BasketProps {
-  basketItems: BasketItem[];
-  setBasketItems: (items: BasketItem[]) => void;
   handleNextClick: () => void;
 }
 
-function Basket({ basketItems, setBasketItems, handleNextClick }: BasketProps) {
+function Basket({ handleNextClick }: BasketProps) {
+  const basketItems = useBasketContext();
+  const dispatch = useBasketDispatchContext();
   const handleQuantityChange = (itemId: string, newQuantity: number) => {
     if (newQuantity < 1) {
       return;
     }
-    const updatedItems = basketItems.map((item) => {
-      if (item.id === itemId) {
-        return { ...item, quantity: newQuantity };
-      }
-      return item;
-    });
-    setBasketItems(updatedItems);
+    dispatch({ type: 'UPDATE_QUANTITY', payload: { itemId, newQuantity } });
   };
 
   const handleGiftWrapChange = (itemId: string) => {
-    const updatedItems = basketItems.map((item) => {
-      if (item.id === itemId) {
-        return { ...item, giftWrap: !item.giftWrap };
-      }
-      return item;
-    });
-    setBasketItems(updatedItems);
-  };
+    dispatch({ type: 'TOGGLE_GIFT_WRAP', payload: { itemId } });
+    };
 
   const handleRecurringOrderChange = (
-    itemId: string,
-    newRecurringOrder: RecurringOrder,
+      itemId: string,
+      newRecurringOrder: RecurringOrder,
   ) => {
     if (Object.values(RecurringOrder).includes(newRecurringOrder)) {
-      const updatedBasketItems = basketItems.map((item) =>
-        item.id === itemId
-          ? { ...item, recurringOrder: newRecurringOrder as RecurringOrder }
-          : item,
-      );
-      setBasketItems(updatedBasketItems);
+      dispatch({ type: 'UPDATE_RECURRING_ORDER', payload: { itemId, newRecurringOrder } });
     } else {
       console.error("Invalid recurring order type.");
     }
   };
 
   const handleRemove = (itemId: string) => {
-    setBasketItems(basketItems.filter((item) => item.id !== itemId));
+    dispatch({ type: 'REMOVE_ITEM', payload: { itemId } });
   };
+
   return basketItems.length > 0 ? (
     <>
       <div className="basket-items">
