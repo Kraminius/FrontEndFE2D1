@@ -91,7 +91,7 @@ function App({ basketItems: testBasketItems }: AppProps) {
               setContentFlow={setContentFlow}
             />
           </div>
-          <OrderSummary items={basketItems} />
+          <OrderSummary />
         </main>
         <PromotionBox basketItems={basketItems} />
       </div>
