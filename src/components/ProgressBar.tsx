@@ -6,21 +6,10 @@ interface ProgressBarProps {
 }
 
 export const ProgressBar: React.FC<ProgressBarProps> = ({ currentFlow }) => {
-  let progressPercentage = 0;
-  switch (currentFlow) {
-    case ContentFlow.Basket:
-      progressPercentage = 25;
-      break;
-    case ContentFlow.Delivery:
-      progressPercentage = 50;
-      break;
-    case ContentFlow.Payment:
-      progressPercentage = 75;
-      break;
-    case ContentFlow.Receipt:
-      progressPercentage = 100;
-      break;
-  }
+  const numEnumValues = Object.values(ContentFlow).filter(
+    (value) => typeof value === "number",
+  ).length;
+  const progressPercentage = ((currentFlow + 1) / numEnumValues) * 100;
   return (
     <div className="progress-bar">
       <div

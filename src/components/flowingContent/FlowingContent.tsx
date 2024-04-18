@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { BasketItem, RecurringOrder } from "../../types/Types";
 import CustomerItemCard from "./CustomerItemCard";
-import { ContinueButton } from "./Buttons";
+import { BackButton, ContinueButton } from "./Buttons";
 import { Delivery } from "./delivery/Delivery";
 import PaymentPage from "./payment/PaymentPage.tsx";
-import { Routes, Route } from "react-router";
 
 export enum ContentFlow {
   Basket,
@@ -49,37 +48,57 @@ export function FlowingContent({
     setContentFlow(nextContentFlow);
     window.scrollTo(0, 0);
   }
+  function handleBackClick() {
+    let nextContentFlow: ContentFlow;
+    switch (contentFlow) {
+      case ContentFlow.Basket:
+        throw new Error(
+          "Invalid content flow state, cannot go back from basket.",
+        );
+      case ContentFlow.Delivery:
+        nextContentFlow = ContentFlow.Basket;
+        break;
+      case ContentFlow.Payment:
+        nextContentFlow = ContentFlow.Delivery;
+        break;
+      case ContentFlow.Receipt:
+        nextContentFlow = ContentFlow.Payment;
+        break;
+      default:
+        throw new Error("Invalid content flow state.");
+    }
+    setContentFlow(nextContentFlow);
+    window.scrollTo(0, 0);
+  }
 
-  return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <Basket
-            basketItems={basketItems}
-            setBasketItems={setBasketItems}
-            handleNextClick={handleNextClick}
-          />
-        }
-      />
-      <Route
-        path="/delivery"
-        element={
-          <Delivery
-            setIsDeliveryFormValid={setIsDeliveryFormValid}
-            handleNextClick={handleNextClick}
-          />
-        }
-      />
-      <Route
-        path="/payment"
-        element={
-          <Payment handleNextClick={handleNextClick} items={basketItems} />
-        }
-      />
-      <Route path="/receipt" element={<Receipt />} />
-    </Routes>
-  );
+  switch (contentFlow) {
+    case ContentFlow.Basket:
+      return (
+        <Basket
+          basketItems={basketItems}
+          setBasketItems={setBasketItems}
+          handleNextClick={handleNextClick}
+        />
+      );
+    case ContentFlow.Delivery:
+      return (
+        <Delivery
+          setIsDeliveryFormValid={setIsDeliveryFormValid}
+          handleNextClick={handleNextClick}
+          handleBackClick={handleBackClick}
+        />
+      );
+    case ContentFlow.Payment:
+      return (
+        <Payment
+          handleNextClick={handleNextClick}
+          handleBackClick={handleBackClick}
+          items={basketItems}
+        />
+      );
+    case ContentFlow.Receipt:
+      return <Receipt handleBackClick={handleBackClick} />;
+  }
 }
 
 interface BasketProps {
@@ -145,7 +164,7 @@ function Basket({ basketItems, setBasketItems, handleNextClick }: BasketProps) {
           />
         ))}
       </div>
-      <ContinueButton href="/delivery" onClick={handleNextClick} />
+      <ContinueButton onClick={handleNextClick} />
     </>
   ) : (
     <div className="empty-basket-message">
@@ -156,22 +175,28 @@ function Basket({ basketItems, setBasketItems, handleNextClick }: BasketProps) {
 
 interface PaymentProps {
   handleNextClick: () => void;
+  handleBackClick: () => void;
   items: BasketItem[];
 }
 
-export function Receipt() {
-  return <div>receipt :b</div>;
+function Receipt({ handleBackClick }: { handleBackClick: () => void }) {
+  return (
+    <div>
+      receipt :b
+      <BackButton onClick={handleBackClick} />
+    </div>
+  );
 }
-function Payment({ handleNextClick, items }: PaymentProps) {
+function Payment({ handleNextClick, handleBackClick, items }: PaymentProps) {
   const [isContinueDisabled, setIsContinueDisabled] = useState(false);
   return (
     <div>
       <PaymentPage items={items} isContinueDisabled={setIsContinueDisabled} />
       <ContinueButton
-        isDisabled={isContinueDisabled}
-        href="/receipt"
         onClick={handleNextClick}
+        isDisabled={isContinueDisabled}
       />
+      <BackButton onClick={handleBackClick} />
     </div>
   );
 }

@@ -4,8 +4,6 @@ import App from "../App";
 import { BasketItem, RecurringOrder } from "../types/Types";
 import BasketSummary from "../components/summary/BasketSummary.tsx";
 import { calculateItemTotal, isValidEmail } from "../utils/utilFunctions.tsx";
-import { BrowserRouter } from "react-router-dom";
-import { renderWithRouter } from "./helper.tsx";
 
 // Tests for discount calculation
 describe(App.name, () => {
@@ -111,9 +109,7 @@ describe(App.name, () => {
       },
     ];
 
-    const { getByText } = render(
-      renderWithRouter(<BasketSummary items={items} />),
-    );
+    const { getByText } = render(<BasketSummary items={items} />);
 
     expect(getByText(/Total:/).textContent).toBe("Total: 52.50,-");
   });
@@ -137,11 +133,7 @@ describe(App.name, () => {
     const { getByText } = render(<BasketSummary items={items} />);
 
     expect(getByText(/Total:/).textContent).toBe("Total: 299.00,-");
-    render(
-      <BrowserRouter>
-        <App basketItems={items} />
-      </BrowserRouter>,
-    );
+    render(<App basketItems={items} />);
 
     const increaseButton = await screen.findByLabelText(
       `Increase quantity for item ${items[0].id}`,

@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { DeliveryFormData } from "../../../types/Types";
 import { DeliveryInputs } from "./DeliveryInputs";
 import { postDeliveryForm } from "../../../network/SubmitDeliveryFormService";
-import { ContinueButton } from "../Buttons.tsx";
-import { useNavigate } from "react-router";
+import { BackButton, ContinueButton } from "../Buttons.tsx";
 
 interface DeliveryProps {
   setIsDeliveryFormValid: (isValid: boolean) => void;
   handleNextClick: () => void;
+  handleBackClick: () => void;
 }
 
 // view requests here
@@ -24,6 +24,7 @@ enum FormStatus {
 export const Delivery: React.FC<DeliveryProps> = ({
   setIsDeliveryFormValid,
   handleNextClick,
+  handleBackClick,
 }) => {
   const [formData, setFormData] = useState<DeliveryFormData>({
     deliveryCountry: "DK",
@@ -49,7 +50,6 @@ export const Delivery: React.FC<DeliveryProps> = ({
     deliveryMessage: "",
   });
 
-  const navigate = useNavigate();
   const [formStatus, setFormStatus] = useState<FormStatus>(
     FormStatus.NOT_SUBMITTED,
   );
@@ -64,7 +64,6 @@ export const Delivery: React.FC<DeliveryProps> = ({
       setFormStatus(FormStatus.SUCCESS);
       await new Promise((resolve) => setTimeout(resolve, 1000));
       handleNextClick();
-      navigate("/payment");
     } else {
       setFormStatus(FormStatus.FAILURE);
     }
@@ -78,11 +77,16 @@ export const Delivery: React.FC<DeliveryProps> = ({
   return (
     <div className="delivery-form">
       <h2>Delivery Information</h2>
+      {/* <form id='delivery-form' method="POST" action="https://enoacmo66ykxn.x.pipedream.net"> */}
       <form className="delivery-form__form" onSubmit={handleSubmit}>
         <fieldset>
           <legend>Enter your delivery information</legend>
           <DeliveryInputs formData={formData} setFormData={setFormData} />
-          <ContinueButton isDisabled={!isFormValid} />
+          <ContinueButton
+            onClick={() => console.log("form is submitting, please wait.")}
+            isDisabled={!isFormValid}
+          />
+          <BackButton onClick={handleBackClick} />
         </fieldset>
       </form>
       {formStatus === FormStatus.SUBMITTING && (
