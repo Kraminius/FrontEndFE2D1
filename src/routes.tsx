@@ -2,6 +2,9 @@ import { RouteObject } from "react-router-dom";
 import App from "./App.tsx";
 import ErrorPage from "./components/error-page.tsx";
 import BasketRender from "./BasketRender.tsx";
+import DeliveryRender from "./DeliveryRender.tsx";
+import PaymentRender from "./PaymentRender.tsx";
+import ReceiptRender from "./ReceiptRender.tsx";
 
 export const routes: RouteObject[] = [
   {
@@ -12,7 +15,19 @@ export const routes: RouteObject[] = [
       {
         path: "/basket",
         element: <BasketRender />,
-      }
+      },
+      {
+        path: "/delivery",
+        element: <DeliveryRender />,
+      },
+      {
+        path: "/payment",
+        element: <PaymentRender />,
+      },
+      {
+        path: "/receipt",
+        element: <ReceiptRender />,
+      },
     ]
   },
   {
