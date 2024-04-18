@@ -8,6 +8,7 @@ import CustomerItemCard from "./components/flowingContent/CustomerItemCard.tsx";
 import { BackButton, ContinueButton } from "./components/flowingContent/Buttons.tsx";
 import {useBasket} from "./RenditionContext.tsx";
 import PaymentPage from "./components/flowingContent/payment/PaymentPage.tsx";
+import {useNavigate} from "react-router-dom";
 
 export enum ContentFlow {
     Basket,
@@ -19,6 +20,7 @@ export enum ContentFlow {
 export function ReceiptRender() {
 
     const { basketItems, setBasketItems, contentFlow, setContentFlow } = useBasket();
+    const navigate = useNavigate();
 
     const [, setIsDeliveryFormValid] = useState(true);
 
@@ -33,6 +35,7 @@ export function ReceiptRender() {
         let nextContentFlow: ContentFlow;
         nextContentFlow = ContentFlow.Delivery
         setContentFlow(nextContentFlow);
+        navigate("/payment");
         window.scrollTo(0, 0);
     }
 

@@ -7,6 +7,7 @@ import { BasketItem, RecurringOrder } from "./types/Types";
 import CustomerItemCard from "./components/flowingContent/CustomerItemCard.tsx";
 import { BackButton, ContinueButton } from "./components/flowingContent/Buttons.tsx";
 import {useBasket} from "./RenditionContext.tsx";
+import {Link, useNavigate} from "react-router-dom";
 
 export enum ContentFlow {
     Basket,
@@ -18,6 +19,7 @@ export enum ContentFlow {
 export function BasketRender() {
 
     const { basketItems, setBasketItems, contentFlow, setContentFlow } = useBasket();
+    const navigate = useNavigate();
 
     const [, setIsDeliveryFormValid] = useState(true);
 
@@ -26,6 +28,7 @@ export function BasketRender() {
         let nextContentFlow: ContentFlow;
         nextContentFlow = ContentFlow.Delivery
         setContentFlow(nextContentFlow);
+        navigate("/delivery");
         window.scrollTo(0, 0);
 
     }
@@ -54,6 +57,7 @@ interface BasketProps {
 }
 
 function Basket({ basketItems, setBasketItems, handleNextClick }: BasketProps) {
+
     const handleQuantityChange = (itemId: string, newQuantity: number) => {
         if (newQuantity < 1) {
             return;
@@ -94,7 +98,8 @@ function Basket({ basketItems, setBasketItems, handleNextClick }: BasketProps) {
     };
 
     const handleRemove = (itemId: string) => {
-        setBasketItems(basketItems.filter((item) => item.id !== itemId));
+        const updatedItems = basketItems.filter((item) => item.id !== itemId);
+        setBasketItems(updatedItems);
     };
     return basketItems.length > 0 ? (
         <>

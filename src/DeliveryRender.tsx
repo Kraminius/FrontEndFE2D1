@@ -5,6 +5,7 @@
 import { useState } from "react";
 import {useBasket} from "./RenditionContext.tsx";
 import {Delivery} from "./components/flowingContent/delivery/Delivery.tsx";
+import {useNavigate} from "react-router-dom";
 
 export enum ContentFlow {
     Basket,
@@ -16,6 +17,7 @@ export enum ContentFlow {
 export function DeliveryRender() {
 
     const { basketItems, setBasketItems, contentFlow, setContentFlow } = useBasket();
+    const navigate = useNavigate();
 
     const [, setIsDeliveryFormValid] = useState(true);
 
@@ -24,6 +26,7 @@ export function DeliveryRender() {
         let nextContentFlow: ContentFlow;
         nextContentFlow = ContentFlow.Payment
         setContentFlow(nextContentFlow);
+        navigate("/payment");
         window.scrollTo(0, 0);
 
     }
@@ -31,6 +34,7 @@ export function DeliveryRender() {
         let nextContentFlow: ContentFlow;
         nextContentFlow = ContentFlow.Basket
         setContentFlow(nextContentFlow);
+        navigate("/basket");
         window.scrollTo(0, 0);
     }
 
