@@ -1,11 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import {routes} from "./routes.tsx";
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RenditionProvider } from "./RenditionContext";
+import { routes } from "./routes";
+import App from "./App.tsx";
 
 const router = createBrowserRouter(routes);
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
+
+const root = ReactDOM.createRoot(document.getElementById("root")!); // Make sure the 'root' element exists in your index.html
+root.render(
+    <React.StrictMode>
+        <RenditionProvider>
+            <App />
+        </RenditionProvider>
+    </React.StrictMode>
 );
+

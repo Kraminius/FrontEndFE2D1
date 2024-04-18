@@ -14,13 +14,11 @@ import { Footer, Header } from "./components/FooterHeader.tsx";
 import OrderSummary from "./components/summary/OrderSummary.tsx";
 import { fetchBasketItems } from "./network/BasketService.ts";
 import PromotionBox from "./components/PromotionCard.tsx";
-import { FlowingContent } from "./components/flowingContent/FlowingContent.tsx";
 import { ProgressBar } from "./components/ProgressBar.tsx";
 import { ContentFlow } from "./components/flowingContent/FlowingContent";
-import BasketRender from "./BasketRender.tsx";
-import {Delivery} from "./components/flowingContent/delivery/Delivery.tsx";
-import DeliveryRender from "./DeliveryRender.tsx";
 import {Outlet} from "react-router-dom";
+import {useBasket} from "./RenditionContext.tsx";
+import BasketRender from "./BasketRender.tsx";
 
 const creatorNames = [
   "Christensen, Nicklas Thorbjørn",
@@ -33,13 +31,15 @@ const creatorNames = [
 
 interface AppProps {
   basketItems?: BasketItem[]; // Make it optional to maintain compatibility
+  route?: ContentFlow.Basket;
 }
 
 // Right now we can use the AppProps interface to define the props for the App component, we use this for testing.
 // Alternatively we could use jest.mock to mock the fetchBasketItems function.
-function App({ basketItems: testBasketItems }: AppProps) {
-  const [basketItems, setBasketItems] = useState<BasketItem[]>([]);
-  const [contentFlow, setContentFlow] = useState(ContentFlow.Basket);
+function App({ basketItems: testBasketItems}: AppProps) {
+
+  const { basketItems, setBasketItems, contentFlow, } = useBasket();
+
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -88,7 +88,7 @@ function App({ basketItems: testBasketItems }: AppProps) {
               </>
             )}
 
-            <DeliveryRender basketItems={basketItems} setBasketItems={setBasketItems} contentFlow={contentFlow} setContentFlow={setContentFlow} />
+            <BasketRender />
 
           </div>
           <OrderSummary items={basketItems} />
