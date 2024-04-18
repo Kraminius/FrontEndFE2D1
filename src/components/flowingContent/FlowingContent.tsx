@@ -24,6 +24,7 @@ export function FlowingContent({
   setContentFlow,
 }: FlowingContentProps) {
   const [, setIsDeliveryFormValid] = useState(true);
+
   function handleNextClick() {
     let nextContentFlow: ContentFlow;
     switch (contentFlow) {
@@ -72,11 +73,7 @@ export function FlowingContent({
   switch (contentFlow) {
     case ContentFlow.Basket:
       return (
-          <BasketProvider>
-            {contentFlow === ContentFlow.Basket && (
-                <Basket handleNextClick={handleNextClick} />
-            )}
-          </BasketProvider>
+          <Basket handleNextClick={handleNextClick} />
       );
     case ContentFlow.Delivery:
       return (
