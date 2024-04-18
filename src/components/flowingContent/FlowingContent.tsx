@@ -1,16 +1,11 @@
 import { useState } from "react";
-import { BasketItem, RecurringOrder } from "../../types/Types";
+import {BasketItem, ContentFlow, RecurringOrder} from "../../types/Types";
 import CustomerItemCard from "./CustomerItemCard";
 import { BackButton, ContinueButton } from "./Buttons";
 import { Delivery } from "./delivery/Delivery";
 import PaymentPage from "./payment/PaymentPage.tsx";
 
-export enum ContentFlow {
-  Basket,
-  Delivery,
-  Payment,
-  Receipt,
-}
+
 
 interface FlowingContentProps {
   basketItems: BasketItem[];

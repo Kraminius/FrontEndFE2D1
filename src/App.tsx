@@ -16,8 +16,9 @@ import {fetchBasketItems} from "./network/BasketService.ts";
 import PromotionBox from "./components/PromotionCard.tsx";
 //import {FlowingContent} from "./components/flowingContent/FlowingContent.tsx";
 import {ProgressBar} from "./components/ProgressBar.tsx";
-import {ContentFlow} from "./components/flowingContent/FlowingContent";
-import {Outlet} from "react-router-dom";
+//import {ContentFlow} from "./components/flowingContent/FlowingContent";
+import {ContentFlow} from "./types/Types.ts"
+import {FlowingContent} from "./components/flowingContent/FlowingContent.tsx";
 
 const creatorNames = [
     "Christensen, Nicklas Thorbjørn",
@@ -30,18 +31,25 @@ const creatorNames = [
 
 interface AppProps {
     basketItems?: BasketItem[]; // Make it optional to maintain compatibility
+    contentFlow?: ContentFlow.Basket // Initialy its Basket and by default
+    setContentFlow?: (content: ContentFlow) => void;
 }
 
 // Right now we can use the AppProps interface to define the props for the App component, we use this for testing.
 // Alternatively we could use jest.mock to mock the fetchBasketItems function.
-function App({basketItems: testBasketItems}: AppProps) {
+function App({contentFlow: initialContentFlow, basketItems: testBasketItems}: AppProps) {
+
+
     const [basketItems, setBasketItems] = useState<BasketItem[]>([])
-    //const [contentFlow, setContentFlow] = useState(ContentFlow.Basket)
+    const [contentFlow, setContentFlow] = useState(ContentFlow.Basket)
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(true)
 
 
     useEffect(() => {
+        if(initialContentFlow){
+            setContentFlow(initialContentFlow)
+        }
         if (testBasketItems) {
             setBasketItems(testBasketItems)
             setIsLoading(false)
@@ -60,6 +68,7 @@ function App({basketItems: testBasketItems}: AppProps) {
             }
         })();
     }, []);
+
 
     return (
         <>
@@ -80,7 +89,7 @@ function App({basketItems: testBasketItems}: AppProps) {
                                 <div className="loading-wheel"></div>
                             </>
                         )}
-                     <Outlet />
+                        <FlowingContent basketItems={basketItems} setBasketItems={setBasketItems} contentFlow={contentFlow} setContentFlow={setContentFlow} />
                     </div>
                     <OrderSummary items={basketItems}/>
                 </main>

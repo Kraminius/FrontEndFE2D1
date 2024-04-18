@@ -1,31 +1,35 @@
-
 import {RouteObject} from "react-router-dom";
 import App from "./App.tsx";
 //import BasketSummary from "./components/summary/BasketSummary.tsx";
 //import {Delivery} from "./components/flowingContent/delivery/Delivery.tsx";
 //import PaymentPage from "./components/flowingContent/payment/PaymentPage.tsx";
-import {ContentFlow, FlowingContent} from './components/flowingContent/FlowingContent.tsx'
-import {BasketItem} from "./types/Types.ts";
-import {useCallback, useEffect, useState} from "react";
-import * as path from "path";
+import {ContentFlow} from "./types/Types.ts";
 
 
 export const routes: RouteObject[] = [
     {
         path: "/",
-        element: <App/>,
+        element: <App contentFlow={ContentFlow.Basket}/>,
+        },
+    {
+        path: "/Delivery",
+        element: <App contentFlow={ContentFlow.Delivery}/>,
+        }
         //errorElement: <ErrorPage />
+        /*
         children: [
 
-            {path: "basket", element: <Basket/>},
-            {path: "delivery", element: <Delivery/>},
-            {path: "payment", element: <PaymentPage/>},
-            {path: "receipt", element: <Receipt/>},
+            {path: "basket", element: <SubApp contentFlow={ContentFlow.Basket} />},
+            {path: "delivery", element: <SubApp contentFlow={ContentFlow.Delivery} />},
+            {path: "payment", element: <SubApp contentFlow={ContentFlow.Payment}  />},
+            {path: "receipt", element: <SubApp contentFlow={ContentFlow.Receipt}  />},
             {path: "*", element: <div>Not Found</div>}
+            ]
+       */
 
         ]
-    }
-]
+
+
 
 
 /*

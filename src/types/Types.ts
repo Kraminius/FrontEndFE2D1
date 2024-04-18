@@ -76,3 +76,10 @@ export interface PostalData {
 	geo_version: number;
 	dagi_id: string;
 }
+
+export enum ContentFlow {
+	Basket,
+	Delivery,
+	Payment,
+	Receipt,
+}
