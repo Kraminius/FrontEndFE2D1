@@ -52,54 +52,40 @@ export function DeliveryInputs() {
   };
   const handleZipCodeChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
-    addressType: "delivery" | "billing",
+    addressType: "delivery" | "billing"
   ) => {
     const newZipCode = e.target.value;
-
-    if (newZipCode.length < 4) {
-      setError("");
-    }
-
+  
     if (!/^\d*$/.test(newZipCode)) return;
-
-    if (addressType === "delivery") {
+  
+    // We need to update the local state for delivery or billing based on addressType first
+    let newFormData = { ...formData };
+    if (addressType === 'delivery') {
+      newFormData.deliveryZipCode = newZipCode;
+    } else if (addressType === 'billing') {
+      newFormData.billingZipCode = newZipCode;
+    }
+  
+    // Dispatch the new zip code
+    dispatch({
+      type: 'SET_FORM_DATA',
+      payload: newFormData,
+    });
+  
+    // Check for the condition and country code, then fetch city name
+    // If we dont spread it out the async part fucks everything up
+    if (newZipCode.length === 4 && newFormData[`${addressType}Country`] === "DK") {
+      const newCityName = await fetchCityFromZip(newZipCode);
       dispatch({
         type: 'SET_FORM_DATA',
         payload: {
-          ...formData,
-          deliveryZipCode: newZipCode,
+          ...newFormData,
+          [`${addressType}City`]: newCityName || "",
         },
       });
-      if (newZipCode.length === 4 && formData.deliveryCountry === "DK") {
-        const newCityName = await fetchCityFromZip(newZipCode);
-        dispatch({
-          type: 'SET_FORM_DATA',
-          payload: {
-            ...formData,
-            deliveryCity: newCityName || "",
-          },
-        });
-      }
-    } else if (addressType === "billing") {
-      dispatch({
-        type: 'SET_FORM_DATA',
-        payload: {
-          ...formData,
-          billingZipCode: newZipCode,
-        },
-      });
-      if (newZipCode.length === 4 && formData.billingCountry === "DK") {
-        const newCityName = await fetchCityFromZip(newZipCode);
-        dispatch({
-          type: 'SET_FORM_DATA',
-          payload: {
-            ...formData,
-            billingCity: newCityName || "",
-          },
-        });
-      }
     }
   };
+  
 
   
 
