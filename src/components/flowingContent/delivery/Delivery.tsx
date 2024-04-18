@@ -11,12 +11,6 @@ interface DeliveryProps {
   handleNextClick: () => void;
   handleBackClick: () => void;
 }
-const formData = useDeliveryContext();
-const dispatch = useDeliveryDispatchContext(); 
-if (!dispatch) {
-    throw new Error('DeliveryDispatchContext is undefined');
-  }
-
 // view requests here
 // https://public.requestbin.com/r/enoacmo66ykxn
 const FORM_POST_URL = "https://enoacmo66ykxn.x.pipedream.net";
@@ -33,29 +27,11 @@ export const Delivery: React.FC<DeliveryProps> = ({
   handleNextClick,
   handleBackClick,
 }) => {
-/*   const [formData, setFormData] = useState<DeliveryFormData>({
-    deliveryCountry: "DK",
-    deliveryZipCode: "",
-    deliveryCity: "",
-    deliveryAddressLine: "",
-    deliveryAddressLine2: "",
-    firstName: "",
-    lastName: "",
-    phoneCode: "+45",
-    phone: "",
-    email: "",
-    companyName: "",
-    companyVat: "",
-    billingAddressDifferent: false,
-    billingCountry: "DK",
-    billingZipCode: "",
-    billingCity: "",
-    billingAddressLine: "",
-    billingAddressLine2: "",
-    agreeToTerms: false,
-    agreeToMarketing: true,
-    deliveryMessage: "",
-  }); */
+  const formData = useDeliveryContext();
+  const dispatch = useDeliveryDispatchContext(); 
+  if (!dispatch) {
+    throw new Error('DeliveryDispatchContext is undefined');
+  }
 
   const [formStatus, setFormStatus] = useState<FormStatus>(
     FormStatus.NOT_SUBMITTED,
