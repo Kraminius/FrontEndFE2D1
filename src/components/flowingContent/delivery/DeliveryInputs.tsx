@@ -1,11 +1,17 @@
-import React, { useState } from "react";
-import { DeliveryFormData } from "../../../types/Types";
+import React, { useContext, useState } from "react";
 import countries from "./countries";
-interface DeliveryInputsProps {
-  formData: DeliveryFormData;
-  setFormData: React.Dispatch<React.SetStateAction<DeliveryFormData>>;
-}
-export function DeliveryInputs({ formData, setFormData }: DeliveryInputsProps) {
+import { useDeliveryDispatchContext, useDeliveryContext } from "../../../context/DeliveryContext";
+
+
+
+
+export function DeliveryInputs() {
+
+  const formData = useDeliveryContext();
+  const dispatch = useDeliveryDispatchContext();
+  if (!dispatch) {
+    throw new Error('DeliveryDispatchContext is undefined');
+  }
   const [error, setError] = useState<string | null>(null);
   const handleChange = (
     e: React.ChangeEvent<
@@ -14,11 +20,9 @@ export function DeliveryInputs({ formData, setFormData }: DeliveryInputsProps) {
   ) => {
     const { name, value } = e.target;
     if (name == "phone" && value && !/^\d+$/.test(value)) return;
+    dispatch({ type: "SET_FORM_DATA", payload: { ...formData, [name]: value } });
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    //setFormData((prev) => ({...prev, [name]: value, }));
   };
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedCountry = e.target.value;
@@ -27,19 +31,24 @@ export function DeliveryInputs({ formData, setFormData }: DeliveryInputsProps) {
     );
 
     if (selectedCountryData) {
-      setFormData((prev) => ({
-        ...prev,
-        deliveryCountry: selectedCountry,
-        phoneCode: selectedCountryData.phoneCode,
-      }));
+      dispatch({
+        type: 'SET_FORM_DATA',
+        payload: {
+          ...formData,
+          billingAddressDifferent: !formData.billingAddressDifferent,
+        },
+      });
     }
   };
 
   const handleToggleBillingAddress = () => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      billingAddressDifferent: !prevFormData.billingAddressDifferent,
-    }));
+    dispatch({
+      type: 'SET_FORM_DATA',
+      payload: {
+        ...formData,
+        billingAddressDifferent: !formData.billingAddressDifferent,
+      },
+    });
   };
   const handleZipCodeChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -54,22 +63,40 @@ export function DeliveryInputs({ formData, setFormData }: DeliveryInputsProps) {
     if (!/^\d*$/.test(newZipCode)) return;
 
     if (addressType === "delivery") {
-      setFormData({ ...formData, deliveryZipCode: newZipCode });
+      dispatch({
+        type: 'SET_FORM_DATA',
+        payload: {
+          ...formData,
+          deliveryZipCode: newZipCode,
+        },
+      });
       if (newZipCode.length === 4 && formData.deliveryCountry === "DK") {
         const newCityName = await fetchCityFromZip(newZipCode);
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          deliveryCity: newCityName || "",
-        }));
+        dispatch({
+          type: 'SET_FORM_DATA',
+          payload: {
+            ...formData,
+            deliveryCity: newCityName || "",
+          },
+        });
       }
     } else if (addressType === "billing") {
-      setFormData({ ...formData, billingZipCode: newZipCode });
+      dispatch({
+        type: 'SET_FORM_DATA',
+        payload: {
+          ...formData,
+          billingZipCode: newZipCode,
+        },
+      });
       if (newZipCode.length === 4 && formData.billingCountry === "DK") {
         const newCityName = await fetchCityFromZip(newZipCode);
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          billingCity: newCityName || "",
-        }));
+        dispatch({
+          type: 'SET_FORM_DATA',
+          payload: {
+            ...formData,
+            billingCity: newCityName || "",
+          },
+        });
       }
     }
   };
@@ -309,7 +336,10 @@ export function DeliveryInputs({ formData, setFormData }: DeliveryInputsProps) {
       <CheckBox
         isChecked={formData.agreeToTerms}
         onChange={(e) =>
-          setFormData({ ...formData, agreeToTerms: e.target.checked })
+          dispatch({
+            type: 'SET_FORM_DATA',
+            payload: { ...formData, agreeToTerms: e.target.checked },
+          })
         }
         name={"agreeToTerms"}
       >
@@ -319,7 +349,10 @@ export function DeliveryInputs({ formData, setFormData }: DeliveryInputsProps) {
       <CheckBox
         isChecked={formData.agreeToMarketing}
         onChange={(e) =>
-          setFormData({ ...formData, agreeToMarketing: e.target.checked })
+          dispatch({
+            type: 'SET_FORM_DATA',
+            payload: { ...formData, agreeToMarketing: e.target.checked },
+          })
         }
         name={"agreeToMarketing"}
       >

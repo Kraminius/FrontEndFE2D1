@@ -1,14 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import { DeliveryFormData } from "../../../types/Types";
 import { DeliveryInputs } from "./DeliveryInputs";
 import { postDeliveryForm } from "../../../network/SubmitDeliveryFormService";
 import { BackButton, ContinueButton } from "../Buttons.tsx";
+import { useDeliveryContext, useDeliveryDispatchContext } from "../../../context/DeliveryContext.js";
+import { useState } from "react";
 
 interface DeliveryProps {
   setIsDeliveryFormValid: (isValid: boolean) => void;
   handleNextClick: () => void;
   handleBackClick: () => void;
 }
+const formData = useDeliveryContext();
+const dispatch = useDeliveryDispatchContext(); 
+if (!dispatch) {
+    throw new Error('DeliveryDispatchContext is undefined');
+  }
 
 // view requests here
 // https://public.requestbin.com/r/enoacmo66ykxn
@@ -26,7 +33,7 @@ export const Delivery: React.FC<DeliveryProps> = ({
   handleNextClick,
   handleBackClick,
 }) => {
-  const [formData, setFormData] = useState<DeliveryFormData>({
+/*   const [formData, setFormData] = useState<DeliveryFormData>({
     deliveryCountry: "DK",
     deliveryZipCode: "",
     deliveryCity: "",
@@ -48,7 +55,7 @@ export const Delivery: React.FC<DeliveryProps> = ({
     agreeToTerms: false,
     agreeToMarketing: true,
     deliveryMessage: "",
-  });
+  }); */
 
   const [formStatus, setFormStatus] = useState<FormStatus>(
     FormStatus.NOT_SUBMITTED,
@@ -81,7 +88,7 @@ export const Delivery: React.FC<DeliveryProps> = ({
       <form className="delivery-form__form" onSubmit={handleSubmit}>
         <fieldset>
           <legend>Enter your delivery information</legend>
-          <DeliveryInputs formData={formData} setFormData={setFormData} />
+          <DeliveryInputs/>
           <ContinueButton
             onClick={() => console.log("form is submitting, please wait.")}
             isDisabled={!isFormValid}

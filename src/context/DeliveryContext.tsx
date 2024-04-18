@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer } from 'react';
 import { DeliveryFormData } from '../types/Types';
 
-interface DeliveryContextProps {
+interface DeliveryProviderProps {
     children: React.ReactNode;
 }
 
@@ -33,11 +33,14 @@ const initialFormData = {
 export const DeliveryContext = createContext<DeliveryFormData>(initialFormData);
 export const DeliveryDispatchContext = createContext<React.Dispatch<Action> | undefined>(undefined);
 
-export function DeliveryContextProvider({ children }: DeliveryContextProps) {
-    const [state, dispatch] = useReducer(deliveryReducer, initialFormData);
+export function DeliveryProvider({children}: DeliveryProviderProps) {
+    const [tasks, dispatch] = useReducer(
+        deliveryReducer,
+        initialFormData
+    );
 
     return (
-        <DeliveryContext.Provider value={state}>
+        <DeliveryContext.Provider value={tasks}>
             <DeliveryDispatchContext.Provider value={dispatch}>
                 {children}
             </DeliveryDispatchContext.Provider>
