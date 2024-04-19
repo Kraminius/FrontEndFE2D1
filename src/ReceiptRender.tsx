@@ -2,12 +2,8 @@
 // import { BasketItem, RecurringOrder } from "./types/Types";
 // import CustomerItemCard from "./components/flowingContent/CustomerItemCard.tsx";
 // import { BackButton, ContinueButton } from "./components/flowingContent/Buttons.tsx";
-import { useState } from "react";
-import { BasketItem, RecurringOrder } from "./types/Types";
-import CustomerItemCard from "./components/flowingContent/CustomerItemCard.tsx";
-import { BackButton, ContinueButton } from "./components/flowingContent/Buttons.tsx";
+import { BackButton } from "./components/flowingContent/Buttons.tsx";
 import {useBasket} from "./RenditionContext.tsx";
-import PaymentPage from "./components/flowingContent/payment/PaymentPage.tsx";
 import {useNavigate} from "react-router-dom";
 
 export enum ContentFlow {
@@ -19,10 +15,11 @@ export enum ContentFlow {
 
 export function ReceiptRender() {
 
-    const { basketItems, setBasketItems, contentFlow, setContentFlow } = useBasket();
+    //const { basketItems, setBasketItems, contentFlow, setContentFlow } = useBasket();
+    const { basketItems, setContentFlow } = useBasket()
     const navigate = useNavigate();
 
-    const [, setIsDeliveryFormValid] = useState(true);
+    //const [, setIsDeliveryFormValid] = useState(true);
 
     function handleNextClick() {
         throw new Error(
@@ -40,6 +37,7 @@ export function ReceiptRender() {
     }
 
             return (
+                // Consider removing both handelNext and the items as I don't believe thay are used.
                 <Receipt
                     handleNextClick={handleNextClick}
                     handleBackClick={handleBackClick}

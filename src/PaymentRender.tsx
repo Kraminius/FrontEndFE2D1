@@ -3,8 +3,7 @@
 // import CustomerItemCard from "./components/flowingContent/CustomerItemCard.tsx";
 // import { BackButton, ContinueButton } from "./components/flowingContent/Buttons.tsx";
 import { useState } from "react";
-import { BasketItem, RecurringOrder } from "./types/Types";
-import CustomerItemCard from "./components/flowingContent/CustomerItemCard.tsx";
+import { BasketItem } from "./types/Types";
 import { BackButton, ContinueButton } from "./components/flowingContent/Buttons.tsx";
 import {useBasket} from "./RenditionContext.tsx";
 import PaymentPage from "./components/flowingContent/payment/PaymentPage.tsx";
@@ -19,10 +18,11 @@ export enum ContentFlow {
 
 export function PaymentRender() {
 
-    const { basketItems, setBasketItems, contentFlow, setContentFlow } = useBasket();
+    //const { basketItems, setBasketItems, contentFlow, setContentFlow } = useBasket();
+    const { basketItems,  setContentFlow } = useBasket();
     const navigate = useNavigate();
 
-    const [, setIsDeliveryFormValid] = useState(true);
+    //const [, setIsDeliveryFormValid] = useState(true);
 
     function handleNextClick() {
 
@@ -56,14 +56,6 @@ interface PaymentProps {
     items: BasketItem[];
 }
 
-function Receipt({ handleBackClick }: { handleBackClick: () => void }) {
-    return (
-        <div>
-            receipt :b
-            <BackButton onClick={handleBackClick} />
-        </div>
-    );
-}
 function Payment({ handleNextClick, handleBackClick, items }: PaymentProps) {
     const [isContinueDisabled, setIsContinueDisabled] = useState(false);
     return (

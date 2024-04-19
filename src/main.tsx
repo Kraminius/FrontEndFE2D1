@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RenditionProvider } from "./RenditionContext";
 import { routes } from "./routes";
-import App from "./App.tsx";
 
 const router = createBrowserRouter(routes);
 

@@ -16,7 +16,8 @@ export enum ContentFlow {
 
 export function DeliveryRender() {
 
-    const { basketItems, setBasketItems, contentFlow, setContentFlow } = useBasket();
+    //const { basketItems, setBasketItems, contentFlow, setContentFlow } = useBasket();
+    const { setContentFlow } = useBasket();
     const navigate = useNavigate();
 
     const [, setIsDeliveryFormValid] = useState(true);

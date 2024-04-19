@@ -2,12 +2,11 @@
 // import { BasketItem, RecurringOrder } from "./types/Types";
 // import CustomerItemCard from "./components/flowingContent/CustomerItemCard.tsx";
 // import { BackButton, ContinueButton } from "./components/flowingContent/Buttons.tsx";
-import { useState } from "react";
 import { BasketItem, RecurringOrder } from "./types/Types";
 import CustomerItemCard from "./components/flowingContent/CustomerItemCard.tsx";
-import { BackButton, ContinueButton } from "./components/flowingContent/Buttons.tsx";
+import { ContinueButton } from "./components/flowingContent/Buttons.tsx";
 import {useBasket} from "./RenditionContext.tsx";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 export enum ContentFlow {
     Basket,
@@ -18,10 +17,11 @@ export enum ContentFlow {
 
 export function BasketRender() {
 
-    const { basketItems, setBasketItems, contentFlow, setContentFlow } = useBasket();
+    //const { basketItems, setBasketItems, contentFlow, setContentFlow } = useBasket();
+    const { basketItems, setBasketItems, setContentFlow } = useBasket();
     const navigate = useNavigate();
 
-    const [, setIsDeliveryFormValid] = useState(true);
+    //const [, setIsDeliveryFormValid] = useState(true);
 
     function handleNextClick() {
 
@@ -32,15 +32,6 @@ export function BasketRender() {
         window.scrollTo(0, 0);
 
     }
-    function handleBackClick() {
-        let nextContentFlow: ContentFlow;
-            throw new Error(
-                    "Invalid content flow state, cannot go back from basket.",
-                );
-        setContentFlow(nextContentFlow);
-        window.scrollTo(0, 0);
-    }
-
             return (
                 <Basket
                     basketItems={basketItems}
