@@ -21,13 +21,9 @@ export function BasketRender() {
     const { basketItems, setBasketItems, setContentFlow } = useBasket();
     const navigate = useNavigate();
 
-    //const [, setIsDeliveryFormValid] = useState(true);
+    setContentFlow(ContentFlow.Basket);
 
     function handleNextClick() {
-
-        let nextContentFlow: ContentFlow;
-        nextContentFlow = ContentFlow.Delivery
-        setContentFlow(nextContentFlow);
         navigate("/delivery");
         window.scrollTo(0, 0);
 

@@ -22,21 +22,14 @@ export function PaymentRender() {
     const { basketItems,  setContentFlow } = useBasket();
     const navigate = useNavigate();
 
-    //const [, setIsDeliveryFormValid] = useState(true);
+    setContentFlow(ContentFlow.Payment);
 
     function handleNextClick() {
-
-        let nextContentFlow: ContentFlow;
-        nextContentFlow = ContentFlow.Receipt
-        setContentFlow(nextContentFlow);
         navigate("/receipt");
         window.scrollTo(0, 0);
 
     }
     function handleBackClick() {
-        let nextContentFlow: ContentFlow;
-        nextContentFlow = ContentFlow.Delivery
-        setContentFlow(nextContentFlow);
         navigate("/delivery");
         window.scrollTo(0, 0);
     }

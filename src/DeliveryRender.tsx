@@ -22,19 +22,16 @@ export function DeliveryRender() {
 
     const [, setIsDeliveryFormValid] = useState(true);
 
-    function handleNextClick() {
 
-        let nextContentFlow: ContentFlow;
-        nextContentFlow = ContentFlow.Payment
-        setContentFlow(nextContentFlow);
+
+    setContentFlow(ContentFlow.Delivery);
+
+    function handleNextClick() {
         navigate("/payment");
         window.scrollTo(0, 0);
 
     }
     function handleBackClick() {
-        let nextContentFlow: ContentFlow;
-        nextContentFlow = ContentFlow.Basket
-        setContentFlow(nextContentFlow);
         navigate("/basket");
         window.scrollTo(0, 0);
     }

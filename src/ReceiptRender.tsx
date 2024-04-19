@@ -20,11 +20,10 @@ export function ReceiptRender() {
 
 
 
+    setContentFlow(ContentFlow.Receipt);
+
 
     function handleBackClick() {
-        let nextContentFlow: ContentFlow;
-        nextContentFlow = ContentFlow.Delivery
-        setContentFlow(nextContentFlow);
         navigate("/payment");
         window.scrollTo(0, 0);
     }
