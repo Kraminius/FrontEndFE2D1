@@ -19,6 +19,8 @@ export function ReceiptRender() {
     const navigate = useNavigate();
 
 
+
+
     function handleBackClick() {
         let nextContentFlow: ContentFlow;
         nextContentFlow = ContentFlow.Delivery

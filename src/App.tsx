@@ -18,7 +18,6 @@ import { ProgressBar } from "./components/ProgressBar.tsx";
 import { ContentFlow } from "./components/flowingContent/FlowingContent";
 import {Outlet} from "react-router-dom";
 import {useBasket} from "./RenditionContext.tsx";
-import BasketRender from "./BasketRender.tsx";
 
 const creatorNames = [
   "Christensen, Nicklas Thorbjørn",
@@ -44,7 +43,12 @@ function App({ basketItems: testBasketItems}: AppProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (basketItems) {
+    if (testBasketItems) {
+      setBasketItems(testBasketItems);
+      setIsLoading(false);
+      return;
+    }
+    else if (basketItems) {
       setBasketItems(basketItems);
       setIsLoading(false);
       return;

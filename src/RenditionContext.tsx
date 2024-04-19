@@ -11,7 +11,6 @@ interface BasketContextType {
 
 const BasketContext = createContext<BasketContextType | undefined>(undefined);
 
-// Helper functions for localStorage management
 const localStorageKey = 'basketItems';
 
 const saveToLocalStorage = (items: BasketItem[]) => {
@@ -48,7 +47,7 @@ export const RenditionProvider: React.FC = ({ children }) => {
         </BasketContext.Provider>
     );
 };
-
+// use this function to retrieve items in basket and the contentFlow
 export const useBasket = () => {
     const context = useContext(BasketContext);
     if (!context) {
@@ -56,5 +55,4 @@ export const useBasket = () => {
     }
     return context;
 };
-
 
