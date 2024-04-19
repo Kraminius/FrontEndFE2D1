@@ -1,10 +1,6 @@
-// import React from "react";
-// import { BasketItem, RecurringOrder } from "./types/Types";
-// import CustomerItemCard from "./components/flowingContent/CustomerItemCard.tsx";
-// import { BackButton, ContinueButton } from "./components/flowingContent/Buttons.tsx";
-import { useState } from "react";
-import {useBasket} from "./RenditionContext.tsx";
-import {Delivery} from "./components/flowingContent/delivery/Delivery.tsx";
+import {useEffect, useState} from "react";
+import {useBasket} from "../RenditionContext.tsx";
+import {Delivery} from "../delivery/Delivery.tsx";
 import {useNavigate} from "react-router-dom";
 
 export enum ContentFlow {
@@ -22,9 +18,9 @@ export function DeliveryRender() {
 
     const [, setIsDeliveryFormValid] = useState(true);
 
-
-
-    setContentFlow(ContentFlow.Delivery);
+    useEffect(() => {
+        setContentFlow(ContentFlow.Delivery);
+    }, [setContentFlow]);
 
     function handleNextClick() {
         navigate("/payment");

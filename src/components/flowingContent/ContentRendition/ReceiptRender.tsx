@@ -2,9 +2,10 @@
 // import { BasketItem, RecurringOrder } from "./types/Types";
 // import CustomerItemCard from "./components/flowingContent/CustomerItemCard.tsx";
 // import { BackButton, ContinueButton } from "./components/flowingContent/Buttons.tsx";
-import { BackButton } from "./components/flowingContent/Buttons.tsx";
-import {useBasket} from "./RenditionContext.tsx";
+import { BackButton } from "../Buttons.tsx";
+import {useBasket} from "../RenditionContext.tsx";
 import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 
 export enum ContentFlow {
     Basket,
@@ -20,7 +21,9 @@ export function ReceiptRender() {
 
 
 
-    setContentFlow(ContentFlow.Receipt);
+    useEffect(() => {
+        setContentFlow(ContentFlow.Receipt);
+    }, [setContentFlow]);
 
 
     function handleBackClick() {

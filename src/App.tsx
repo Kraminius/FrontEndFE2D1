@@ -17,7 +17,7 @@ import PromotionBox from "./components/PromotionCard.tsx";
 import { ProgressBar } from "./components/ProgressBar.tsx";
 import { ContentFlow } from "./components/flowingContent/FlowingContent";
 import {Outlet} from "react-router-dom";
-import {useBasket} from "./RenditionContext.tsx";
+import {useBasket} from "./components/flowingContent/RenditionContext.tsx";
 
 const creatorNames = [
   "Christensen, Nicklas Thorbjørn",
@@ -37,7 +37,7 @@ interface AppProps {
 // Alternatively we could use jest.mock to mock the fetchBasketItems function.
 function App({ basketItems: testBasketItems}: AppProps) {
 
-  const { basketItems, setBasketItems, contentFlow, } = useBasket();
+  const { basketItems, setBasketItems, } = useBasket();
 
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -70,7 +70,7 @@ function App({ basketItems: testBasketItems}: AppProps) {
   return (
     <>
       <Header />
-      <ProgressBar currentFlow={contentFlow} />
+      <ProgressBar />
       <div id="content">
         {error && (
           <div className="error">

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
-import { BasketItem } from './types/Types';
-import { ContentFlow } from './components/flowingContent/FlowingContent';
+import { BasketItem } from '../../types/Types.ts';
+import { ContentFlow } from './FlowingContent.tsx';
 
 interface BasketContextType {
     basketItems: BasketItem[];
@@ -28,14 +28,12 @@ export const RenditionProvider: React.FC = ({ children }) => {
 
     const handleSetBasketItems = (items: BasketItem[] | ((items: BasketItem[]) => BasketItem[])) => {
         if (typeof items === 'function') {
-            // If items is a function, we use it to set the new state based on the old state
             setBasketItems(prevItems => {
                 const newItems = items(prevItems);
                 saveToLocalStorage(newItems);
                 return newItems;
             });
         } else {
-            // If items is not a function, set it directly
             setBasketItems(items);
             saveToLocalStorage(items);
         }
@@ -47,6 +45,7 @@ export const RenditionProvider: React.FC = ({ children }) => {
         </BasketContext.Provider>
     );
 };
+
 // use this function to retrieve items in basket and the contentFlow
 export const useBasket = () => {
     const context = useContext(BasketContext);
@@ -55,4 +54,3 @@ export const useBasket = () => {
     }
     return context;
 };
-

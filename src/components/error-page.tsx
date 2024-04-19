@@ -5,7 +5,7 @@ export default function ErrorPage() {
     console.error(error);
 
     return (
-        <div id="error-page">
+        <div id="error-page" className="error-page">
             <h1>Pokkers!</h1>
             <p>Beklager, en uforventet fejl opstod.</p>
             <p>

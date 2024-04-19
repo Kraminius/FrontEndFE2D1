@@ -14,7 +14,10 @@ function CardInputs({ onValidated }: CardInputsProps) {
     expireDate: "",
     cvc: "",
   });
-  onValidated(isValid);
+  useEffect(() => {
+    onValidated(!isValid);
+  }, [isValid, onValidated]);
+  //onValidated(isValid);
   useEffect(() => {
     setError(validateCardForm(form));
     setIsValid(validateCardForm(form) === "");

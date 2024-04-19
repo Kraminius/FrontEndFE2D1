@@ -1,10 +1,10 @@
-import { RouteObject } from "react-router-dom";
 import App from "./App.tsx";
 import ErrorPage from "./components/error-page.tsx";
-import BasketRender from "./BasketRender.tsx";
-import DeliveryRender from "./DeliveryRender.tsx";
-import PaymentRender from "./PaymentRender.tsx";
-import ReceiptRender from "./ReceiptRender.tsx";
+import BasketRender from "./components/flowingContent/ContentRendition/BasketRender.tsx";
+import DeliveryRender from "./components/flowingContent/ContentRendition/DeliveryRender.tsx";
+import PaymentRender from "./components/flowingContent/ContentRendition/PaymentRender.tsx";
+import ReceiptRender from "./components/flowingContent/ContentRendition/ReceiptRender.tsx";
+import {Navigate, RouteObject} from "react-router-dom";
 
 export const routes: RouteObject[] = [
   {
@@ -12,6 +12,10 @@ export const routes: RouteObject[] = [
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: "",
+        element: <Navigate to="/basket" replace={true} /> //replace makes sure we can't go back to this page
+      },
       {
         path: "/basket",
         element: <BasketRender />,
@@ -24,14 +28,10 @@ export const routes: RouteObject[] = [
         path: "/payment",
         element: <PaymentRender />,
       },
-      {
-        path: "/receipt",
-        element: <ReceiptRender />,
-      },
     ]
   },
   {
-    path: "/Tester",
-    element: <div> Hello There </div>
+    path: "/receipt",
+    element: <ReceiptRender />, //Receipt is not a child of App, but its own page ;)
   },
 ];

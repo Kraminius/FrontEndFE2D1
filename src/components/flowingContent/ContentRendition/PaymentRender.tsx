@@ -2,11 +2,11 @@
 // import { BasketItem, RecurringOrder } from "./types/Types";
 // import CustomerItemCard from "./components/flowingContent/CustomerItemCard.tsx";
 // import { BackButton, ContinueButton } from "./components/flowingContent/Buttons.tsx";
-import { useState } from "react";
-import { BasketItem } from "./types/Types";
-import { BackButton, ContinueButton } from "./components/flowingContent/Buttons.tsx";
-import {useBasket} from "./RenditionContext.tsx";
-import PaymentPage from "./components/flowingContent/payment/PaymentPage.tsx";
+import {useEffect, useState} from "react";
+import { BasketItem } from "../../../types/Types.ts";
+import { BackButton, ContinueButton } from "../Buttons.tsx";
+import {useBasket} from "../RenditionContext.tsx";
+import PaymentPage from "../payment/PaymentPage.tsx";
 import {useNavigate} from "react-router-dom";
 
 export enum ContentFlow {
@@ -21,8 +21,11 @@ export function PaymentRender() {
     //const { basketItems, setBasketItems, contentFlow, setContentFlow } = useBasket();
     const { basketItems,  setContentFlow } = useBasket();
     const navigate = useNavigate();
+    const [isContinueDisabled, setIsContinueDisabled] = useState(false);
 
-    setContentFlow(ContentFlow.Payment);
+    useEffect(() => {
+        setContentFlow(ContentFlow.Payment);
+    }, [setContentFlow]);
 
     function handleNextClick() {
         navigate("/receipt");
@@ -35,20 +38,25 @@ export function PaymentRender() {
     }
 
             return (
-                <Payment
-                    handleNextClick={handleNextClick}
-                    handleBackClick={handleBackClick}
-                    items={basketItems}
-                />
+                <div>
+                    <PaymentPage items={basketItems} isContinueDisabled={setIsContinueDisabled}/>
+                    <ContinueButton
+                        onClick={handleNextClick}
+                        isDisabled={isContinueDisabled}
+                    />
+                    <BackButton onClick={handleBackClick}/>
+                </div>
             );
 }
+
+
+/*
 
 interface PaymentProps {
     handleNextClick: () => void;
     handleBackClick: () => void;
     items: BasketItem[];
 }
-
 function Payment({ handleNextClick, handleBackClick, items }: PaymentProps) {
     const [isContinueDisabled, setIsContinueDisabled] = useState(false);
     return (
@@ -62,5 +70,7 @@ function Payment({ handleNextClick, handleBackClick, items }: PaymentProps) {
         </div>
     );
 }
+
+ */
 
 export default PaymentRender;

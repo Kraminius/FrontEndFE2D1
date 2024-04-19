@@ -2,11 +2,12 @@
 // import { BasketItem, RecurringOrder } from "./types/Types";
 // import CustomerItemCard from "./components/flowingContent/CustomerItemCard.tsx";
 // import { BackButton, ContinueButton } from "./components/flowingContent/Buttons.tsx";
-import { BasketItem, RecurringOrder } from "./types/Types";
-import CustomerItemCard from "./components/flowingContent/CustomerItemCard.tsx";
-import { ContinueButton } from "./components/flowingContent/Buttons.tsx";
-import {useBasket} from "./RenditionContext.tsx";
+import { BasketItem, RecurringOrder } from "../../../types/Types.ts";
+import CustomerItemCard from "../CustomerItemCard.tsx";
+import { ContinueButton } from "../Buttons.tsx";
+import {useBasket} from "../RenditionContext.tsx";
 import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 
 export enum ContentFlow {
     Basket,
@@ -21,7 +22,9 @@ export function BasketRender() {
     const { basketItems, setBasketItems, setContentFlow } = useBasket();
     const navigate = useNavigate();
 
-    setContentFlow(ContentFlow.Basket);
+    useEffect(() => {
+        setContentFlow(ContentFlow.Basket);
+    }, [setContentFlow]);
 
     function handleNextClick() {
         navigate("/delivery");

@@ -1,6 +1,6 @@
 import React from "react";
 import { ContentFlow } from "./flowingContent/FlowingContent";
-import {useBasket} from "../RenditionContext.tsx";
+import {useBasket} from "./flowingContent/RenditionContext.tsx";
 
 
 export const ProgressBar: React.FC = () => {
