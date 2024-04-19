@@ -2,13 +2,7 @@ import {useEffect, useState} from "react";
 import {useBasket} from "../RenditionContext.tsx";
 import {Delivery} from "../delivery/Delivery.tsx";
 import {useNavigate} from "react-router-dom";
-
-export enum ContentFlow {
-    Basket,
-    Delivery,
-    Payment,
-    Receipt,
-}
+import {ContentFlow} from "../FlowingContent.tsx";
 
 export function DeliveryRender() {
 

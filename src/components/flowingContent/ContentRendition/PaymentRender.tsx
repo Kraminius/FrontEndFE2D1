@@ -1,20 +1,9 @@
-// import React from "react";
-// import { BasketItem, RecurringOrder } from "./types/Types";
-// import CustomerItemCard from "./components/flowingContent/CustomerItemCard.tsx";
-// import { BackButton, ContinueButton } from "./components/flowingContent/Buttons.tsx";
 import {useEffect, useState} from "react";
-import { BasketItem } from "../../../types/Types.ts";
 import { BackButton, ContinueButton } from "../Buttons.tsx";
 import {useBasket} from "../RenditionContext.tsx";
 import PaymentPage from "../payment/PaymentPage.tsx";
 import {useNavigate} from "react-router-dom";
-
-export enum ContentFlow {
-    Basket,
-    Delivery,
-    Payment,
-    Receipt,
-}
+import {ContentFlow} from "../FlowingContent.tsx";
 
 export function PaymentRender() {
 

@@ -8,13 +8,9 @@ import { ContinueButton } from "../Buttons.tsx";
 import {useBasket} from "../RenditionContext.tsx";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
+import {ContentFlow} from "../FlowingContent.tsx";
 
-export enum ContentFlow {
-    Basket,
-    Delivery,
-    Payment,
-    Receipt,
-}
+
 
 export function BasketRender() {
 

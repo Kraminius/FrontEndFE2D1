@@ -15,7 +15,7 @@ function CardInputs({ onValidated }: CardInputsProps) {
     cvc: "",
   });
   useEffect(() => {
-    onValidated(!isValid);
+    onValidated(isValid);
   }, [isValid, onValidated]);
   //onValidated(isValid);
   useEffect(() => {
