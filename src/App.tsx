@@ -44,8 +44,8 @@ function App({ basketItems: testBasketItems}: AppProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (testBasketItems) {
-      setBasketItems(testBasketItems);
+    if (basketItems) {
+      setBasketItems(basketItems);
       setIsLoading(false);
       return;
     }

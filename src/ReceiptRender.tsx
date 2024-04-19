@@ -15,19 +15,10 @@ export enum ContentFlow {
 
 export function ReceiptRender() {
 
-    //const { basketItems, setBasketItems, contentFlow, setContentFlow } = useBasket();
     const { basketItems, setContentFlow } = useBasket()
     const navigate = useNavigate();
 
-    //const [, setIsDeliveryFormValid] = useState(true);
 
-    function handleNextClick() {
-        throw new Error(
-            "Invalid content flow state, cannot continue from receipt.",
-        );
-        window.scrollTo(0, 0);
-
-    }
     function handleBackClick() {
         let nextContentFlow: ContentFlow;
         nextContentFlow = ContentFlow.Delivery
@@ -39,9 +30,8 @@ export function ReceiptRender() {
             return (
                 // Consider removing both handelNext and the items as I don't believe thay are used.
                 <Receipt
-                    handleNextClick={handleNextClick}
                     handleBackClick={handleBackClick}
-                    items={basketItems}
+                    items={basketItems} //It is not being used, but will probably soon.
                 />
             );
 }
