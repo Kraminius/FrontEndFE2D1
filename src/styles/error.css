@@ -20,3 +20,7 @@
     cursor: pointer;
     margin-top: 12px
 }
+
+.error-page {
+    text-align: center;
+}

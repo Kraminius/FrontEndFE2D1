@@ -20,10 +20,14 @@ function PaymentPage({ items, isContinueDisabled }: PaymentPageProps) {
   const [isMobilePayValid, setIsMobilePayValid] = useState(false);
   const [isCardValid, setIsCardValid] = useState(false);
 
+  useEffect(() => {
+    isContinueDisabled(!isValid);
+  }, [isValid, isContinueDisabled]);
+
   const handleOptionClick = (option: SetStateAction<string>) => {
     setActiveOption(option);
   };
-  isContinueDisabled(!isValid);
+  //isContinueDisabled(!isValid);
   useEffect(() => {
     // Check if the currently active option is valid
     switch (activeOption) {

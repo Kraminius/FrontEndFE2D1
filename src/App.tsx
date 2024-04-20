@@ -14,10 +14,11 @@ import { Footer, Header } from "./components/FooterHeader.tsx";
 import OrderSummary from "./components/summary/OrderSummary.tsx";
 import { fetchBasketItems } from "./network/BasketService.ts";
 import PromotionBox from "./components/PromotionCard.tsx";
-import { FlowingContent } from "./components/flowingContent/FlowingContent.tsx";
 import { ProgressBar } from "./components/ProgressBar.tsx";
 import { ContentFlow } from "./components/flowingContent/FlowingContent";
-import {useBasketDispatchContext} from "./context/BasketContext.tsx";
+import { useBasketDispatchContext } from "./context/BasketContext.tsx";
+import { Outlet } from "react-router-dom";
+import { useBasket } from "./components/flowingContent/RenditionContext.tsx";
 
 const creatorNames = [
   "Christensen, Nicklas Thorbjørn",
@@ -30,28 +31,32 @@ const creatorNames = [
 
 interface AppProps {
   basketItems?: BasketItem[]; // Make it optional to maintain compatibility
+  route?: ContentFlow.Basket;
 }
 
 // Right now we can use the AppProps interface to define the props for the App component, we use this for testing.
 // Alternatively we could use jest.mock to mock the fetchBasketItems function.
 function App({ basketItems: testBasketItems }: AppProps) {
-  const [basketItems, setBasketItems] = useState<BasketItem[]>([]);
-  const [contentFlow, setContentFlow] = useState(ContentFlow.Basket);
+  const { basketItems, setBasketItems } = useBasket();
+
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useBasketDispatchContext();
 
   useEffect(() => {
-
     if (testBasketItems) {
-      dispatch({ type: 'SET_ITEMS', payload: testBasketItems });
+      dispatch({ type: "SET_ITEMS", payload: testBasketItems });
+      setIsLoading(false);
+      return;
+    } else if (basketItems) {
+      setBasketItems(basketItems);
       setIsLoading(false);
       return;
     }
     (async () => {
       try {
         const items = await fetchBasketItems();
-        dispatch({ type: 'SET_ITEMS', payload: items });
+        dispatch({ type: "SET_ITEMS", payload: items });
         setError("");
         setIsLoading(false);
       } catch (error) {
@@ -65,7 +70,7 @@ function App({ basketItems: testBasketItems }: AppProps) {
   return (
     <>
       <Header />
-      <ProgressBar currentFlow={contentFlow} />
+      <ProgressBar />
       <div id="content">
         {error && (
           <div className="error">
@@ -86,10 +91,7 @@ function App({ basketItems: testBasketItems }: AppProps) {
                 <div className="loading-wheel"></div>
               </>
             )}
-            <FlowingContent
-              contentFlow={contentFlow}
-              setContentFlow={setContentFlow}
-            />
+            <Outlet />
           </div>
           <OrderSummary />
         </main>

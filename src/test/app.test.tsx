@@ -1,9 +1,13 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, test } from "vitest";
+import {fireEvent, render, screen} from "@testing-library/react";
+import {describe, expect, test} from "vitest";
 import App from "../App";
-import { BasketItem, RecurringOrder } from "../types/Types";
+import {BasketItem, RecurringOrder} from "../types/Types";
 import BasketSummary from "../components/summary/BasketSummary.tsx";
-import { calculateItemTotal, isValidEmail } from "../utils/utilFunctions.tsx";
+import {calculateItemTotal, isValidEmail} from "../utils/utilFunctions.tsx";
+import {createBrowserRouter, Navigate, RouteObject, RouterProvider} from "react-router-dom";
+import {RenditionProvider} from "../components/flowingContent/RenditionContext.tsx";
+import React from "react";
+import BasketRender from "../components/flowingContent/ContentRendition/BasketRender.tsx";
 
 // Tests for discount calculation
 describe(App.name, () => {
@@ -130,10 +134,36 @@ describe(App.name, () => {
         upsellProductId: null,
       },
     ];
-    const { getByText } = render(<BasketSummary items={items} />);
+    const { getByText } = render(
+  <RenditionProvider>
+        <BasketSummary items={items} />
+  </RenditionProvider>);
+
+    const testRoutes: RouteObject[] = [
+      {
+        path: "/",
+        element: <App basketItems={items}/>,
+        children: [
+          {
+            path: "",
+            element: <Navigate to="/basket" replace={true} /> //replace makes sure we can't go back to this page
+          },
+          {
+            path: "/basket",
+            element: <BasketRender />
+          }
+          ],}]
 
     expect(getByText(/Total:/).textContent).toBe("Total: 299.00,-");
-    render(<App basketItems={items} />);
+    //Toying
+    const router = createBrowserRouter(testRoutes);
+    render(
+        <React.StrictMode>
+          <RenditionProvider>
+            <RouterProvider router={router}/>
+          </RenditionProvider>
+        </React.StrictMode>
+    );
 
     const increaseButton = await screen.findByLabelText(
       `Increase quantity for item ${items[0].id}`,
