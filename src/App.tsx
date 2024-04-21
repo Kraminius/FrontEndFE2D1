@@ -48,7 +48,8 @@ function App({ basketItems: testBasketItems}: AppProps) {
       setIsLoading(false);
       return;
     }
-    else if (basketItems) {
+    //This can cause no items to be loaded if it tries to use it in the initial start.
+    else if (basketItems.length < 1) {
       setBasketItems(basketItems);
       setIsLoading(false);
       return;
