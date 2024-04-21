@@ -1,12 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { CardInformationForm } from "./PaymentForms.tsx";
 import InputField from "./InputField.tsx";
+import {
+  PaymentContext,
+  PaymentDispatchContext,
+} from "../../../context/PaymentContext.tsx";
 
 interface CardInputsProps {
   onValidated: (isValid: boolean) => void;
 }
 function CardInputs({ onValidated }: CardInputsProps) {
-  const [isValid, setIsValid] = useState(false);
+  const { isCardValid } = useContext(PaymentContext);
+  const dispatch = useContext(PaymentDispatchContext);
   const [error, setError] = useState("");
   const [form, setForm] = useState<CardInformationForm>({
     cardHolder: "",
@@ -14,16 +19,21 @@ function CardInputs({ onValidated }: CardInputsProps) {
     expireDate: "",
     cvc: "",
   });
-  onValidated(isValid);
+
   useEffect(() => {
-    setError(validateCardForm(form));
-    setIsValid(validateCardForm(form) === "");
-  }, [form]);
+    const error = validateCardForm(form);
+    setError(error);
+    dispatch({ type: "SET_IS_CARD_VALID", payload: error === "" });
+  }, [form, dispatch]);
 
   const handleChange =
     (field: keyof CardInformationForm) => (value: string) => {
       setForm((prev) => ({ ...prev, [field]: value }));
     };
+
+  useEffect(() => {
+    onValidated(isCardValid);
+  }, [isCardValid, onValidated]);
 
   return (
     <div>
