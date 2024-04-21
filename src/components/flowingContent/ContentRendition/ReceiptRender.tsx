@@ -3,6 +3,7 @@ import {useBasket} from "../RenditionContext.tsx";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import {ContentFlow} from "../FlowingContent.tsx";
+import ReceiptPage from "../receipt/ReceiptPage.tsx";
 
 export function ReceiptRender() {
 
@@ -22,11 +23,11 @@ export function ReceiptRender() {
     }
 
             return (
-                // Consider removing both handelNext and the items as I don't believe thay are used.
-                <Receipt
-                    handleBackClick={handleBackClick}
-                    items={basketItems} //It is not being used, but will probably soon.
+                <div>
+                <ReceiptPage
+                    items={basketItems}
                 />
+                </div>
             );
 }
 

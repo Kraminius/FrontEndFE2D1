@@ -10,6 +10,7 @@ import "./styles/basket.css";
 import "./styles/payment.css";
 import "./styles/error.css";
 import "./styles/loading.css";
+import "./styles/receipt.css";
 import { Footer, Header } from "./components/FooterHeader.tsx";
 import OrderSummary from "./components/summary/OrderSummary.tsx";
 import { fetchBasketItems } from "./network/BasketService.ts";
