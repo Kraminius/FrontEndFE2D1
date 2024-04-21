@@ -3,15 +3,15 @@ import { CardInformationForm } from "./PaymentForms.tsx";
 import InputField from "./InputField.tsx";
 import {
   PaymentContext,
-  PaymentDispatchContext,
+  PaymentDispatchContext, usePaymentContext, usePaymentDispatchContext,
 } from "../../../context/PaymentContext.tsx";
 
 interface CardInputsProps {
   onValidated: (isValid: boolean) => void;
 }
 function CardInputs({ onValidated }: CardInputsProps) {
-  const { isCardValid } = useContext(PaymentContext);
-  const dispatch = useContext(PaymentDispatchContext);
+  const { isCardValid } = usePaymentContext();
+  const dispatch = usePaymentDispatchContext();
   const [error, setError] = useState("");
   const [form, setForm] = useState<CardInformationForm>({
     cardHolder: "",

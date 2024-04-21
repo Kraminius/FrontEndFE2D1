@@ -29,7 +29,6 @@ function PaymentPage({ isContinueDisabled }: PaymentPageProps) {
     isCardValid
   } = paymentState;
 
-
   const handleOptionClick = (option: string) => {
     paymentDispatch({ type: "SET_ACTIVE_OPTION", payload: option });
   };
@@ -47,17 +46,20 @@ function PaymentPage({ isContinueDisabled }: PaymentPageProps) {
   };
 
   useEffect(() => {
+    let valid = false;
     switch (activeOption) {
       case "MobilePay":
-        paymentDispatch({ type: 'SET_IS_VALID', payload: isMobilePayValid || isGiftCardValid });
+        valid = isMobilePayValid || isGiftCardValid;
         break;
       case "Cards":
-        paymentDispatch({ type: 'SET_IS_VALID', payload: isCardValid || isGiftCardValid });
+        valid = isCardValid || isGiftCardValid;
         break;
       default:
-        paymentDispatch({ type: 'SET_IS_VALID', payload: isGiftCardValid });
+        valid = isGiftCardValid;
     }
-  }, [activeOption, isGiftCardValid, isMobilePayValid, isCardValid, paymentDispatch]);
+    paymentDispatch({ type: 'SET_IS_VALID', payload: valid });
+    isContinueDisabled(!valid);
+  }, [activeOption, isGiftCardValid, isMobilePayValid, isCardValid, paymentDispatch, isContinueDisabled]);
 
   return (
     <div id="payment-container">
