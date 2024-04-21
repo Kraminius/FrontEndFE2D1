@@ -7,6 +7,7 @@ interface BasketContextType {
     setBasketItems: (items: BasketItem[] | ((items: BasketItem[]) => BasketItem[])) => void;
     contentFlow: ContentFlow;
     setContentFlow: (flow: ContentFlow) => void;
+    itemsStored: boolean;
 }
 
 const BasketContext = createContext<BasketContextType | undefined>(undefined);
@@ -21,6 +22,11 @@ const loadFromLocalStorage = (): BasketItem[] => {
     const storedItems = localStorage.getItem(localStorageKey);
     return storedItems ? JSON.parse(storedItems) : [];
 };
+
+export const LocallyStoredOrNot = () => {
+    const storedItems = localStorage.getItem(localStorageKey);
+    return storedItems !== null;
+}
 
 export const RenditionProvider: React.FC = ({ children }) => {
     const [basketItems, setBasketItems] = useState<BasketItem[]>(loadFromLocalStorage());

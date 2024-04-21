@@ -17,7 +17,7 @@ import PromotionBox from "./components/PromotionCard.tsx";
 import { ProgressBar } from "./components/ProgressBar.tsx";
 import { ContentFlow } from "./components/flowingContent/FlowingContent";
 import {Outlet} from "react-router-dom";
-import {useBasket} from "./components/flowingContent/RenditionContext.tsx";
+import {LocallyStoredOrNot, useBasket} from "./components/flowingContent/RenditionContext.tsx";
 
 const creatorNames = [
   "Christensen, Nicklas Thorbjørn",
@@ -42,14 +42,14 @@ function App({ basketItems: testBasketItems}: AppProps) {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
+      useEffect(() => {
     if (testBasketItems) {
       setBasketItems(testBasketItems);
       setIsLoading(false);
       return;
     }
     //This can cause no items to be loaded if it tries to use it in the initial start.
-    else if (basketItems.length < 1) {
+    else if (LocallyStoredOrNot()) {
       setBasketItems(basketItems);
       setIsLoading(false);
       return;
