@@ -35,7 +35,6 @@ interface AppProps {
 // Right now we can use the AppProps interface to define the props for the App component, we use this for testing.
 // Alternatively we could use jest.mock to mock the fetchBasketItems function.
 function App({ basketItems: testBasketItems }: AppProps) {
-  const [basketItems, setBasketItems] = useState<BasketItem[]>([]);
   const [contentFlow, setContentFlow] = useState(ContentFlow.Basket);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -93,7 +92,7 @@ function App({ basketItems: testBasketItems }: AppProps) {
           </div>
           <OrderSummary />
         </main>
-        <PromotionBox basketItems={basketItems} />
+        <PromotionBox />
       </div>
       <Footer creatorNames={creatorNames} />
     </>

@@ -1,10 +1,11 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { BasketItem, RecurringOrder } from "../../types/Types";
 import CustomerItemCard from "./CustomerItemCard";
 import { BackButton, ContinueButton } from "./Buttons";
 import { Delivery } from "./delivery/Delivery";
 import PaymentPage from "./payment/PaymentPage.tsx";
 import {BasketProvider, useBasketContext, useBasketDispatchContext} from '../../context/BasketContext';
+import {usePaymentContext} from "../../context/PaymentContext.tsx";
 
 
 export enum ContentFlow {
@@ -88,8 +89,7 @@ export function FlowingContent({
         <Payment
           handleNextClick={handleNextClick}
           handleBackClick={handleBackClick}
-          items={basketItems}
-        />
+         />
       );
     case ContentFlow.Receipt:
       return <Receipt handleBackClick={handleBackClick} />;
@@ -155,7 +155,6 @@ function Basket({ handleNextClick }: BasketProps) {
 interface PaymentProps {
   handleNextClick: () => void;
   handleBackClick: () => void;
-  items: BasketItem[];
 }
 
 function Receipt({ handleBackClick }: { handleBackClick: () => void }) {
@@ -166,16 +165,22 @@ function Receipt({ handleBackClick }: { handleBackClick: () => void }) {
     </div>
   );
 }
-function Payment({ handleNextClick, handleBackClick, items }: PaymentProps) {
+function Payment({ handleNextClick, handleBackClick }: PaymentProps) {
   const [isContinueDisabled, setIsContinueDisabled] = useState(false);
+  const paymentState = usePaymentContext();
+
+  useEffect(() => {
+    setIsContinueDisabled(!paymentState.isValid);
+  }, [paymentState.isValid]);
+
   return (
-    <div>
-      <PaymentPage items={items} isContinueDisabled={setIsContinueDisabled} />
-      <ContinueButton
-        onClick={handleNextClick}
-        isDisabled={isContinueDisabled}
-      />
-      <BackButton onClick={handleBackClick} />
-    </div>
+      <div>
+        <PaymentPage isContinueDisabled={setIsContinueDisabled} />
+        <ContinueButton
+            onClick={handleNextClick}
+            isDisabled={isContinueDisabled}
+        />
+        <BackButton onClick={handleBackClick} />
+      </div>
   );
 }

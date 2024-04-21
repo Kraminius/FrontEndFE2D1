@@ -8,13 +8,15 @@ import mastercard from "../../../images/mastercard.png";
 import mobilepay from "../../../images/mobilepay.png";
 import bslogo from "../../../images/BS_Logo.png";
 import {usePaymentContext, usePaymentDispatchContext} from "../../../context/PaymentContext.tsx";
+import {useBasketContext} from "../../../context/BasketContext.tsx";
 
 interface PaymentPageProps {
-  items: BasketItem[];
   isContinueDisabled: (isValid: boolean) => void;
 }
 
-function PaymentPage({ items, isContinueDisabled }: PaymentPageProps) {
+function PaymentPage({ isContinueDisabled }: PaymentPageProps) {
+
+  const items = useBasketContext();
 
   const paymentState = usePaymentContext();
   const paymentDispatch = usePaymentDispatchContext();
@@ -30,6 +32,18 @@ function PaymentPage({ items, isContinueDisabled }: PaymentPageProps) {
 
   const handleOptionClick = (option: string) => {
     paymentDispatch({ type: "SET_ACTIVE_OPTION", payload: option });
+  };
+
+  const setIsCardValid = (isValid: boolean) => {
+    paymentDispatch({ type: 'SET_IS_CARD_VALID', payload: isValid });
+  };
+
+  const setIsMobilePayValid = (isValid: boolean) => {
+    paymentDispatch({ type: 'SET_IS_MOBILE_PAY_VALID', payload: isValid });
+  };
+
+  const setIsGiftCardValid = (isValid: boolean) => {
+    paymentDispatch({ type: 'SET_IS_GIFT_CARD_VALID', payload: isValid });
   };
 
   useEffect(() => {
@@ -124,8 +138,6 @@ interface CardsProps {
   onValidated: (isValid: boolean) => void;
 }
 function Cards({ open, onClick, onValidated }: CardsProps) {
-
-
   
   return (
     <div
