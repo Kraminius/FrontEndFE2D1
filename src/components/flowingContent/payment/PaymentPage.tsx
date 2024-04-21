@@ -7,6 +7,7 @@ import visa from "../../../images/visa.png";
 import mastercard from "../../../images/mastercard.png";
 import mobilepay from "../../../images/mobilepay.png";
 import bslogo from "../../../images/BS_Logo.png";
+import {usePaymentContext, usePaymentDispatchContext} from "../../../context/PaymentContext.tsx";
 
 interface PaymentPageProps {
   items: BasketItem[];
@@ -14,29 +15,35 @@ interface PaymentPageProps {
 }
 
 function PaymentPage({ items, isContinueDisabled }: PaymentPageProps) {
-  const [activeOption, setActiveOption] = useState("Cards");
-  const [isValid, setIsValid] = useState(false);
-  const [isGiftCardValid, setIsGiftCardValid] = useState(false);
-  const [isMobilePayValid, setIsMobilePayValid] = useState(false);
-  const [isCardValid, setIsCardValid] = useState(false);
 
-  const handleOptionClick = (option: SetStateAction<string>) => {
-    setActiveOption(option);
+  const paymentState = usePaymentContext();
+  const paymentDispatch = usePaymentDispatchContext();
+
+  const {
+    activeOption,
+    isValid,
+    isGiftCardValid,
+    isMobilePayValid,
+    isCardValid
+  } = paymentState;
+
+
+  const handleOptionClick = (option: string) => {
+    paymentDispatch({ type: "SET_ACTIVE_OPTION", payload: option });
   };
-  isContinueDisabled(!isValid);
+
   useEffect(() => {
-    // Check if the currently active option is valid
     switch (activeOption) {
       case "MobilePay":
-        setIsValid(isMobilePayValid || isGiftCardValid);
+        paymentDispatch({ type: 'SET_IS_VALID', payload: isMobilePayValid || isGiftCardValid });
         break;
       case "Cards":
-        setIsValid(isCardValid || isGiftCardValid);
+        paymentDispatch({ type: 'SET_IS_VALID', payload: isCardValid || isGiftCardValid });
         break;
       default:
-        setIsValid(isGiftCardValid); // No option is active, only if Gift card is enough
+        paymentDispatch({ type: 'SET_IS_VALID', payload: isGiftCardValid });
     }
-  }, [activeOption, isGiftCardValid, isMobilePayValid, isCardValid]); // Dependencies on these states
+  }, [activeOption, isGiftCardValid, isMobilePayValid, isCardValid, paymentDispatch]);
 
   return (
     <div id="payment-container">
@@ -117,6 +124,9 @@ interface CardsProps {
   onValidated: (isValid: boolean) => void;
 }
 function Cards({ open, onClick, onValidated }: CardsProps) {
+
+
+  
   return (
     <div
       className={open ? "payment-option-cards" : "payment-option-closed"}
