@@ -2,112 +2,90 @@
 // import { BasketItem, RecurringOrder } from "./types/Types";
 // import CustomerItemCard from "./components/flowingContent/CustomerItemCard.tsx";
 // import { BackButton, ContinueButton } from "./components/flowingContent/Buttons.tsx";
-import { BasketItem, RecurringOrder } from "../../../types/Types.ts";
+import { RecurringOrder } from "../../../types/Types.ts";
 import CustomerItemCard from "../CustomerItemCard.tsx";
 import { ContinueButton } from "../Buttons.tsx";
-import {useBasket} from "../RenditionContext.tsx";
-import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
-import {ContentFlow} from "../FlowingContent.tsx";
-
-
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { ContentFlow } from "../FlowingContent.tsx";
+import {
+  useBasketContext,
+  useBasketDispatchContext,
+} from "../../../context/BasketContext.tsx";
+import { useContentContext } from "../../../context/ContentContext.tsx";
 
 export function BasketRender() {
+  const { setContentFlow } = useContentContext();
+  const navigate = useNavigate();
 
-    //const { basketItems, setBasketItems, contentFlow, setContentFlow } = useBasket();
-    const { basketItems, setBasketItems, setContentFlow } = useBasket();
-    const navigate = useNavigate();
+  useEffect(() => {
+    setContentFlow(ContentFlow.Basket);
+  }, [setContentFlow]);
 
-    useEffect(() => {
-        setContentFlow(ContentFlow.Basket);
-    }, [setContentFlow]);
-
-    function handleNextClick() {
-        navigate("/delivery");
-        window.scrollTo(0, 0);
-
-    }
-            return (
-                <Basket
-                    basketItems={basketItems}
-                    setBasketItems={setBasketItems}
-                    handleNextClick={handleNextClick}
-                />
-            );
+  function handleNextClick() {
+    navigate("/delivery");
+    window.scrollTo(0, 0);
+  }
+  return <Basket handleNextClick={handleNextClick} />;
 }
 
 interface BasketProps {
-    basketItems: BasketItem[];
-    setBasketItems: (items: BasketItem[]) => void;
-    handleNextClick: () => void;
+  handleNextClick: () => void;
 }
 
-function Basket({ basketItems, setBasketItems, handleNextClick }: BasketProps) {
+function Basket({ handleNextClick }: BasketProps) {
+  const basketItems = useBasketContext();
+  const dispatch = useBasketDispatchContext();
+  const handleQuantityChange = (itemId: string, newQuantity: number) => {
+    if (newQuantity < 1) {
+      return;
+    }
+    dispatch({ type: "UPDATE_QUANTITY", payload: { itemId, newQuantity } });
+  };
 
-    const handleQuantityChange = (itemId: string, newQuantity: number) => {
-        if (newQuantity < 1) {
-            return;
-        }
-        const updatedItems = basketItems.map((item) => {
-            if (item.id === itemId) {
-                return { ...item, quantity: newQuantity };
-            }
-            return item;
-        });
-        setBasketItems(updatedItems);
-    };
+  const handleGiftWrapChange = (itemId: string) => {
+    dispatch({ type: "TOGGLE_GIFT_WRAP", payload: { itemId } });
+  };
 
-    const handleGiftWrapChange = (itemId: string) => {
-        const updatedItems = basketItems.map((item) => {
-            if (item.id === itemId) {
-                return { ...item, giftWrap: !item.giftWrap };
-            }
-            return item;
-        });
-        setBasketItems(updatedItems);
-    };
+  const handleRecurringOrderChange = (
+    itemId: string,
+    newRecurringOrder: RecurringOrder
+  ) => {
+    if (Object.values(RecurringOrder).includes(newRecurringOrder)) {
+      dispatch({
+        type: "UPDATE_RECURRING_ORDER",
+        payload: { itemId, newRecurringOrder },
+      });
+    } else {
+      console.error("Invalid recurring order type.");
+    }
+  };
 
-    const handleRecurringOrderChange = (
-        itemId: string,
-        newRecurringOrder: RecurringOrder,
-    ) => {
-        if (Object.values(RecurringOrder).includes(newRecurringOrder)) {
-            const updatedBasketItems = basketItems.map((item) =>
-                item.id === itemId
-                    ? { ...item, recurringOrder: newRecurringOrder as RecurringOrder }
-                    : item,
-            );
-            setBasketItems(updatedBasketItems);
-        } else {
-            console.error("Invalid recurring order type.");
-        }
-    };
+  const handleRemove = (itemId: string) => {
+    dispatch({ type: "REMOVE_ITEM", payload: { itemId } });
+  };
 
-    const handleRemove = (itemId: string) => {
-        const updatedItems = basketItems.filter((item) => item.id !== itemId);
-        setBasketItems(updatedItems);
-    };
-    return basketItems.length > 0 ? (
-        <>
-            <div className="basket-items">
-                {basketItems.map((item) => (
-                    <CustomerItemCard
-                        key={item.id}
-                        item={item}
-                        onQuantityChange={handleQuantityChange}
-                        onGiftWrapChange={handleGiftWrapChange}
-                        onRecurringOrderChange={handleRecurringOrderChange}
-                        onRemove={() => handleRemove(item.id)}
-                    />
-                ))}
-            </div>
-            <ContinueButton onClick={handleNextClick} />
-        </>
-    ) : (
-        <div className="empty-basket-message">
-            Your basket is empty. <a href="/browse">Browse more items</a>
-        </div>
-    );
+  return basketItems.length > 0 ? (
+    <>
+      <div className="basket-items">
+        {basketItems.map((item) => (
+          <CustomerItemCard
+            key={item.id}
+            item={item}
+            onQuantityChange={handleQuantityChange}
+            onGiftWrapChange={handleGiftWrapChange}
+            onRecurringOrderChange={handleRecurringOrderChange}
+            onRemove={() => handleRemove(item.id)}
+          />
+        ))}
+      </div>
+      <ContinueButton onClick={handleNextClick} />
+    </>
+  ) : (
+    <div className="empty-basket-message">
+      Your basket is empty. <a href="/browse">Browse more items</a>
+    </div>
+  );
 }
 
 export default BasketRender;

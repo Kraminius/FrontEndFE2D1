@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { BackButton, ContinueButton } from "../Buttons.tsx";
-import { useBasket } from "../../../context/ContentContext.tsx";
+import { useContentContext } from "../../../context/ContentContext.tsx";
 import PaymentPage from "../payment/PaymentPage.tsx";
 import { useNavigate } from "react-router-dom";
 import { ContentFlow } from "../FlowingContent.tsx";
+import { useBasketContext } from "../../../context/BasketContext.tsx";
 
 export function PaymentRender() {
   //const { basketItems, setBasketItems, contentFlow, setContentFlow } = useBasket();
-  const { basketItems, setContentFlow } = useBasket();
+  const { setContentFlow } = useContentContext();
   const navigate = useNavigate();
   const [isContinueDisabled, setIsContinueDisabled] = useState(false);
+  const basketItems = useBasketContext();
 
   useEffect(() => {
     setContentFlow(ContentFlow.Payment);

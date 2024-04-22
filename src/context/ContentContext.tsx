@@ -9,7 +9,13 @@ import { ContentFlow } from "../components/flowingContent/FlowingContent.tsx";
 
 const initialContent: ContentFlow[] = [];
 
-export const ContentContext = createContext(initialContent);
+export const ContentContext = createContext<{
+  contentFlow: ContentFlow[];
+  setContentFlow: (content: ContentFlow) => void;
+}>({
+  contentFlow: initialContent,
+  setContentFlow: () => {}, // default implementation
+});
 export const ContentDispatchContext = createContext<Dispatch<Action>>(() => {});
 
 interface ContentProviderProps {
@@ -17,13 +23,14 @@ interface ContentProviderProps {
 }
 
 export function ContentProvider({ children }: ContentProviderProps) {
-  const [tasks, dispatch] = useReducer(contentReducer, initialContent);
+  const [contentFlow, dispatch] = useReducer(contentReducer, initialContent);
+
+  const setContentFlow = (content: ContentFlow) =>
+    dispatch({ type: "CHANGE_CONTENT", payload: content });
 
   return (
-    <ContentContext.Provider value={tasks}>
-      <ContentDispatchContext.Provider value={dispatch}>
-        {children}
-      </ContentDispatchContext.Provider>
+    <ContentContext.Provider value={{ contentFlow, setContentFlow }}>
+      {children}
     </ContentContext.Provider>
   );
 }
