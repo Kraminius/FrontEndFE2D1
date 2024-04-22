@@ -37,7 +37,7 @@ export function useBasketDispatchContext() {
   return useContext(BasketDispatchContext);
 }
 
-type Action =
+export type Action =
   | { type: "ADD_ITEM"; payload: BasketItem }
   | { type: "REMOVE_ITEM"; payload: { itemId: string } }
   | {
@@ -52,7 +52,10 @@ type Action =
   | { type: "SET_ITEMS"; payload: BasketItem[] }
   | { type: "CLEAR_BASKET" };
 
-function basketReducer(state: BasketItem[], action: Action): BasketItem[] {
+export function basketReducer(
+  state: BasketItem[],
+  action: Action,
+): BasketItem[] {
   let newState: BasketItem[] = [];
   switch (action.type) {
     case "ADD_ITEM":
@@ -93,6 +96,7 @@ function basketReducer(state: BasketItem[], action: Action): BasketItem[] {
       break;
     case "CLEAR_BASKET":
       newState = initialBasketItems;
+      console.log(newState);
       break;
     default:
       throw new Error(`Unknown action in reducer: ${action}`);
