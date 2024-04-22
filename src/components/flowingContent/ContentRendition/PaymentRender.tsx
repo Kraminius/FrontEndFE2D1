@@ -1,43 +1,43 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { BackButton, ContinueButton } from "../Buttons.tsx";
-import {useBasket} from "../RenditionContext.tsx";
+import { useBasket } from "../../../context/ContentContext.tsx";
 import PaymentPage from "../payment/PaymentPage.tsx";
-import {useNavigate} from "react-router-dom";
-import {ContentFlow} from "../FlowingContent.tsx";
+import { useNavigate } from "react-router-dom";
+import { ContentFlow } from "../FlowingContent.tsx";
 
 export function PaymentRender() {
+  //const { basketItems, setBasketItems, contentFlow, setContentFlow } = useBasket();
+  const { basketItems, setContentFlow } = useBasket();
+  const navigate = useNavigate();
+  const [isContinueDisabled, setIsContinueDisabled] = useState(false);
 
-    //const { basketItems, setBasketItems, contentFlow, setContentFlow } = useBasket();
-    const { basketItems,  setContentFlow } = useBasket();
-    const navigate = useNavigate();
-    const [isContinueDisabled, setIsContinueDisabled] = useState(false);
+  useEffect(() => {
+    setContentFlow(ContentFlow.Payment);
+  }, [setContentFlow]);
 
-    useEffect(() => {
-        setContentFlow(ContentFlow.Payment);
-    }, [setContentFlow]);
+  function handleNextClick() {
+    navigate("/receipt");
+    window.scrollTo(0, 0);
+  }
+  function handleBackClick() {
+    navigate("/delivery");
+    window.scrollTo(0, 0);
+  }
 
-    function handleNextClick() {
-        navigate("/receipt");
-        window.scrollTo(0, 0);
-
-    }
-    function handleBackClick() {
-        navigate("/delivery");
-        window.scrollTo(0, 0);
-    }
-
-            return (
-                <div>
-                    <PaymentPage items={basketItems} isContinueDisabled={setIsContinueDisabled}/>
-                    <ContinueButton
-                        onClick={handleNextClick}
-                        isDisabled={isContinueDisabled}
-                    />
-                    <BackButton onClick={handleBackClick}/>
-                </div>
-            );
+  return (
+    <div>
+      <PaymentPage
+        items={basketItems}
+        isContinueDisabled={setIsContinueDisabled}
+      />
+      <ContinueButton
+        onClick={handleNextClick}
+        isDisabled={isContinueDisabled}
+      />
+      <BackButton onClick={handleBackClick} />
+    </div>
+  );
 }
-
 
 /*
 

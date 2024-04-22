@@ -1,11 +1,9 @@
 import React from "react";
 import { ContentFlow } from "./flowingContent/FlowingContent";
-import {useBasket} from "./flowingContent/RenditionContext.tsx";
-
+import { useBasket } from "../context/ContentContext.tsx";
 
 export const ProgressBar: React.FC = () => {
-
-    const { contentFlow } = useBasket();
+  const { contentFlow } = useBasket();
 
   const numEnumValues = Object.keys(ContentFlow).length / 2;
   const progressPercentage = ((contentFlow + 1) / numEnumValues) * 100;

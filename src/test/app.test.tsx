@@ -1,11 +1,16 @@
-import {fireEvent, render, screen} from "@testing-library/react";
-import {describe, expect, test} from "vitest";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, test } from "vitest";
 import App from "../App";
-import {BasketItem, RecurringOrder} from "../types/Types";
+import { BasketItem, RecurringOrder } from "../types/Types";
 import BasketSummary from "../components/summary/BasketSummary.tsx";
-import {calculateItemTotal, isValidEmail} from "../utils/utilFunctions.tsx";
-import {createBrowserRouter, Navigate, RouteObject, RouterProvider} from "react-router-dom";
-import {RenditionProvider} from "../components/flowingContent/RenditionContext.tsx";
+import { calculateItemTotal, isValidEmail } from "../utils/utilFunctions.tsx";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouteObject,
+  RouterProvider,
+} from "react-router-dom";
+import { RenditionProvider } from "../context/ContentContext.tsx";
 import React from "react";
 import BasketRender from "../components/flowingContent/ContentRendition/BasketRender.tsx";
 
@@ -135,38 +140,41 @@ describe(App.name, () => {
       },
     ];
     const { getByText } = render(
-  <RenditionProvider>
+      <RenditionProvider>
         <BasketSummary items={items} />
-  </RenditionProvider>);
+      </RenditionProvider>
+    );
 
     const testRoutes: RouteObject[] = [
       {
         path: "/",
-        element: <App basketItems={items}/>,
+        element: <App basketItems={items} />,
         children: [
           {
             path: "",
-            element: <Navigate to="/basket" replace={true} /> //replace makes sure we can't go back to this page
+            element: <Navigate to="/basket" replace={true} />, //replace makes sure we can't go back to this page
           },
           {
             path: "/basket",
-            element: <BasketRender />
-          }
-          ],}]
+            element: <BasketRender />,
+          },
+        ],
+      },
+    ];
 
     expect(getByText(/Total:/).textContent).toBe("Total: 299.00,-");
     //Toying
     const router = createBrowserRouter(testRoutes);
     render(
-        <React.StrictMode>
-          <RenditionProvider>
-            <RouterProvider router={router}/>
-          </RenditionProvider>
-        </React.StrictMode>
+      <React.StrictMode>
+        <RenditionProvider>
+          <RouterProvider router={router} />
+        </RenditionProvider>
+      </React.StrictMode>
     );
 
     const increaseButton = await screen.findByLabelText(
-      `Increase quantity for item ${items[0].id}`,
+      `Increase quantity for item ${items[0].id}`
     );
     fireEvent.click(increaseButton);
 
