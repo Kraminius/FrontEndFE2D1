@@ -4,7 +4,7 @@ import BasketRender from "./components/flowingContent/ContentRendition/BasketRen
 import DeliveryRender from "./components/flowingContent/ContentRendition/DeliveryRender.tsx";
 import PaymentRender from "./components/flowingContent/ContentRendition/PaymentRender.tsx";
 import ReceiptRender from "./components/flowingContent/ContentRendition/ReceiptRender.tsx";
-import {Navigate, RouteObject} from "react-router-dom";
+import { Navigate, RouteObject } from "react-router-dom";
 
 export const routes: RouteObject[] = [
   {
@@ -14,7 +14,7 @@ export const routes: RouteObject[] = [
     children: [
       {
         path: "",
-        element: <Navigate to="/basket" replace={true} /> //replace makes sure we can't go back to this page
+        element: <Navigate to="/basket" replace={true} />, //replace makes sure we can't go back to this page
       },
       {
         path: "/basket",
@@ -28,7 +28,7 @@ export const routes: RouteObject[] = [
         path: "/payment",
         element: <PaymentRender />,
       },
-    ]
+    ],
   },
   {
     path: "/receipt",

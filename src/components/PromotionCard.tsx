@@ -1,7 +1,7 @@
 import { useState } from "react";
 import defaultImage from "../images/default-product.png";
 import { BasketItem } from "../types/Types";
-import {useBasketContext} from "../context/BasketContext.tsx";
+import { useBasketContext } from "../context/BasketContext.tsx";
 
 interface PromotionCardProps {
   item: BasketItem;
@@ -29,10 +29,8 @@ const PromotionCard = ({ item }: PromotionCardProps) => {
   );
 };
 
-
 const PromotionBox = () => {
-
-    const basketItems = useBasketContext()
+  const basketItems = useBasketContext();
 
   return (
     <div className="promotion-box">

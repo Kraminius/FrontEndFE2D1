@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import InputField from "./InputField.tsx";
 import { calculateTotal } from "../../../utils/utilFunctions.tsx";
-import { BasketItem } from "../../../types/Types.ts";
+import { useBasketContext } from "../../../context/BasketContext.tsx";
 
 interface GiftCardProps {
   onValidated: (isValid: boolean) => void;
-  items: BasketItem[];
 }
-function GiftCardInputs({ onValidated, items }: GiftCardProps) {
+function GiftCardInputs({ onValidated }: GiftCardProps) {
   const [isValid, setIsValid] = useState(false);
-  const total = calculateTotal(items);
+  const total = calculateTotal(useBasketContext());
   const [number, setNumber] = useState("");
   const [amount, setAmount] = useState("No Gift Card");
   const [newTotal, setNewTotal] = useState("");
