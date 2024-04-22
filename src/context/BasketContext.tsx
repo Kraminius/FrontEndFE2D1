@@ -97,7 +97,6 @@ function basketReducer(state: BasketItem[], action: Action): BasketItem[] {
     default:
       throw new Error(`Unknown action in reducer: ${action}`);
   }
-  newState = newState.slice(0, 4);
   saveToLocalStorage(newState);
   return newState;
 }
