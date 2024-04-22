@@ -16,6 +16,8 @@ interface PaymentState {
   giftCardAmount: string;
   giftCardError: string;
   newTotal: string;
+  mobilePayNumber: string;
+  mobilePayError: string;
 }
 
 interface PaymentProviderProps {
@@ -32,6 +34,8 @@ const initialPaymentState: PaymentState = {
   giftCardAmount: "",
   giftCardError: "",
   newTotal: "",
+  mobilePayNumber: "",
+  mobilePayError: "",
 };
 
 export const PaymentContext = createContext(initialPaymentState);
@@ -66,7 +70,9 @@ type Action =
   | { type: "SET_GIFT_CARD_NUMBER"; payload: string }
   | { type: "SET_GIFT_CARD_AMOUNT"; payload: string }
   | { type: "SET_GIFT_CARD_ERROR"; payload: string }
-  | { type: "SET_NEW_TOTAL"; payload: string };
+  | { type: "SET_NEW_TOTAL"; payload: string }
+  | { type: "SET_MOBILE_PAY_NUMBER"; payload: string }
+  | { type: "SET_MOBILE_PAY_ERROR"; payload: string };
 
 function paymentReducer(state: PaymentState, action: Action) {
   switch (action.type) {
@@ -80,8 +86,6 @@ function paymentReducer(state: PaymentState, action: Action) {
         isGiftCardValid: action.payload,
         giftCardNumber: action.payload ? state.giftCardNumber : "",
       };
-    case "SET_IS_MOBILE_PAY_VALID":
-      return { ...state, isMobilePayValid: action.payload };
     case "SET_IS_CARD_VALID":
       return { ...state, isCardValid: action.payload };
     case "SET_GIFT_CARD_NUMBER":
@@ -92,6 +96,19 @@ function paymentReducer(state: PaymentState, action: Action) {
       return { ...state, giftCardError: action.payload };
     case "SET_NEW_TOTAL":
       return { ...state, newTotal: action.payload };
+    case "SET_MOBILE_PAY_NUMBER":
+      return { ...state, mobilePayNumber: action.payload };
+    case "SET_MOBILE_PAY_ERROR":
+      return { ...state, mobilePayError: action.payload };
+    case "SET_IS_MOBILE_PAY_VALID":
+      const isNumberValid = /^(?!.* {2})\d(?: ?\d){7}$/.test(
+        state.mobilePayNumber
+      );
+      return {
+        ...state,
+        isMobilePayValid: isNumberValid,
+        mobilePayError: isNumberValid ? "" : "Number is invalid",
+      };
     default:
       throw new Error("Invalid action type.");
   }
