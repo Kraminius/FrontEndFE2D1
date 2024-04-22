@@ -10,18 +10,13 @@ import { routes } from "./routes";
 const router = createBrowserRouter(routes);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-
-	<React.StrictMode>
-		<BasketProvider>
-			<DeliveryProvider>
-				<PaymentProvider>
-					{/* <RenditionProvider> */}
-					<RouterProvider router={router} />
-					{/* </RenditionProvider> */}
-				</PaymentProvider>
-			</DeliveryProvider>
-		</BasketProvider>
-	</React.StrictMode>,
-
+  <React.StrictMode>
+    <BasketProvider>
+      <DeliveryProvider>
+        <PaymentProvider>
+          <RouterProvider router={router} />
+        </PaymentProvider>
+      </DeliveryProvider>
+    </BasketProvider>
+  </React.StrictMode>,
 );
-

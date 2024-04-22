@@ -9,10 +9,6 @@ export interface BasketItemProps {
   onRemove: () => void;
 }
 
-export interface BasketSummaryProps {
-  items: BasketItem[];
-}
-
 /* Recurring Order enum, add more for different options */
 export enum RecurringOrder {
   Once = "Once",

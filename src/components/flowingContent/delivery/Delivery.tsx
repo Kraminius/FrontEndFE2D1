@@ -1,13 +1,15 @@
-import React, { useEffect, useContext } from "react";
+import React from "react";
 import { DeliveryFormData } from "../../../types/Types";
 import { DeliveryInputs } from "./DeliveryInputs";
 import { postDeliveryForm } from "../../../network/SubmitDeliveryFormService";
 import { BackButton, ContinueButton } from "../Buttons.tsx";
-import { useDeliveryContext, useDeliveryDispatchContext } from "../../../context/DeliveryContext.js";
+import {
+  useDeliveryContext,
+  useDeliveryDispatchContext,
+} from "../../../context/DeliveryContext.js";
 import { useState } from "react";
 
 interface DeliveryProps {
-  setIsDeliveryFormValid: (isValid: boolean) => void;
   handleNextClick: () => void;
   handleBackClick: () => void;
 }
@@ -23,14 +25,13 @@ enum FormStatus {
 }
 
 export const Delivery: React.FC<DeliveryProps> = ({
-  setIsDeliveryFormValid,
   handleNextClick,
   handleBackClick,
 }) => {
   const formData = useDeliveryContext();
-  const dispatch = useDeliveryDispatchContext(); 
+  const dispatch = useDeliveryDispatchContext();
   if (!dispatch) {
-    throw new Error('DeliveryDispatchContext is undefined');
+    throw new Error("DeliveryDispatchContext is undefined");
   }
 
   const [formStatus, setFormStatus] = useState<FormStatus>(
@@ -53,10 +54,6 @@ export const Delivery: React.FC<DeliveryProps> = ({
   };
   const isFormValid = validateForm(formData);
 
-  useEffect(() => {
-    setIsDeliveryFormValid(isFormValid);
-  }, [isFormValid, setIsDeliveryFormValid]);
-
   return (
     <div className="delivery-form">
       <h2>Delivery Information</h2>
@@ -64,7 +61,7 @@ export const Delivery: React.FC<DeliveryProps> = ({
       <form className="delivery-form__form" onSubmit={handleSubmit}>
         <fieldset>
           <legend>Enter your delivery information</legend>
-          <DeliveryInputs/>
+          <DeliveryInputs />
           <ContinueButton
             onClick={() => console.log("form is submitting, please wait.")}
             isDisabled={!isFormValid}
@@ -92,7 +89,7 @@ export const Delivery: React.FC<DeliveryProps> = ({
 };
 
 //Checking if submiting is allowed
-const validateForm = (formData: DeliveryFormData) => {
+export const validateForm = (formData: DeliveryFormData) => {
   function isNotEmpty(value: string) {
     return value.trim() !== "";
   }

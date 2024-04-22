@@ -1,7 +1,8 @@
-import { BasketSummaryProps } from "../../types/Types";
+import { useBasketContext } from "../../context/BasketContext.tsx";
 import { calculateItemTotal } from "../../utils/utilFunctions.tsx";
 
-function BasketSummary({ items }: BasketSummaryProps) {
+function BasketSummary() {
+  const items = useBasketContext();
   const subtotal = items.reduce(
     (sum, item) => sum + calculateItemTotal(item),
     0,
