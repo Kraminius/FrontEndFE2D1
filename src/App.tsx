@@ -48,6 +48,12 @@ function App({ basketItems: testBasketItems}: AppProps) {
       setIsLoading(false);
       return;
     }
+    //This can cause no items to be loaded if it tries to use it in the initial start.
+    else if (basketItems.length > 0) {
+      setBasketItems(basketItems);
+      setIsLoading(false);
+      return;
+    }
     (async () => {
       try {
         const items = await fetchBasketItems();
