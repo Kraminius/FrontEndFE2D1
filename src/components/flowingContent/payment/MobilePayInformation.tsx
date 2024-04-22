@@ -1,29 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import InputField from "./InputField.tsx";
+import {
+  usePaymentDispatchContext,
+  usePaymentContext,
+} from "../../../context/PaymentContext.tsx";
 
-interface MobilePayProps {
-  onValidated: (isValid: boolean) => void;
-}
-function MobilePayInputs({ onValidated }: MobilePayProps) {
-  const [isValid, setIsValid] = useState(false);
-  const [error, setError] = useState("");
-  const [number, setNumber] = useState("");
+function MobilePayInputs() {
+  const { mobilePayNumber, mobilePayError, isMobilePayValid } =
+    usePaymentContext();
+  const dispatch = usePaymentDispatchContext();
 
   useEffect(() => {
-    const regex = /^(?!.* {2}$)\d(?: ?\d){7}$/;
-    setIsValid(regex.test(number));
-    if (number === "" || isValid) setError("");
-    else setError("Number is invalid");
-    onValidated(isValid);
-  }, [number, isValid, setIsValid, onValidated]);
+    dispatch({ type: "SET_IS_MOBILE_PAY_VALID", payload: isMobilePayValid });
+  }, [mobilePayNumber, dispatch, isMobilePayValid]);
+
+  const handleNumberChange = (number: string) => {
+    dispatch({ type: "SET_MOBILE_PAY_NUMBER", payload: number });
+  };
 
   return (
     <div>
       <div className="row-container">
         <p className="payment-paragraph-styling">+45</p>
-        <InputField labelText="Phone Number" onChange={setNumber} />
+        <InputField labelText="Phone Number" onChange={handleNumberChange} />
       </div>
-      <p className="error-paragraph-styling">{error}</p>
+      <p className="error-paragraph-styling">{mobilePayError}</p>
     </div>
   );
 }
