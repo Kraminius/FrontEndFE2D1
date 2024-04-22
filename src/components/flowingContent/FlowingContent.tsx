@@ -1,7 +1,6 @@
-
 export enum ContentFlow {
-  Basket,
-  Delivery,
-  Payment,
-  Receipt,
+	Basket,
+	Delivery,
+	Payment,
+	Receipt,
 }

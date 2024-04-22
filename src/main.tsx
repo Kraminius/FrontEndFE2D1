@@ -1,17 +1,27 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { RenditionProvider } from "./components/flowingContent/RenditionContext.tsx";
+import { DeliveryProvider } from "./context/DeliveryContext.tsx";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { BasketProvider } from "./context/BasketContext.tsx";
+import { PaymentProvider } from "./context/PaymentContext.tsx";
+// import './index.css'
 import { routes } from "./routes";
 
 const router = createBrowserRouter(routes);
 
-const root = ReactDOM.createRoot(document.getElementById("root")!); // Make sure the 'root' element exists in your index.html
-root.render(
-    <React.StrictMode>
-        <RenditionProvider>
-            <RouterProvider router={router}/>
-        </RenditionProvider>
-    </React.StrictMode>
+ReactDOM.createRoot(document.getElementById("root")!).render(
+
+	<React.StrictMode>
+		<BasketProvider>
+			<DeliveryProvider>
+				<PaymentProvider>
+					{/* <RenditionProvider> */}
+					<RouterProvider router={router} />
+					{/* </RenditionProvider> */}
+				</PaymentProvider>
+			</DeliveryProvider>
+		</BasketProvider>
+	</React.StrictMode>,
+
 );
 

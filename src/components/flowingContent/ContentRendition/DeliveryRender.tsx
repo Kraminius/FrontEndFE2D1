@@ -1,39 +1,31 @@
-import {useEffect, useState} from "react";
-import {useBasket} from "../RenditionContext.tsx";
-import {Delivery} from "../delivery/Delivery.tsx";
-import {useNavigate} from "react-router-dom";
-import {ContentFlow} from "../FlowingContent.tsx";
+import { useState } from "react";
+import { Delivery } from "../delivery/Delivery.tsx";
+import { useNavigate } from "react-router-dom";
 
 export function DeliveryRender() {
 
-    //const { basketItems, setBasketItems, contentFlow, setContentFlow } = useBasket();
-    const { setContentFlow } = useBasket();
-    const navigate = useNavigate();
+	const navigate = useNavigate();
 
-    const [, setIsDeliveryFormValid] = useState(true);
+	const [, setIsDeliveryFormValid] = useState(true);
 
-    useEffect(() => {
-        setContentFlow(ContentFlow.Delivery);
-    }, [setContentFlow]);
+	function handleNextClick() {
+		navigate("/payment");
+		window.scrollTo(0, 0);
 
-    function handleNextClick() {
-        navigate("/payment");
-        window.scrollTo(0, 0);
+	}
+	function handleBackClick() {
+		navigate("/basket");
+		window.scrollTo(0, 0);
+	}
 
-    }
-    function handleBackClick() {
-        navigate("/basket");
-        window.scrollTo(0, 0);
-    }
+	return (
 
-    return (
-
-        <Delivery
-            setIsDeliveryFormValid={setIsDeliveryFormValid}
-            handleNextClick={handleNextClick}
-            handleBackClick={handleBackClick}
-        />
-    );
+		<Delivery
+			setIsDeliveryFormValid={setIsDeliveryFormValid}
+			handleNextClick={handleNextClick}
+			handleBackClick={handleBackClick}
+		/>
+	);
 }
 
 export default DeliveryRender;

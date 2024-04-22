@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import { DeliveryFormData } from "../../../types/Types";
 import { DeliveryInputs } from "./DeliveryInputs";
 import { postDeliveryForm } from "../../../network/SubmitDeliveryFormService";
 import { BackButton, ContinueButton } from "../Buttons.tsx";
+import { useDeliveryContext, useDeliveryDispatchContext } from "../../../context/DeliveryContext.js";
+import { useState } from "react";
 
 interface DeliveryProps {
   setIsDeliveryFormValid: (isValid: boolean) => void;
   handleNextClick: () => void;
   handleBackClick: () => void;
 }
-
 // view requests here
 // https://public.requestbin.com/r/enoacmo66ykxn
 const FORM_POST_URL = "https://enoacmo66ykxn.x.pipedream.net";
@@ -26,29 +27,11 @@ export const Delivery: React.FC<DeliveryProps> = ({
   handleNextClick,
   handleBackClick,
 }) => {
-  const [formData, setFormData] = useState<DeliveryFormData>({
-    deliveryCountry: "DK",
-    deliveryZipCode: "",
-    deliveryCity: "",
-    deliveryAddressLine: "",
-    deliveryAddressLine2: "",
-    firstName: "",
-    lastName: "",
-    phoneCode: "+45",
-    phone: "",
-    email: "",
-    companyName: "",
-    companyVat: "",
-    billingAddressDifferent: false,
-    billingCountry: "DK",
-    billingZipCode: "",
-    billingCity: "",
-    billingAddressLine: "",
-    billingAddressLine2: "",
-    agreeToTerms: false,
-    agreeToMarketing: true,
-    deliveryMessage: "",
-  });
+  const formData = useDeliveryContext();
+  const dispatch = useDeliveryDispatchContext(); 
+  if (!dispatch) {
+    throw new Error('DeliveryDispatchContext is undefined');
+  }
 
   const [formStatus, setFormStatus] = useState<FormStatus>(
     FormStatus.NOT_SUBMITTED,
@@ -81,7 +64,7 @@ export const Delivery: React.FC<DeliveryProps> = ({
       <form className="delivery-form__form" onSubmit={handleSubmit}>
         <fieldset>
           <legend>Enter your delivery information</legend>
-          <DeliveryInputs formData={formData} setFormData={setFormData} />
+          <DeliveryInputs/>
           <ContinueButton
             onClick={() => console.log("form is submitting, please wait.")}
             isDisabled={!isFormValid}
