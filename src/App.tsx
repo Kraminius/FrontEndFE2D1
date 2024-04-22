@@ -17,10 +17,6 @@ import PromotionBox from "./components/PromotionCard.tsx";
 import { ProgressBar } from "./components/ProgressBar.tsx";
 import { ContentFlow } from "./components/flowingContent/FlowingContent";
 import { Outlet } from "react-router-dom";
-import {
-  LocallyStoredOrNot,
-  useBasket,
-} from "./components/flowingContent/RenditionContext.tsx";
 import { useBasketDispatchContext } from "./context/BasketContext.tsx";
 
 const creatorNames = [
@@ -36,24 +32,17 @@ interface AppProps {
   basketItems?: BasketItem[]; // Make it optional to maintain compatibility
   route?: ContentFlow.Basket;
 }
-
+// Add a cahnge
 // Right now we can use the AppProps interface to define the props for the App component, we use this for testing.
 // Alternatively we could use jest.mock to mock the fetchBasketItems function.
 function App({ basketItems: testBasketItems }: AppProps) {
-  const [contentFlow, setContentFlow] = useState(ContentFlow.Basket);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useBasketDispatchContext();
 
   useEffect(() => {
     if (testBasketItems) {
-      setBasketItems(testBasketItems);
-      setIsLoading(false);
-      return;
-    }
-    //This can cause no items to be loaded if it tries to use it in the initial start.
-    else if (basketItems.length > 0) {
-      setBasketItems(basketItems);
+      dispatch({ type: "SET_ITEMS", payload: testBasketItems });
       setIsLoading(false);
       return;
     }
