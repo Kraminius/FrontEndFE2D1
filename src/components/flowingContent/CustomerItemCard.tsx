@@ -2,31 +2,23 @@ import React from "react";
 import defaultImage from "../../images/default-product.png";
 import { BasketItem, RecurringOrder } from "../../types/Types";
 import { calculateItemTotal } from "../../utils/utilFunctions.tsx";
+import { useBasketDispatchContext } from "../../context/BasketContext.tsx";
 
 interface CustomerItemCardProps {
   item: BasketItem;
-  onQuantityChange: (itemId: string, newQuantity: number) => void;
-  onGiftWrapChange: (itemId: string) => void;
-  onRecurringOrderChange: (
-    itemId: string,
-    newOrderType: RecurringOrder,
-  ) => void;
-  onRemove: (itemId: string) => void;
 }
 
-const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
-  item,
-  onQuantityChange,
-  onGiftWrapChange,
-  onRecurringOrderChange,
-  onRemove,
-}) => {
+const CustomerItemCard: React.FC<CustomerItemCardProps> = ({ item }) => {
   const [imageSrc, setImageSrc] = React.useState(item.imageUrl || defaultImage);
+  const basketDispatch = useBasketDispatchContext();
 
   const handleImageError = () => {
     setImageSrc(defaultImage);
   };
 
+  // onChange={() => useBasketDispContext({ type: "TOGGLE_GIFT_WRAP", payload: { itemId: item.id } })}
+  // <button className="item-remover" onClick={() => useBasketDispContext({ type: "REMOVE_ITEM", payload: { itemId: item.id } })}></button>
+  // useBasketDispContext({ type: "UPDATE_RECURRING_ORDER", payload: { itemId: item.id, newRecurringOrder: e.target.value as RecurringOrder } })
   const normalPrice = item.price * item.quantity;
   const isPriceDiscounted =
     item.rebateQuantity > 0 && item.quantity >= item.rebateQuantity;
@@ -44,14 +36,27 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
         </div>
 
         <div className="item__options">
-          <button className="item-remover" onClick={() => onRemove(item.id)}>
+          <button
+            className="item-remover"
+            onClick={() =>
+              basketDispatch({
+                type: "REMOVE_ITEM",
+                payload: { itemId: item.id },
+              })
+            }
+          >
             Remove
           </button>
           <div>
             <input
               type="checkbox"
               checked={item.giftWrap}
-              onChange={() => onGiftWrapChange(item.id)}
+              onChange={() =>
+                basketDispatch({
+                  type: "TOGGLE_GIFT_WRAP",
+                  payload: { itemId: item.id },
+                })
+              }
               id={`gift-wrap-${item.id}`}
             />
             <label className="item-label" htmlFor={`gift-wrap-${item.id}`}>
@@ -76,7 +81,7 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
             className={itemPriceClassesTotal}
           >{`${calculateItemTotal(item).toFixed(2)},-`}</div>
         </div>
-        <Quantity onQuantityChange={onQuantityChange} item={item} />
+        <Quantity item={item} />
         <div className="item-discount">
           {item.rebateQuantity
             ? `Buy ${item.rebateQuantity} to get a discount of ${item.rebatePercent}%`
@@ -87,7 +92,13 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
         <select
           value={item.recurringOrder}
           onChange={(e) =>
-            onRecurringOrderChange(item.id, e.target.value as RecurringOrder)
+            basketDispatch({
+              type: "UPDATE_RECURRING_ORDER",
+              payload: {
+                itemId: item.id,
+                newRecurringOrder: e.target.value as RecurringOrder,
+              },
+            })
           }
           id={item.id + "-recurring-order-" + item.recurringOrder.toLowerCase()}
         >
@@ -104,27 +115,39 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({
 
 interface QuantityProps {
   item: BasketItem;
-  onQuantityChange: (itemId: string, newQuantity: number) => void;
 }
 
-const Quantity = ({ onQuantityChange, item }: QuantityProps) => (
-  <div className="quantity">
-    <button
-      className="quantity__button quantity__button--left"
-      aria-label={`Decrease quantity for item ${item.id}`}
-      onClick={() => onQuantityChange(item.id, item.quantity - 1)}
-    >
-      -
-    </button>
-    <div className="quantity-text">{item.quantity}</div>
-    <button
-      className="quantity__button quantity__button--right"
-      aria-label={`Increase quantity for item ${item.id}`}
-      onClick={() => onQuantityChange(item.id, item.quantity + 1)}
-    >
-      +
-    </button>
-  </div>
-);
+const Quantity = ({ item }: QuantityProps) => {
+  const basketDispatch = useBasketDispatchContext();
+  return (
+    <div className="quantity">
+      <button
+        className="quantity__button quantity__button--left"
+        aria-label={`Decrease quantity for item ${item.id}`}
+        onClick={() =>
+          basketDispatch({
+            type: "UPDATE_QUANTITY",
+            payload: { itemId: item.id, newQuantity: item.quantity - 1 },
+          })
+        }
+      >
+        -
+      </button>
+      <div className="quantity-text">{item.quantity}</div>
+      <button
+        className="quantity__button quantity__button--right"
+        aria-label={`Increase quantity for item ${item.id}`}
+        onClick={() =>
+          basketDispatch({
+            type: "UPDATE_QUANTITY",
+            payload: { itemId: item.id, newQuantity: item.quantity + 1 },
+          })
+        }
+      >
+        +
+      </button>
+    </div>
+  );
+};
 
 export default CustomerItemCard;

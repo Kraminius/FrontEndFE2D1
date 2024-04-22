@@ -1,48 +1,41 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect } from "react";
 import CardInputs from "./CardInformation.tsx";
 import MobilePayInputs from "./MobilePayInformation.tsx";
 import GiftCardInputs from "./GiftCardInformation.tsx";
-import { BasketItem } from "../../../types/Types.ts";
 import visa from "../../../images/visa.png";
 import mastercard from "../../../images/mastercard.png";
 import mobilepay from "../../../images/mobilepay.png";
 import bslogo from "../../../images/BS_Logo.png";
-import { usePaymentContext, usePaymentDispatchContext } from "../../../context/PaymentContext.tsx";
-import { useBasketContext } from "../../../context/BasketContext.tsx";
+import {
+	usePaymentContext,
+	usePaymentDispatchContext,
+} from "../../../context/PaymentContext.tsx";
 
 interface PaymentPageProps {
 	isContinueDisabled: (isValid: boolean) => void;
 }
 
 function PaymentPage({ isContinueDisabled }: PaymentPageProps) {
-
-	const items = useBasketContext();
-
 	const paymentState = usePaymentContext();
 	const paymentDispatch = usePaymentDispatchContext();
 
-	const {
-		activeOption,
-		isValid,
-		isGiftCardValid,
-		isMobilePayValid,
-		isCardValid
-	} = paymentState;
+	const { activeOption, isGiftCardValid, isMobilePayValid, isCardValid } =
+		paymentState;
 
 	const handleOptionClick = (option: string) => {
 		paymentDispatch({ type: "SET_ACTIVE_OPTION", payload: option });
 	};
 
 	const setIsCardValid = (isValid: boolean) => {
-		paymentDispatch({ type: 'SET_IS_CARD_VALID', payload: isValid });
+		paymentDispatch({ type: "SET_IS_CARD_VALID", payload: isValid });
 	};
 
 	const setIsMobilePayValid = (isValid: boolean) => {
-		paymentDispatch({ type: 'SET_IS_MOBILE_PAY_VALID', payload: isValid });
+		paymentDispatch({ type: "SET_IS_MOBILE_PAY_VALID", payload: isValid });
 	};
 
 	const setIsGiftCardValid = (isValid: boolean) => {
-		paymentDispatch({ type: 'SET_IS_GIFT_CARD_VALID', payload: isValid });
+		paymentDispatch({ type: "SET_IS_GIFT_CARD_VALID", payload: isValid });
 	};
 
 	useEffect(() => {
@@ -57,9 +50,16 @@ function PaymentPage({ isContinueDisabled }: PaymentPageProps) {
 			default:
 				valid = isGiftCardValid;
 		}
-		paymentDispatch({ type: 'SET_IS_VALID', payload: valid });
+		paymentDispatch({ type: "SET_IS_VALID", payload: valid });
 		isContinueDisabled(!valid);
-	}, [activeOption, isGiftCardValid, isMobilePayValid, isCardValid, paymentDispatch, isContinueDisabled]);
+	}, [
+		activeOption,
+		isGiftCardValid,
+		isMobilePayValid,
+		isCardValid,
+		paymentDispatch,
+		isContinueDisabled,
+	]);
 
 	return (
 		<div id="payment-container">
@@ -76,18 +76,14 @@ function PaymentPage({ isContinueDisabled }: PaymentPageProps) {
 				onValidated={setIsMobilePayValid}
 			/>
 			<h3>Add A Gift Card</h3>
-			<GiftCard onValidated={setIsGiftCardValid} items={items} />
+			<GiftCard />
 		</div>
 	);
 }
 
 export default PaymentPage;
 
-interface GiftCardProps {
-	items: BasketItem[];
-	onValidated: (isValid: boolean) => void;
-}
-function GiftCard({ items, onValidated }: GiftCardProps) {
+function GiftCard() {
 	return (
 		<div className={"payment-option-giftcards"}>
 			<div className="payment-option-background">
@@ -98,7 +94,7 @@ function GiftCard({ items, onValidated }: GiftCardProps) {
 					<div className="payment-option-title">BuyStuff Giftcard</div>
 				</div>
 				<div className="payment-card-container">
-					<GiftCardInputs onValidated={onValidated} items={items} />
+					<GiftCardInputs />
 				</div>
 			</div>
 		</div>
@@ -140,7 +136,6 @@ interface CardsProps {
 	onValidated: (isValid: boolean) => void;
 }
 function Cards({ open, onClick, onValidated }: CardsProps) {
-
 	return (
 		<div
 			className={open ? "payment-option-cards" : "payment-option-closed"}

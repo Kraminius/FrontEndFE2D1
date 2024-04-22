@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import countries from "./countries";
-import { useDeliveryDispatchContext, useDeliveryContext } from "../../../context/DeliveryContext";
-
-
-
+import {
+  useDeliveryDispatchContext,
+  useDeliveryContext,
+} from "../../../context/DeliveryContext";
 
 export function DeliveryInputs() {
-
   const formData = useDeliveryContext();
   const dispatch = useDeliveryDispatchContext();
   if (!dispatch) {
-    throw new Error('DeliveryDispatchContext is undefined');
+    throw new Error("DeliveryDispatchContext is undefined");
   }
   const [error, setError] = useState<string | null>(null);
   const handleChange = (
@@ -20,7 +19,10 @@ export function DeliveryInputs() {
   ) => {
     const { name, value } = e.target;
     if (name == "phone" && value && !/^\d+$/.test(value)) return;
-    dispatch({ type: "SET_FORM_DATA", payload: { ...formData, [name]: value } });
+    dispatch({
+      type: "SET_FORM_DATA",
+      payload: { ...formData, [name]: value },
+    });
 
     //setFormData((prev) => ({...prev, [name]: value, }));
   };
@@ -32,7 +34,7 @@ export function DeliveryInputs() {
 
     if (selectedCountryData) {
       dispatch({
-        type: 'SET_FORM_DATA',
+        type: "SET_FORM_DATA",
         payload: {
           ...formData,
           billingAddressDifferent: !formData.billingAddressDifferent,
@@ -43,7 +45,7 @@ export function DeliveryInputs() {
 
   const handleToggleBillingAddress = () => {
     dispatch({
-      type: 'SET_FORM_DATA',
+      type: "SET_FORM_DATA",
       payload: {
         ...formData,
         billingAddressDifferent: !formData.billingAddressDifferent,
@@ -52,32 +54,35 @@ export function DeliveryInputs() {
   };
   const handleZipCodeChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
-    addressType: "delivery" | "billing"
+    addressType: "delivery" | "billing",
   ) => {
     const newZipCode = e.target.value;
-  
+
     if (!/^\d*$/.test(newZipCode)) return;
-  
+
     // We need to update the local state for delivery or billing based on addressType first
-    let newFormData = { ...formData };
-    if (addressType === 'delivery') {
+    const newFormData = { ...formData };
+    if (addressType === "delivery") {
       newFormData.deliveryZipCode = newZipCode;
-    } else if (addressType === 'billing') {
+    } else if (addressType === "billing") {
       newFormData.billingZipCode = newZipCode;
     }
-  
+
     // Dispatch the new zip code
     dispatch({
-      type: 'SET_FORM_DATA',
+      type: "SET_FORM_DATA",
       payload: newFormData,
     });
-  
+
     // Check for the condition and country code, then fetch city name
     // If we dont spread it out the async part fucks everything up
-    if (newZipCode.length === 4 && newFormData[`${addressType}Country`] === "DK") {
+    if (
+      newZipCode.length === 4 &&
+      newFormData[`${addressType}Country`] === "DK"
+    ) {
       const newCityName = await fetchCityFromZip(newZipCode);
       dispatch({
-        type: 'SET_FORM_DATA',
+        type: "SET_FORM_DATA",
         payload: {
           ...newFormData,
           [`${addressType}City`]: newCityName || "",
@@ -85,9 +90,6 @@ export function DeliveryInputs() {
       });
     }
   };
-  
-
-  
 
   const fetchCityFromZip = async (
     zipCode: string,
@@ -325,7 +327,7 @@ export function DeliveryInputs() {
         isChecked={formData.agreeToTerms}
         onChange={(e) =>
           dispatch({
-            type: 'SET_FORM_DATA',
+            type: "SET_FORM_DATA",
             payload: { ...formData, agreeToTerms: e.target.checked },
           })
         }
@@ -338,7 +340,7 @@ export function DeliveryInputs() {
         isChecked={formData.agreeToMarketing}
         onChange={(e) =>
           dispatch({
-            type: 'SET_FORM_DATA',
+            type: "SET_FORM_DATA",
             payload: { ...formData, agreeToMarketing: e.target.checked },
           })
         }

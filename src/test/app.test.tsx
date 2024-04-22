@@ -10,7 +10,6 @@ import {
   RouteObject,
   RouterProvider,
 } from "react-router-dom";
-import React from "react";
 import BasketRender from "../components/flowingContent/ContentRendition/BasketRender.tsx";
 import { BasketContext, BasketProvider } from "../context/BasketContext.tsx";
 import { DeliveryProvider } from "../context/DeliveryContext.tsx";

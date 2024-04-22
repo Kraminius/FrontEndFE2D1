@@ -17,83 +17,82 @@ import PromotionBox from "./components/PromotionCard.tsx";
 import { ProgressBar } from "./components/ProgressBar.tsx";
 import { ContentFlow } from "./components/flowingContent/FlowingContent";
 import { Outlet } from "react-router-dom";
-import { useBasketContext, useBasketDispatchContext } from "./context/BasketContext.tsx";
+import { useBasketDispatchContext } from "./context/BasketContext.tsx";
 
 const creatorNames = [
-	"Christensen, Nicklas Thorbjørn",
-	"Gørlyk, Tobias Pedersen",
-	"Hansen, Jakob Lars Naur",
-	"Jürs, Mikkel",
-	"Rolsted, Frederik Emil",
-	"Zenkert, Henrik Albert Erik",
+  "Christensen, Nicklas Thorbjørn",
+  "Gørlyk, Tobias Pedersen",
+  "Hansen, Jakob Lars Naur",
+  "Jürs, Mikkel",
+  "Rolsted, Frederik Emil",
+  "Zenkert, Henrik Albert Erik",
 ];
 
 interface AppProps {
-	basketItems?: BasketItem[]; // Make it optional to maintain compatibility
-	route?: ContentFlow.Basket;
+  basketItems?: BasketItem[]; // Make it optional to maintain compatibility
+  route?: ContentFlow.Basket;
 }
 
 // Right now we can use the AppProps interface to define the props for the App component, we use this for testing.
 // Alternatively we could use jest.mock to mock the fetchBasketItems function.
 function App({ basketItems: testBasketItems }: AppProps) {
-	const [error, setError] = useState("");
-	const [isLoading, setIsLoading] = useState(true);
-	const dispatch = useBasketDispatchContext();
-	useEffect(() => {
-		if (testBasketItems) {
-			dispatch({ type: "SET_ITEMS", payload: testBasketItems });
-			setIsLoading(false);
-			return;
-		}
-		(async () => {
-			try {
-				const items = await fetchBasketItems();
-				dispatch({ type: "SET_ITEMS", payload: items });
-				setError("");
-				setIsLoading(false);
-			} catch (error) {
-				console.error("Error fetching basket items: ", error);
-				setError("Error fetching your items, please try reloading the page...");
-				setIsLoading(false);
-			}
-		})();
-	}, [testBasketItems]);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useBasketDispatchContext();
+  useEffect(() => {
+    if (testBasketItems) {
+      dispatch({ type: "SET_ITEMS", payload: testBasketItems });
+      setIsLoading(false);
+      return;
+    }
+    (async () => {
+      try {
+        const items = await fetchBasketItems();
+        dispatch({ type: "SET_ITEMS", payload: items });
+        setError("");
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching basket items: ", error);
+        setError("Error fetching your items, please try reloading the page...");
+        setIsLoading(false);
+      }
+    })();
+  }, [testBasketItems, dispatch]);
 
-	return (
-		<>
-			<Header />
-			<ProgressBar />
-			<div id="content">
-				{error && (
-					<div className="error">
-						<div>{error}</div>
-						<button
-							className="refresh-button"
-							onClick={() => window.location.reload()}
-						>
-							Refresh
-						</button>
-					</div>
-				)}
-				<main className="page-components">
-					<div id="flow-container">
-						{isLoading && (
-							<>
-								<div className="loading-text"> Loading your basket...</div>
-								<div className="loading-wheel"></div>
-							</>
-						)}
+  return (
+    <>
+      <Header />
+      <ProgressBar />
+      <div id="content">
+        {error && (
+          <div className="error">
+            <div>{error}</div>
+            <button
+              className="refresh-button"
+              onClick={() => window.location.reload()}
+            >
+              Refresh
+            </button>
+          </div>
+        )}
+        <main className="page-components">
+          <div id="flow-container">
+            {isLoading && (
+              <>
+                <div className="loading-text"> Loading your basket...</div>
+                <div className="loading-wheel"></div>
+              </>
+            )}
 
-						<Outlet />
-
-					</div>
-					<OrderSummary />
-				</main>
-				<PromotionBox />
-			</div>
-			<Footer creatorNames={creatorNames} />
-		</>
-	);
+            <Outlet />
+          </div>
+          <OrderSummary />
+        </main>
+        <PromotionBox />
+      </div>
+      <Footer creatorNames={creatorNames} />
+    </>
+  );
 }
 
 export default App;
