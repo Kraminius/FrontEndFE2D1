@@ -48,12 +48,6 @@ function App({ basketItems: testBasketItems}: AppProps) {
       setIsLoading(false);
       return;
     }
-    //This can cause no items to be loaded if it tries to use it in the initial start.
-    else if (LocallyStoredOrNot()) {
-      setBasketItems(basketItems);
-      setIsLoading(false);
-      return;
-    }
     (async () => {
       try {
         const items = await fetchBasketItems();
