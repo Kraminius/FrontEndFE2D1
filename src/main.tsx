@@ -1,19 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
-import {BasketProvider} from "./context/BasketContext.tsx";
-import { DeliveryProvider } from "./context/DeliveryContext.tsx";
-import {PaymentProvider} from "./context/PaymentContext.tsx";
-// import './index.css'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RenditionProvider } from "./components/flowingContent/RenditionContext.tsx";
+import { routes } from "./routes";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-    <React.StrictMode>
-        <BasketProvider>
-            <DeliveryProvider>
-                <PaymentProvider>
-                    <App />
-                </PaymentProvider>
-            </DeliveryProvider>
-        </BasketProvider>
-    </React.StrictMode>,
+const router = createBrowserRouter(routes);
+
+const root = ReactDOM.createRoot(document.getElementById("root")!); // Make sure the 'root' element exists in your index.html
+root.render(
+  <React.StrictMode>
+    <RenditionProvider>
+      <RouterProvider router={router} />
+    </RenditionProvider>
+  </React.StrictMode>
 );

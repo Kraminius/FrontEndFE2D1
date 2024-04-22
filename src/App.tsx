@@ -14,10 +14,14 @@ import { Footer, Header } from "./components/FooterHeader.tsx";
 import OrderSummary from "./components/summary/OrderSummary.tsx";
 import { fetchBasketItems } from "./network/BasketService.ts";
 import PromotionBox from "./components/PromotionCard.tsx";
-import { FlowingContent } from "./components/flowingContent/FlowingContent.tsx";
 import { ProgressBar } from "./components/ProgressBar.tsx";
 import { ContentFlow } from "./components/flowingContent/FlowingContent";
-import {useBasketDispatchContext} from "./context/BasketContext.tsx";
+import { Outlet } from "react-router-dom";
+import {
+  LocallyStoredOrNot,
+  useBasket,
+} from "./components/flowingContent/RenditionContext.tsx";
+import { useBasketDispatchContext } from "./context/BasketContext.tsx";
 
 const creatorNames = [
   "Christensen, Nicklas Thorbjørn",
@@ -30,6 +34,7 @@ const creatorNames = [
 
 interface AppProps {
   basketItems?: BasketItem[]; // Make it optional to maintain compatibility
+  route?: ContentFlow.Basket;
 }
 
 // Right now we can use the AppProps interface to define the props for the App component, we use this for testing.
@@ -41,16 +46,21 @@ function App({ basketItems: testBasketItems }: AppProps) {
   const dispatch = useBasketDispatchContext();
 
   useEffect(() => {
-
     if (testBasketItems) {
-      dispatch({ type: 'SET_ITEMS', payload: testBasketItems });
+      setBasketItems(testBasketItems);
+      setIsLoading(false);
+      return;
+    }
+    //This can cause no items to be loaded if it tries to use it in the initial start.
+    else if (basketItems.length > 0) {
+      setBasketItems(basketItems);
       setIsLoading(false);
       return;
     }
     (async () => {
       try {
         const items = await fetchBasketItems();
-        dispatch({ type: 'SET_ITEMS', payload: items });
+        dispatch({ type: "SET_ITEMS", payload: items });
         setError("");
         setIsLoading(false);
       } catch (error) {
@@ -64,7 +74,7 @@ function App({ basketItems: testBasketItems }: AppProps) {
   return (
     <>
       <Header />
-      <ProgressBar currentFlow={contentFlow} />
+      <ProgressBar />
       <div id="content">
         {error && (
           <div className="error">
@@ -85,10 +95,8 @@ function App({ basketItems: testBasketItems }: AppProps) {
                 <div className="loading-wheel"></div>
               </>
             )}
-            <FlowingContent
-              contentFlow={contentFlow}
-              setContentFlow={setContentFlow}
-            />
+
+            <Outlet />
           </div>
           <OrderSummary />
         </main>

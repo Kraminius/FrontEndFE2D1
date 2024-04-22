@@ -3,7 +3,9 @@ import { CardInformationForm } from "./PaymentForms.tsx";
 import InputField from "./InputField.tsx";
 import {
   PaymentContext,
-  PaymentDispatchContext, usePaymentContext, usePaymentDispatchContext,
+  PaymentDispatchContext,
+  usePaymentContext,
+  usePaymentDispatchContext,
 } from "../../../context/PaymentContext.tsx";
 
 interface CardInputsProps {
