@@ -1,56 +1,73 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import InputField from "./InputField.tsx";
 import { calculateTotal } from "../../../utils/utilFunctions.tsx";
 import { BasketItem } from "../../../types/Types.ts";
+import {
+  usePaymentDispatchContext,
+  usePaymentContext,
+} from "../../../context/PaymentContext.tsx";
 
-interface GiftCardProps {
-  onValidated: (isValid: boolean) => void;
-  items: BasketItem[];
-}
-function GiftCardInputs({ onValidated, items }: GiftCardProps) {
-  const [isValid, setIsValid] = useState(false);
+function GiftCardInputs({ items }: { items: BasketItem[] }) {
+  const { giftCardNumber, giftCardError, giftCardAmount, newTotal } =
+    usePaymentContext();
+  const dispatch = usePaymentDispatchContext();
   const total = calculateTotal(items);
-  const [number, setNumber] = useState("");
-  const [amount, setAmount] = useState("No Gift Card");
-  const [newTotal, setNewTotal] = useState("");
-  const [error, setError] = useState("");
+
   useEffect(() => {
-    const regex = /^[A-Za-z0-9]{16}$/; //16 letters or numbers
-    setIsValid(regex.test(number));
-    const discount = getGiftCardAmount(number);
-    onValidated(false);
-    setNewTotal(``);
+    const regex = /^[A-Za-z0-9]{16}$/;
+    const isValid = regex.test(giftCardNumber);
+    dispatch({ type: "SET_IS_GIFT_CARD_VALID", payload: isValid });
+
     if (isValid) {
-      if (discount == 0) {
-        setAmount("");
-        setError("Gift Card is Invalid");
+      const discount = getGiftCardAmount(giftCardNumber);
+      if (discount === 0) {
+        dispatch({ type: "SET_GIFT_CARD_AMOUNT", payload: "" });
+        dispatch({
+          type: "SET_GIFT_CARD_ERROR",
+          payload: "Gift Card is Invalid",
+        });
       } else {
-        setAmount(`Gift Card Amount: ${discount}`);
-        setError("");
-        if (total - discount < 0) {
-          setNewTotal(`New Total: 0,-`);
-          onValidated(true);
-        } else setNewTotal(`New Total: ${total - discount},-`);
+        dispatch({
+          type: "SET_GIFT_CARD_AMOUNT",
+          payload: `Gift Card Amount: ${discount}`,
+        });
+        dispatch({ type: "SET_GIFT_CARD_ERROR", payload: "" });
+        const newTotalValue = total - discount;
+        dispatch({
+          type: "SET_NEW_TOTAL",
+          payload: `New Total: ${newTotalValue < 0 ? 0 : newTotalValue},-`,
+        });
       }
-    } else if (number === "") {
-      setAmount("");
-      setError("");
     } else {
-      setAmount("");
-      setError("Gift Card Not Recognised");
+      if (giftCardNumber === "") {
+        dispatch({ type: "SET_GIFT_CARD_AMOUNT", payload: "" });
+        dispatch({ type: "SET_GIFT_CARD_ERROR", payload: "" });
+      } else {
+        dispatch({ type: "SET_GIFT_CARD_AMOUNT", payload: "" });
+        dispatch({
+          type: "SET_GIFT_CARD_ERROR",
+          payload: "Gift Card Not Recognised",
+        });
+      }
     }
-  }, [number, onValidated, isValid, total]);
+  }, [giftCardNumber, total, dispatch]);
+
+  const handleNumberChange = (number: string) => {
+    dispatch({ type: "SET_GIFT_CARD_NUMBER", payload: number });
+  };
 
   return (
     <div>
-      <InputField labelText="Gift Card Number" onChange={setNumber} />
-      {isValid && (
+      <InputField labelText="Gift Card Number" onChange={handleNumberChange} />
+      {giftCardAmount && (
         <div>
-          <p className="payment-paragraph-styling"> {amount}</p>
+          <p className="payment-paragraph-styling"> {giftCardAmount}</p>
           <p className="payment-paragraph-styling"> {newTotal}</p>
         </div>
       )}
-      {!isValid && <p className="error-paragraph-styling"> {error}</p>}
+      {!giftCardAmount && (
+        <p className="error-paragraph-styling"> {giftCardError}</p>
+      )}
     </div>
   );
 }
