@@ -114,7 +114,7 @@ textarea {
 	box-shadow: 1px 1px 1px #999;
 }
 
-label {
+.delivery-form__form label {
 	display: block;
 	margin-bottom: 10px;
 	color: var(--textOnBack);
@@ -150,6 +150,7 @@ label {
 		display: flex;
 		gap: 4px;
 	}
+
 	.phone-input-group .input-group {
 		width: 100%;
 	}

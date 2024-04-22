@@ -6,8 +6,9 @@ import {
   useReducer,
 } from "react";
 import { BasketItem, RecurringOrder } from "../types/Types.ts";
+import { loadFromLocalStorage, saveToLocalStorage } from "./LocalStorage.ts";
 
-const initialBasketItems: BasketItem[] = [];
+const initialBasketItems: BasketItem[] = loadFromLocalStorage();
 
 export const BasketContext = createContext(initialBasketItems);
 export const BasketDispatchContext = createContext<Dispatch<Action>>(() => {});
@@ -52,13 +53,16 @@ type Action =
   | { type: "CLEAR_BASKET" };
 
 function basketReducer(state: BasketItem[], action: Action): BasketItem[] {
+  let newState: BasketItem[] = [];
   switch (action.type) {
     case "ADD_ITEM":
-      return [...state, action.payload];
+      newState = [...state, action.payload];
+      break;
     case "REMOVE_ITEM":
-      return state.filter((item) => item.id !== action.payload.itemId);
+      newState = state.filter((item) => item.id !== action.payload.itemId);
+      break;
     case "UPDATE_QUANTITY":
-      return state.map((item) =>
+      newState = state.map((item) =>
         item.id === action.payload.itemId && action.payload.newQuantity > 0
           ? {
               ...item,
@@ -66,14 +70,16 @@ function basketReducer(state: BasketItem[], action: Action): BasketItem[] {
             }
           : item,
       );
+      break;
     case "TOGGLE_GIFT_WRAP":
-      return state.map((item) =>
+      newState = state.map((item) =>
         item.id === action.payload.itemId
           ? { ...item, giftWrap: !item.giftWrap }
           : item,
       );
+      break;
     case "UPDATE_RECURRING_ORDER":
-      return state.map((item) =>
+      newState = state.map((item) =>
         item.id === action.payload.itemId
           ? {
               ...item,
@@ -81,11 +87,17 @@ function basketReducer(state: BasketItem[], action: Action): BasketItem[] {
             }
           : item,
       );
+      break;
     case "SET_ITEMS":
-      return action.payload;
+      newState = action.payload;
+      break;
     case "CLEAR_BASKET":
-      return initialBasketItems;
+      newState = initialBasketItems;
+      break;
     default:
       throw new Error(`Unknown action in reducer: ${action}`);
   }
+  newState = newState.slice(0, 4);
+  saveToLocalStorage(newState);
+  return newState;
 }

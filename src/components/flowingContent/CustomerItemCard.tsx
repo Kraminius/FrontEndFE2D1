@@ -47,7 +47,7 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({ item }) => {
           >
             Remove
           </button>
-          <div>
+          <div style={{ display: "flex" }}>
             <input
               type="checkbox"
               checked={item.giftWrap}

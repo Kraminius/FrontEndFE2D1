@@ -34,7 +34,7 @@ const SummaryItem = ({ item }: SummaryItemProps) => {
             <s style={{ color: "grey", textDecoration: "line-through" }}>
               {normalPrice.toFixed(2)},-
             </s>
-            <span>{discountedPrice.toFixed(2)},-</span>
+            <div>{discountedPrice.toFixed(2)},-</div>
           </>
         ) : (
           <>{normalPrice.toFixed(2)},-</>

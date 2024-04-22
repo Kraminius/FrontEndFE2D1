@@ -153,7 +153,7 @@ describe(App.name, () => {
     const testRoutes: RouteObject[] = [
       {
         path: "/",
-        element: <App basketItems={items} />,
+        element: <App testBasketItems={items} />,
         children: [
           {
             path: "",
@@ -179,7 +179,6 @@ describe(App.name, () => {
         </DeliveryProvider>
       </BasketProvider>,
     );
-
     const increaseButton = await screen.findByLabelText(
       `Increase quantity for item ${items[0].id}`,
     );

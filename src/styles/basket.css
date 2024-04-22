@@ -54,7 +54,6 @@
 
 .quantity-text {
 	color: var(--textOnBack)
-
 }
 
 .quantity__button {
@@ -80,8 +79,6 @@
 }
 
 .item-label {
-	font-size: 80%;
-	columns: 2;
 	color: var(--thirdColour);
 }
 
