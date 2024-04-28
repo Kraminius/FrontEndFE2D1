@@ -2,12 +2,15 @@ import { useState } from "react";
 import { BackButton, ContinueButton } from "../Buttons.tsx";
 import PaymentPage from "../payment/PaymentPage.tsx";
 import { useNavigate } from "react-router-dom";
+import { usePaymentDispatchContext } from "../../../context/PaymentContext.tsx";
 
 export function PaymentRender() {
   const navigate = useNavigate();
   const [isContinueDisabled, setIsContinueDisabled] = useState(false);
+  const paymentDispatch = usePaymentDispatchContext();
 
   function handleNextClick() {
+    paymentDispatch({ type: "SET_PAYMENT_COMPLETED", payload: true });
     navigate("/receipt");
     window.scrollTo(0, 0);
   }

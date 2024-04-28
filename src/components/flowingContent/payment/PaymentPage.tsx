@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import CardInputs from "./CardInformation.tsx";
 import MobilePayInputs from "./MobilePayInformation.tsx";
 import GiftCardInputs from "./GiftCardInformation.tsx";
@@ -7,7 +7,7 @@ import mastercard from "../../../images/mastercard.png";
 import mobilepay from "../../../images/mobilepay.png";
 import bslogo from "../../../images/BS_Logo.png";
 import {
-  usePaymentContext,
+  UsePaymentContext,
   usePaymentDispatchContext,
 } from "../../../context/PaymentContext.tsx";
 
@@ -16,7 +16,7 @@ interface PaymentPageProps {
 }
 
 function PaymentPage({ isContinueDisabled }: PaymentPageProps) {
-  const paymentState = usePaymentContext();
+  const paymentState = UsePaymentContext();
   const paymentDispatch = usePaymentDispatchContext();
 
   const { activeOption, isGiftCardValid, isMobilePayValid, isCardValid } =
@@ -26,9 +26,12 @@ function PaymentPage({ isContinueDisabled }: PaymentPageProps) {
     paymentDispatch({ type: "SET_ACTIVE_OPTION", payload: option });
   };
 
-  const setIsCardValid = (isValid: boolean) => {
-    paymentDispatch({ type: "SET_IS_CARD_VALID", payload: isValid });
-  };
+  const setIsCardValid = useCallback(
+    (isValid: boolean) => {
+      paymentDispatch({ type: "SET_IS_CARD_VALID", payload: isValid });
+    },
+    [paymentDispatch],
+  );
 
   const setIsMobilePayValid = (isValid: boolean) => {
     paymentDispatch({ type: "SET_IS_MOBILE_PAY_VALID", payload: isValid });

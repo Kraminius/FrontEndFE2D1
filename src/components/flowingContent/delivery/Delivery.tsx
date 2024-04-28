@@ -58,32 +58,38 @@ export const Delivery: React.FC<DeliveryProps> = ({
     <div className="delivery-form">
       <h2>Delivery Information</h2>
       {/* <form id='delivery-form' method="POST" action="https://enoacmo66ykxn.x.pipedream.net"> */}
-      <form className="delivery-form__form" onSubmit={handleSubmit}>
-        <fieldset>
-          <legend>Enter your delivery information</legend>
-          <DeliveryInputs />
-          <ContinueButton
-            onClick={() => console.log("form is submitting, please wait.")}
-            isDisabled={!isFormValid}
-          />
-          <BackButton onClick={handleBackClick} />
-        </fieldset>
-      </form>
-      {formStatus === FormStatus.SUBMITTING && (
-        <p className="delivery-form__status delivery-form__status--submitting">
-          ⌛ Form is being submitted. ⌛
-        </p>
-      )}
-      {formStatus === FormStatus.SUCCESS && (
-        <p className="delivery-form__status delivery-form__status--success">
-          Form submitted successfully
-        </p>
-      )}
-      {formStatus === FormStatus.FAILURE && (
-        <p className="delivery-form__status delivery-form__status--failure">
-          Form submission failed
-        </p>
-      )}
+      <div>
+        <form className="delivery-form__form" onSubmit={handleSubmit}>
+          <fieldset>
+            <legend>Enter your delivery information</legend>
+            <DeliveryInputs />
+            <ContinueButton
+              onClick={() => console.log("form is submitting, please wait.")}
+              isDisabled={!isFormValid}
+            />
+            <BackButton onClick={handleBackClick} />
+          </fieldset>
+        </form>
+        {formStatus === FormStatus.SUBMITTING && (
+          <div className="overlay">
+            <div className="spinner"></div>
+          </div>
+        )}
+        {formStatus === FormStatus.SUCCESS && (
+          <div className="overlay">
+            <div className="status-icon success">
+              <i className="fas fa-check"></i>
+            </div>
+          </div>
+        )}
+        {formStatus === FormStatus.FAILURE && (
+          <div className="overlay">
+            <div className="status-icon failure">
+              <i className="fas fa-times"></i>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
