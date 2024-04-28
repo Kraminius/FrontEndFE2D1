@@ -83,6 +83,7 @@
 }
 
 .item-remover {
+	margin: auto;
 	border: none;
 	background-color: transparent;
 	cursor: pointer;
@@ -106,6 +107,10 @@
 
 .item-price {
 	text-align: right;
+	gap: 4px;
+	display: flex;
+	width: 100%;
+	justify-content: end;
 }
 
 .item-price__cost {
@@ -117,10 +122,12 @@
 }
 
 .item-price__cost.item-price__cost--hidden {
-	visibility: hidden;
+	/* visibility: hidden; */
+	display: none;
 }
 
 .item-price__currency {
+	margin-top: 2px;
 	font-size: 0.7em;
 	color: var(--textOnBack);
 }

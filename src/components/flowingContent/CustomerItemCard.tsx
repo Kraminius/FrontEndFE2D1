@@ -16,9 +16,6 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({ item }) => {
     setImageSrc(defaultImage);
   };
 
-  // onChange={() => useBasketDispContext({ type: "TOGGLE_GIFT_WRAP", payload: { itemId: item.id } })}
-  // <button className="item-remover" onClick={() => useBasketDispContext({ type: "REMOVE_ITEM", payload: { itemId: item.id } })}></button>
-  // useBasketDispContext({ type: "UPDATE_RECURRING_ORDER", payload: { itemId: item.id, newRecurringOrder: e.target.value as RecurringOrder } })
   const normalPrice = item.price * item.quantity;
   const isPriceDiscounted =
     item.rebateQuantity > 0 && item.quantity >= item.rebateQuantity;
@@ -69,17 +66,19 @@ const CustomerItemCard: React.FC<CustomerItemCardProps> = ({ item }) => {
         <div className="item-name">{item.name}</div>
         <div className="item-price">
           <span className="item-price__currency">DKK </span>
-          <span
-            className={itemPriceClassesSingle}
-          >{`${item.price.toFixed(2)},-`}</span>
-          {isPriceDiscounted && (
+          <div>
+            <span
+              className={itemPriceClassesSingle}
+            >{`${item.price.toFixed(2)},-`}</span>
+            {isPriceDiscounted && (
+              <div
+                style={{ color: "grey", textDecoration: "line-through" }}
+              >{`${normalPrice.toFixed(2)},-`}</div>
+            )}
             <div
-              style={{ color: "grey", textDecoration: "line-through" }}
-            >{`${normalPrice.toFixed(2)},-`}</div>
-          )}
-          <div
-            className={itemPriceClassesTotal}
-          >{`${calculateItemTotal(item).toFixed(2)},-`}</div>
+              className={itemPriceClassesTotal}
+            >{`${calculateItemTotal(item).toFixed(2)},-`}</div>
+          </div>
         </div>
         <Quantity item={item} />
         <div className="item-discount">
