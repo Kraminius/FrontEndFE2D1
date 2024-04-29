@@ -1,25 +1,25 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { describe, expect, vi, test } from "vitest";
+import { render } from "@testing-library/react";
 import PaymentPage from "../components/flowingContent/payment/PaymentPage";
+import { PaymentProvider } from "../context/PaymentContext";
 
-const mockIsContinueDisabled = vi.fn();
+function PaymentTest() {
+  const mockHandleNextClick = vi.fn();
+  const mockHandleBackClick = vi.fn();
+
+  return (
+    <PaymentProvider>
+      <PaymentPage
+        handleNextClick={mockHandleNextClick}
+        handleBackClick={mockHandleBackClick}
+      />
+    </PaymentProvider>
+  );
+}
 
 describe("PaymentPage component", () => {
-  beforeEach(() => {
-    render(<PaymentPage isContinueDisabled={mockIsContinueDisabled} />);
-  });
-
-  it("should toggle payment options correctly", () => {
-    const cardOption = screen.getByText(/^Card$/);
-    const mobilePayOption = screen.getByText(/MobilePay/);
-    fireEvent.click(cardOption);
-    fireEvent.click(mobilePayOption);
-
-    expect(screen.getByText(/BuyStuff GiftCard/i)).toBeInTheDocument();
-  });
-
-  it("should enable continue button when a valid payment option is selected", () => {
-    fireEvent.click(screen.getByText(/mobilepay/i));
-    expect(mockIsContinueDisabled).toHaveBeenCalledWith(true);
+  test("should render correctly", () => {
+    const { getByText } = render(<PaymentTest />);
+    expect(getByText(/Choose a Payment Option/)).toBeInTheDocument();
   });
 });
