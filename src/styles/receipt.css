@@ -15,6 +15,8 @@ main:has(.receipt-page)+.promotion-box {
 	margin: 20px auto;
 	padding: 20px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	background-color: var(--secondColour);
+	color: var(--thirdColour);
 }
 
 .basket-items-list-receipt {
