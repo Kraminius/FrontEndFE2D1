@@ -13,8 +13,7 @@ interface ReceiptPageProps {
 
 const ReceiptPage = ({ items }: ReceiptPageProps) => {
   const navigate = useNavigate();
-  const { giftCardAmount } = UsePaymentContext();
-  const { isGiftCardValid } = UsePaymentContext();
+  const { giftCardAmount, isGiftCardValid, newTotal } = UsePaymentContext();
 
   useEffect(() => {
     if (items.length === 0) {
@@ -26,8 +25,6 @@ const ReceiptPage = ({ items }: ReceiptPageProps) => {
   const { subtotal, discountApplied, total } =
     calculateTotalWithBreakdown(items);
 
-  const newTotal = total - giftCardAmount;
-
   return (
     <div className="receipt-page">
       <h1>Order Confirmation</h1>
@@ -36,9 +33,14 @@ const ReceiptPage = ({ items }: ReceiptPageProps) => {
       <ul className="basket-items-list-receipt">
         {items.map((item) => {
           const { normalPrice, discountedPrice } = calculatePrice(item);
+          const isGiftWrapped = item.giftWrap;
           return (
             <li key={item.id} className="basket-item-receipt">
-              <span className="item-name-receipt">{item.name}</span>
+              <span
+                className={`item-name-receipt ${isGiftWrapped ? "item-gift-wrapped" : ""}`}
+              >
+                {item.name}
+              </span>
               <span className="item-quantity-receipt">
                 Qty: {item.quantity}
               </span>
@@ -63,7 +65,9 @@ const ReceiptPage = ({ items }: ReceiptPageProps) => {
           {isGiftCardValid && (
             <>
               <p>Gift card: -{giftCardAmount} kr</p>
-              <p>Total: {newTotal.toFixed(2)} kr</p>
+              <p>
+                <strong>Total: {newTotal.toFixed(2)} kr</strong>
+              </p>
             </>
           )}
         </>

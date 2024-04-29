@@ -15,7 +15,7 @@ interface PaymentState {
   giftCardNumber: string;
   giftCardAmount: number;
   giftCardError: string;
-  newTotal: string;
+  newTotal: number;
   mobilePayNumber: string;
   mobilePayError: string;
   paymentCompleted: boolean;
@@ -34,7 +34,7 @@ const initialPaymentState: PaymentState = {
   giftCardNumber: "",
   giftCardAmount: 0,
   giftCardError: "",
-  newTotal: "",
+  newTotal: 0,
   mobilePayNumber: "",
   mobilePayError: "",
   paymentCompleted: false,
@@ -77,7 +77,7 @@ type Action =
   | { type: "SET_GIFT_CARD_NUMBER"; payload: string }
   | { type: "SET_GIFT_CARD_AMOUNT"; payload: number }
   | { type: "SET_GIFT_CARD_ERROR"; payload: string }
-  | { type: "SET_NEW_TOTAL"; payload: string }
+  | { type: "SET_NEW_TOTAL"; payload: number }
   | { type: "SET_MOBILE_PAY_NUMBER"; payload: string }
   | { type: "SET_MOBILE_PAY_ERROR"; payload: string }
   | { type: "SET_PAYMENT_COMPLETED"; payload: boolean };

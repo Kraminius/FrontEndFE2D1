@@ -96,7 +96,6 @@ export function basketReducer(
       break;
     case "CLEAR_BASKET":
       newState = initialBasketItems;
-      console.log(newState);
       break;
     default:
       throw new Error(`Unknown action in reducer: ${action}`);

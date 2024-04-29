@@ -37,21 +37,21 @@ export const PaymentPage: React.FC<PaymentPageProps> = ({
     (option: string) => {
       paymentDispatch({ type: "SET_ACTIVE_OPTION", payload: option });
     },
-    [paymentDispatch]
+    [paymentDispatch],
   );
 
   const setIsCardValid = useCallback(
     (isValid: boolean) => {
       paymentDispatch({ type: "SET_IS_CARD_VALID", payload: isValid });
     },
-    [paymentDispatch]
+    [paymentDispatch],
   );
 
   const setIsMobilePayValid = useCallback(
     (isValid: boolean) => {
       paymentDispatch({ type: "SET_IS_MOBILE_PAY_VALID", payload: isValid });
     },
-    [paymentDispatch]
+    [paymentDispatch],
   );
 
   useEffect(() => {
@@ -67,8 +67,6 @@ export const PaymentPage: React.FC<PaymentPageProps> = ({
         valid = isGiftCardValid;
     }
     paymentDispatch({ type: "SET_IS_VALID", payload: valid });
-    console.log("PaymentPage useEffect: ", valid);
-    console.log("PaymentPage isValid: ", isValid);
   }, [
     activeOption,
     isGiftCardValid,

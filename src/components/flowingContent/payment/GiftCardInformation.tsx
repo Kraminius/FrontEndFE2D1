@@ -36,7 +36,7 @@ function GiftCardInputs() {
         const newTotalValue = total - discount;
         dispatch({
           type: "SET_NEW_TOTAL",
-          payload: `New Total: ${newTotalValue < 0 ? 0 : newTotalValue},-`,
+          payload: newTotalValue < 0 ? 0 : newTotalValue,
         });
       }
     } else {
@@ -62,8 +62,12 @@ function GiftCardInputs() {
       <InputField labelText="Gift Card Number" onChange={handleNumberChange} />
       {giftCardAmount !== 0 && (
         <div>
-          <p className="payment-paragraph-styling"> {giftCardAmount},-</p>
-          <p className="payment-paragraph-styling"> {newTotal}</p>
+          <p className="payment-paragraph-styling">
+            Gift card: {giftCardAmount},-
+          </p>
+          <p className="payment-paragraph-styling">
+            New total: {newTotal.toFixed(2)},-
+          </p>
         </div>
       )}
       {!giftCardAmount && (

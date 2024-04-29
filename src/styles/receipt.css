@@ -83,7 +83,10 @@ main:has(.receipt-page)+.promotion-box {
 	cursor: pointer;
 }
 
-.receipt-page button:hover {}
+.item-gift-wrapped::before {
+	content: "🎁";
+	padding-right: 4px;
+}
 
 @media print {
 	.receipt-page {
@@ -92,11 +95,6 @@ main:has(.receipt-page)+.promotion-box {
 		margin: 0;
 		padding: 0;
 	}
-
-	.receipt-page h1,
-	.receipt-page p,
-	.receipt-page ul,
-	.receipt-page ul li {}
 
 	.receipt-page ul li {
 		border-bottom: 1px solid;
