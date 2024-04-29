@@ -22,7 +22,7 @@ function GiftCardInputs() {
     if (isValid) {
       const discount = getGiftCardAmount(giftCardNumber);
       if (discount === 0) {
-        dispatch({ type: "SET_GIFT_CARD_AMOUNT", payload: "" });
+        dispatch({ type: "SET_GIFT_CARD_AMOUNT", payload: 0 });
         dispatch({
           type: "SET_GIFT_CARD_ERROR",
           payload: "Gift Card is Invalid",
@@ -30,7 +30,7 @@ function GiftCardInputs() {
       } else {
         dispatch({
           type: "SET_GIFT_CARD_AMOUNT",
-          payload: `Gift Card Amount: ${discount}`,
+          payload: discount,
         });
         dispatch({ type: "SET_GIFT_CARD_ERROR", payload: "" });
         const newTotalValue = total - discount;
@@ -41,10 +41,10 @@ function GiftCardInputs() {
       }
     } else {
       if (giftCardNumber === "") {
-        dispatch({ type: "SET_GIFT_CARD_AMOUNT", payload: "" });
+        dispatch({ type: "SET_GIFT_CARD_AMOUNT", payload: 0 });
         dispatch({ type: "SET_GIFT_CARD_ERROR", payload: "" });
       } else {
-        dispatch({ type: "SET_GIFT_CARD_AMOUNT", payload: "" });
+        dispatch({ type: "SET_GIFT_CARD_AMOUNT", payload: 0 });
         dispatch({
           type: "SET_GIFT_CARD_ERROR",
           payload: "Gift Card Not Recognised",
@@ -60,9 +60,9 @@ function GiftCardInputs() {
   return (
     <div>
       <InputField labelText="Gift Card Number" onChange={handleNumberChange} />
-      {giftCardAmount && (
+      {giftCardAmount !== 0 && (
         <div>
-          <p className="payment-paragraph-styling"> {giftCardAmount}</p>
+          <p className="payment-paragraph-styling"> {giftCardAmount},-</p>
           <p className="payment-paragraph-styling"> {newTotal}</p>
         </div>
       )}
