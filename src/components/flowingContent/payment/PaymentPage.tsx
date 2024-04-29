@@ -10,12 +10,17 @@ import {
   UsePaymentContext,
   usePaymentDispatchContext,
 } from "../../../context/PaymentContext.tsx";
+import { BackButton, ContinueButton } from "../Buttons.tsx";
 
 interface PaymentPageProps {
-  isContinueDisabled: (isValid: boolean) => void;
+  handleNextClick: () => void;
+  handleBackClick: () => void;
 }
 
-function PaymentPage({ isContinueDisabled }: PaymentPageProps) {
+export const PaymentPage: React.FC<PaymentPageProps> = ({
+  handleNextClick,
+  handleBackClick,
+}) => {
   const paymentState = UsePaymentContext();
   const paymentDispatch = usePaymentDispatchContext();
 
@@ -60,14 +65,12 @@ function PaymentPage({ isContinueDisabled }: PaymentPageProps) {
     paymentDispatch({ type: "SET_IS_VALID", payload: valid });
     console.log("PaymentPage useEffect: ", valid);
     console.log("PaymentPage isValid: ", isValid);
-    isContinueDisabled(!isValid);
   }, [
     activeOption,
     isGiftCardValid,
     isMobilePayValid,
     isCardValid,
     paymentDispatch,
-    isContinueDisabled,
     isValid,
   ]);
 
@@ -87,9 +90,11 @@ function PaymentPage({ isContinueDisabled }: PaymentPageProps) {
       />
       <h3>Add A Gift Card</h3>
       <GiftCard />
+      <ContinueButton onClick={handleNextClick} isDisabled={!isValid} />
+      <BackButton onClick={handleBackClick} />
     </div>
   );
-}
+};
 
 export default PaymentPage;
 
