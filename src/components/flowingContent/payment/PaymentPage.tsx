@@ -18,9 +18,17 @@ interface PaymentPageProps {
 function PaymentPage({ isContinueDisabled }: PaymentPageProps) {
   const paymentState = UsePaymentContext();
   const paymentDispatch = usePaymentDispatchContext();
+  let valid: boolean = false;
 
   const { activeOption, isGiftCardValid, isMobilePayValid, isCardValid } =
     paymentState;
+
+  const resetValidationStates = () => {
+    paymentDispatch({ type: "SET_IS_CARD_VALID", payload: false });
+    paymentDispatch({ type: "SET_IS_MOBILE_PAY_VALID", payload: false });
+    paymentDispatch({ type: "SET_IS_GIFT_CARD_VALID", payload: false });
+    paymentDispatch({ type: "SET_IS_VALID", payload: false });
+  };
 
   const handleOptionClick = (option: string) => {
     paymentDispatch({ type: "SET_ACTIVE_OPTION", payload: option });
@@ -30,15 +38,17 @@ function PaymentPage({ isContinueDisabled }: PaymentPageProps) {
     (isValid: boolean) => {
       paymentDispatch({ type: "SET_IS_CARD_VALID", payload: isValid });
     },
-    [paymentDispatch],
+    [paymentDispatch]
   );
 
-  const setIsMobilePayValid = (isValid: boolean) => {
-    paymentDispatch({ type: "SET_IS_MOBILE_PAY_VALID", payload: isValid });
-  };
+  const setIsMobilePayValid = useCallback(
+    (isValid: boolean) => {
+      paymentDispatch({ type: "SET_IS_MOBILE_PAY_VALID", payload: isValid });
+    },
+    [paymentDispatch]
+  );
 
   useEffect(() => {
-    let valid = false;
     switch (activeOption) {
       case "MobilePay":
         valid = isMobilePayValid || isGiftCardValid;
@@ -50,7 +60,11 @@ function PaymentPage({ isContinueDisabled }: PaymentPageProps) {
         valid = isGiftCardValid;
     }
     paymentDispatch({ type: "SET_IS_VALID", payload: valid });
-    isContinueDisabled(!valid);
+    console.log("PaymentPage isValid: ", valid);
+    isContinueDisabled(!paymentState.isValid);
+    return () => {
+      resetValidationStates();
+    };
   }, [
     activeOption,
     isGiftCardValid,
