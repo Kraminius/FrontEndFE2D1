@@ -8,12 +8,12 @@ function PaymentTest() {
   const mockHandleBackClick = vi.fn();
 
   return (
-    <PaymentProvider>
-      <PaymentPage
-        handleNextClick={mockHandleNextClick}
-        handleBackClick={mockHandleBackClick}
-      />
-    </PaymentProvider>
+      <PaymentProvider>
+        <PaymentPage
+            handleNextClick={mockHandleNextClick}
+            handleBackClick={mockHandleBackClick}
+        />
+      </PaymentProvider>
   );
 }
 

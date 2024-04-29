@@ -10,26 +10,34 @@ import {
 	UsePaymentContext,
 	usePaymentDispatchContext,
 } from "../../../context/PaymentContext.tsx";
+import { BackButton, ContinueButton } from "../Buttons.tsx";
 
 interface PaymentPageProps {
-	setIsContinueDisabled: (isValid: boolean) => void;
+	handleNextClick: () => void;
+	handleBackClick: () => void;
 }
 
-function PaymentPage({ setIsContinueDisabled: setIsContinueDisabled }: PaymentPageProps) {
-	const { activeOption, isGiftCardValid, isMobilePayValid, isCardValid } = UsePaymentContext();
+export const PaymentPage: React.FC<PaymentPageProps> = ({
+															handleNextClick,
+															handleBackClick,
+														}) => {
+	const paymentState = UsePaymentContext();
 	const paymentDispatch = usePaymentDispatchContext();
 
-	const resetValidationStates = () => {
-		paymentDispatch({ type: "RESET" })
-		// paymentDispatch({ type: "SET_IS_CARD_VALID", payload: false });
-		// paymentDispatch({ type: "SET_IS_MOBILE_PAY_VALID", payload: false });
-		// paymentDispatch({ type: "SET_IS_GIFT_CARD_VALID", payload: false });
-		// paymentDispatch({ type: "SET_IS_VALID", payload: false });
-	};
+	const {
+		activeOption,
+		isGiftCardValid,
+		isMobilePayValid,
+		isCardValid,
+		isValid,
+	} = paymentState;
 
-	const handleOptionClick = (option: string) => {
-		paymentDispatch({ type: "SET_ACTIVE_OPTION", payload: option });
-	};
+	const handleOptionClick = useCallback(
+		(option: string) => {
+			paymentDispatch({ type: "SET_ACTIVE_OPTION", payload: option });
+		},
+		[paymentDispatch]
+	);
 
 	const setIsCardValid = useCallback(
 		(isValid: boolean) => {
@@ -46,7 +54,7 @@ function PaymentPage({ setIsContinueDisabled: setIsContinueDisabled }: PaymentPa
 	);
 
 	useEffect(() => {
-		let valid = false;
+		let valid: boolean = false;
 		switch (activeOption) {
 			case "MobilePay":
 				valid = isMobilePayValid || isGiftCardValid;
@@ -58,17 +66,15 @@ function PaymentPage({ setIsContinueDisabled: setIsContinueDisabled }: PaymentPa
 				valid = isGiftCardValid;
 		}
 		paymentDispatch({ type: "SET_IS_VALID", payload: valid });
-		setIsContinueDisabled(!valid);
-		return () => {
-			resetValidationStates();
-		};
+		console.log("PaymentPage useEffect: ", valid);
+		console.log("PaymentPage isValid: ", isValid);
 	}, [
 		activeOption,
 		isGiftCardValid,
 		isMobilePayValid,
 		isCardValid,
 		paymentDispatch,
-		setIsContinueDisabled, resetValidationStates
+		isValid,
 	]);
 
 	return (
@@ -87,9 +93,11 @@ function PaymentPage({ setIsContinueDisabled: setIsContinueDisabled }: PaymentPa
 			/>
 			<h3>Add A Gift Card</h3>
 			<GiftCard />
+			<ContinueButton onClick={handleNextClick} isDisabled={!isValid} />
+			<BackButton onClick={handleBackClick} />
 		</div>
 	);
-}
+};
 
 export default PaymentPage;
 
