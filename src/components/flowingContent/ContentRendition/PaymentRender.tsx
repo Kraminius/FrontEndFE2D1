@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BackButton, ContinueButton } from "../Buttons.tsx";
 import PaymentPage from "../payment/PaymentPage.tsx";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +21,16 @@ export function PaymentRender() {
     navigate("/delivery");
     window.scrollTo(0, 0);
   }
+  const resetValidationStates = () => {
+    paymentDispatch({ type: "SET_IS_CARD_VALID", payload: false });
+    paymentDispatch({ type: "SET_IS_MOBILE_PAY_VALID", payload: false });
+    paymentDispatch({ type: "SET_IS_GIFT_CARD_VALID", payload: false });
+    paymentDispatch({ type: "SET_IS_VALID", payload: false });
+  };
+
+  useEffect(() => {
+    resetValidationStates();
+  }, []);
 
   return (
     <div>
