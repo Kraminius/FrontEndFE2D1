@@ -99,6 +99,7 @@
 		width: 70px;
 		height: 70px;
 		border-width: 3px;
+		align-content: center;
 	}
 
 	.status-icon {

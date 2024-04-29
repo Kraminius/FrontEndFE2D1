@@ -28,14 +28,16 @@ const ReceiptPage = ({ items }: ReceiptPageProps) => {
       <h1>Order Confirmation</h1>
       <p>Thank you for your purchase!</p>
       <p>Order Number: {orderNumber}</p>
-      <ul className="basket-items-list">
+      <ul className="basket-items-list-receipt">
         {items.map((item) => {
           const { normalPrice, discountedPrice } = calculatePrice(item);
           return (
-            <li key={item.id} className="basket-item">
-              <span className="item-name">{item.name}</span>
-              <span className="item-quantity">Qty: {item.quantity}</span>
-              <span className="item-price">
+            <li key={item.id} className="basket-item-receipt">
+              <span className="item-name-receipt">{item.name}</span>
+              <span className="item-quantity-receipt">
+                Qty: {item.quantity}
+              </span>
+              <span className="item-price-receipt">
                 {normalPrice !== discountedPrice ? (
                   <>
                     <s>{normalPrice.toFixed(2)}</s> {discountedPrice.toFixed(2)}

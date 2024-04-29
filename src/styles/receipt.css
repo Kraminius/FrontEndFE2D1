@@ -1,19 +1,16 @@
 .receipt-page {
-    background-color: #fff;
-    color: #000;
     max-width: 600px;
     margin: 20px auto;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    font-family: 'Arial', sans-serif;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-.basket-items-list {
+.basket-items-list-receipt {
     padding: 0;
     list-style: none;
 }
 
-.basket-item {
+.basket-item-receipt {
     display: grid;
     grid-template-columns: minmax(auto, 1fr) auto auto;
     align-items: center;
@@ -21,30 +18,34 @@
     margin-bottom: 10px;
 }
 
-.item-name {
-    color: #000;
+
+.item-name-receipt {
     font-size: 15px;
+    color: var(--textOnBack);
 }
 
-.item-quantity {
+.item-quantity-receipt {
     width: 60px;
     text-align: left;
+    color: var(--textOnBack);
 }
 
-.item-price {
+.item-price-receipt {
     width: 100px;
     text-align: right;
+    color: var(--textOnBack);
 }
 
 .receipt-page h1 {
-    color: #333;
-    border-bottom: 2px solid #333;
+    border-bottom: 2px solid;
     padding-bottom: 10px;
     margin-bottom: 20px;
+    color: var(--textOnBack);
 }
 
 .receipt-page p {
     margin: 0 0 10px;
+    color: var(--textOnBack);
 }
 
 .receipt-page ul {
@@ -53,7 +54,7 @@
 }
 
 .receipt-page ul li {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid;
     padding: 10px 0;
     margin-bottom: 10px;
 }
@@ -63,8 +64,6 @@
 }
 
 .receipt-page button {
-    background-color: #333;
-    color: white;
     border: none;
     padding: 10px 20px;
     text-transform: uppercase;
@@ -73,7 +72,6 @@
 }
 
 .receipt-page button:hover {
-    background-color: #555;
 }
 
 @media print {
@@ -88,11 +86,10 @@
     .receipt-page p,
     .receipt-page ul,
     .receipt-page ul li {
-        color: #000;
     }
 
     .receipt-page ul li {
-        border-bottom: 1px solid #000;
+        border-bottom: 1px solid;
     }
 
     .receipt-page button {
