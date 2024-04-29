@@ -19,7 +19,6 @@ import { Outlet } from "react-router-dom";
 import { useBasketDispatchContext } from "./context/BasketContext.tsx";
 import { isLocallyStored } from "./context/LocalStorage.ts";
 import { BasketItem } from "./types/Types.ts";
-import { useLocation } from "react-router-dom";
 
 const creatorNames = [
 	"Christensen, Nicklas Thorbjørn",
@@ -37,10 +36,9 @@ interface AppProps {
 // Right now we can use the AppProps interface to define the props for the App component, we use this for testing.
 // Alternatively we could use jest.mock to mock the fetchBasketItems function.
 function App({ testBasketItems }: AppProps) {
-	const location = useLocation();
-	const [error, setError] = useState("");
-	const [isLoading, setIsLoading] = useState(true);
-	const basketDispatch = useBasketDispatchContext();
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const basketDispatch = useBasketDispatchContext();
 
 	useEffect(() => {
 		if (testBasketItems) {
@@ -68,41 +66,39 @@ function App({ testBasketItems }: AppProps) {
 		}
 	}, [basketDispatch, testBasketItems]);
 
-	return (
-		<>
-			<Header />
-			<ProgressBar />
-			<div id="content">
-				{error && (
-					<div className="error">
-						<div>{error}</div>
-						<button
-							className="refresh-button"
-							onClick={() => window.location.reload()}
-						>
-							Refresh
-						</button>
-					</div>
-				)}
-				<main
-					className="page-components"
-				>
-					<div id="flow-container">
-						{isLoading && (
-							<>
-								<div className="loading-text">Loading your basket...</div>
-								<div className="loading-wheel"></div>
-							</>
-						)}
-						<Outlet />
-					</div>
-					<OrderSummary />
-				</main>
-				<PromotionBox />
-			</div>
-			<Footer creatorNames={creatorNames} />
-		</>
-	);
+  return (
+    <>
+      <Header />
+      <ProgressBar />
+      <div id="content">
+        {error && (
+          <div className="error">
+            <div>{error}</div>
+            <button
+              className="refresh-button"
+              onClick={() => window.location.reload()}
+            >
+              Refresh
+            </button>
+          </div>
+        )}
+        <main className="page-components">
+          <div id="flow-container">
+            {isLoading && (
+              <>
+                <div className="loading-text">Loading your basket...</div>
+                <div className="loading-wheel"></div>
+              </>
+            )}
+            <Outlet />
+          </div>
+          <OrderSummary />
+        </main>
+        <PromotionBox />
+      </div>
+      <Footer creatorNames={creatorNames} />
+    </>
+  );
 }
 
 export default App;
