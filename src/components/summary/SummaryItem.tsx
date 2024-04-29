@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { calculatePrice } from "../../utils/utilFunctions.tsx"; // Adjust the path according to your project structure
 import defaultImage from "../../images/default-product.png";
 import { BasketItem } from "../../types/Types.ts";
-
 interface SummaryItemProps {
   item: BasketItem;
 }
 
 const SummaryItem = ({ item }: SummaryItemProps) => {
   const [imageSrc, setImageSrc] = React.useState(item.imageUrl || defaultImage);
+
+  useEffect(() => {
+    setImageSrc(item.imageUrl || defaultImage);
+  }, [item]);
 
   const handleImageError = () => {
     setImageSrc(defaultImage);
