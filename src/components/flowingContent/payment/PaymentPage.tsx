@@ -11,6 +11,7 @@ import {
   usePaymentDispatchContext,
 } from "../../../context/PaymentContext.tsx";
 import { BackButton, ContinueButton } from "../Buttons.tsx";
+import { Action } from "../../../context/BasketContext.tsx";
 
 interface PaymentPageProps {
   handleNextClick: () => void;
@@ -32,9 +33,12 @@ export const PaymentPage: React.FC<PaymentPageProps> = ({
     isValid,
   } = paymentState;
 
-  const handleOptionClick = (option: string) => {
-    paymentDispatch({ type: "SET_ACTIVE_OPTION", payload: option });
-  };
+  const handleOptionClick = useCallback(
+    (option: string) => {
+      paymentDispatch({ type: "SET_ACTIVE_OPTION", payload: option });
+    },
+    [paymentDispatch]
+  );
 
   const setIsCardValid = useCallback(
     (isValid: boolean) => {
