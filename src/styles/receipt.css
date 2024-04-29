@@ -1,102 +1,111 @@
+main:has(.receipt-page) {
+	display: block;
+}
+
+main:has(.receipt-page)>#summary-wrapper {
+	display: none;
+}
+
+main:has(.receipt-page)+.promotion-box {
+	display: none;
+}
+
 .receipt-page {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	max-width: 600px;
+	margin: 20px auto;
+	padding: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .basket-items-list-receipt {
-    padding: 0;
-    list-style: none;
+	padding: 0;
+	list-style: none;
 }
 
 .basket-item-receipt {
-    display: grid;
-    grid-template-columns: minmax(auto, 1fr) auto auto;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 10px;
+	display: grid;
+	grid-template-columns: minmax(auto, 1fr) auto auto;
+	align-items: center;
+	gap: 16px;
+	margin-bottom: 10px;
 }
 
 
 .item-name-receipt {
-    font-size: 15px;
-    color: var(--textOnBack);
+	font-size: 15px;
+	color: var(--textOnBack);
 }
 
 .item-quantity-receipt {
-    width: 60px;
-    text-align: left;
-    color: var(--textOnBack);
+	width: 60px;
+	text-align: left;
+	color: var(--textOnBack);
 }
 
 .item-price-receipt {
-    width: 100px;
-    text-align: right;
-    color: var(--textOnBack);
+	width: 100px;
+	text-align: right;
+	color: var(--textOnBack);
 }
 
 .receipt-page h1 {
-    border-bottom: 2px solid;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    color: var(--textOnBack);
+	border-bottom: 2px solid;
+	padding-bottom: 10px;
+	margin-bottom: 20px;
+	color: var(--textOnBack);
 }
 
 .receipt-page p {
-    margin: 0 0 10px;
-    color: var(--textOnBack);
+	margin: 0 0 10px;
+	color: var(--textOnBack);
 }
 
 .receipt-page ul {
-    list-style: none;
-    padding: 0;
+	list-style: none;
+	padding: 0;
 }
 
 .receipt-page ul li {
-    border-bottom: 1px solid;
-    padding: 10px 0;
-    margin-bottom: 10px;
+	border-bottom: 1px solid;
+	padding: 10px 0;
+	margin-bottom: 10px;
 }
 
 .receipt-page ul li:last-child {
-    border-bottom: none;
+	border-bottom: none;
 }
 
 .receipt-page button {
-    border: none;
-    padding: 10px 20px;
-    text-transform: uppercase;
-    margin-top: 20px;
-    cursor: pointer;
+	border: none;
+	padding: 10px 20px;
+	text-transform: uppercase;
+	margin-top: 20px;
+	cursor: pointer;
 }
 
-.receipt-page button:hover {
-}
+.receipt-page button:hover {}
 
 @media print {
-    .receipt-page {
-        max-width: 100%;
-        box-shadow: none;
-        margin: 0;
-        padding: 0;
-    }
+	.receipt-page {
+		max-width: 100%;
+		box-shadow: none;
+		margin: 0;
+		padding: 0;
+	}
 
-    .receipt-page h1,
-    .receipt-page p,
-    .receipt-page ul,
-    .receipt-page ul li {
-    }
+	.receipt-page h1,
+	.receipt-page p,
+	.receipt-page ul,
+	.receipt-page ul li {}
 
-    .receipt-page ul li {
-        border-bottom: 1px solid;
-    }
+	.receipt-page ul li {
+		border-bottom: 1px solid;
+	}
 
-    .receipt-page button {
-        display: none;
-    }
+	.receipt-page button {
+		display: none;
+	}
 }
 
 
-@media screen {
-}
+@media screen {}

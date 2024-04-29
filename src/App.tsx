@@ -19,7 +19,6 @@ import { Outlet } from "react-router-dom";
 import { useBasketDispatchContext } from "./context/BasketContext.tsx";
 import { isLocallyStored } from "./context/LocalStorage.ts";
 import { BasketItem } from "./types/Types.ts";
-import { useLocation } from "react-router-dom";
 
 const creatorNames = [
   "Christensen, Nicklas Thorbjørn",
@@ -37,7 +36,6 @@ interface AppProps {
 // Right now we can use the AppProps interface to define the props for the App component, we use this for testing.
 // Alternatively we could use jest.mock to mock the fetchBasketItems function.
 function App({ testBasketItems }: AppProps) {
-  const location = useLocation();
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const basketDispatch = useBasketDispatchContext();
@@ -84,9 +82,7 @@ function App({ testBasketItems }: AppProps) {
             </button>
           </div>
         )}
-        <main
-          className={`page-components ${location.pathname === "/receipt" ? "full-width" : ""}`}
-        >
+        <main className="page-components">
           <div id="flow-container">
             {isLoading && (
               <>
@@ -96,9 +92,9 @@ function App({ testBasketItems }: AppProps) {
             )}
             <Outlet />
           </div>
-          {location.pathname !== "/receipt" && <OrderSummary />}
+          <OrderSummary />
         </main>
-        {location.pathname !== "/receipt" && <PromotionBox />}
+        <PromotionBox />
       </div>
       <Footer creatorNames={creatorNames} />
     </>
