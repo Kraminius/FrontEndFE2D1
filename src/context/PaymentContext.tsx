@@ -18,6 +18,7 @@ interface PaymentState {
   newTotal: string;
   mobilePayNumber: string;
   mobilePayError: string;
+  paymentCompleted: boolean;
 }
 
 interface PaymentProviderProps {
@@ -36,6 +37,7 @@ const initialPaymentState: PaymentState = {
   newTotal: "",
   mobilePayNumber: "",
   mobilePayError: "",
+  paymentCompleted: false,
 };
 
 export const PaymentContext = createContext(initialPaymentState);
@@ -53,12 +55,17 @@ export function PaymentProvider({ children }: PaymentProviderProps) {
   );
 }
 
-export function usePaymentContext() {
+export function UsePaymentContext() {
   return useContext(PaymentContext);
 }
 
 export function usePaymentDispatchContext() {
   return useContext(PaymentDispatchContext);
+}
+
+export function isPaymentCompleted() {
+  const { paymentCompleted } = UsePaymentContext();
+  return paymentCompleted;
 }
 
 type Action =
@@ -72,7 +79,8 @@ type Action =
   | { type: "SET_GIFT_CARD_ERROR"; payload: string }
   | { type: "SET_NEW_TOTAL"; payload: string }
   | { type: "SET_MOBILE_PAY_NUMBER"; payload: string }
-  | { type: "SET_MOBILE_PAY_ERROR"; payload: string };
+  | { type: "SET_MOBILE_PAY_ERROR"; payload: string }
+  | { type: "SET_PAYMENT_COMPLETED"; payload: boolean };
 
 function paymentReducer(state: PaymentState, action: Action) {
   switch (action.type) {
@@ -100,6 +108,8 @@ function paymentReducer(state: PaymentState, action: Action) {
       return { ...state, mobilePayNumber: action.payload };
     case "SET_MOBILE_PAY_ERROR":
       return { ...state, mobilePayError: action.payload };
+    case "SET_PAYMENT_COMPLETED":
+      return { ...state, paymentCompleted: action.payload };
     case "SET_IS_MOBILE_PAY_VALID": {
       const isNumberValid = /^(?!.* {2})\d(?: ?\d){7}$/.test(
         state.mobilePayNumber,

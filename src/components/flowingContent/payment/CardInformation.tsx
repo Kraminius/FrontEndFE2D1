@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { CardInformationForm } from "./PaymentForms.tsx";
 import InputField from "./InputField.tsx";
 import {
-  usePaymentContext,
+  UsePaymentContext,
   usePaymentDispatchContext,
 } from "../../../context/PaymentContext.tsx";
 
@@ -10,7 +10,7 @@ interface CardInputsProps {
   onValidated: (isValid: boolean) => void;
 }
 function CardInputs({ onValidated }: CardInputsProps) {
-  const { isCardValid } = usePaymentContext();
+  const { isCardValid } = UsePaymentContext();
   const dispatch = usePaymentDispatchContext();
   const [error, setError] = useState("");
   const [form, setForm] = useState<CardInformationForm>({

@@ -2,12 +2,12 @@ import { useEffect } from "react";
 import InputField from "./InputField.tsx";
 import {
   usePaymentDispatchContext,
-  usePaymentContext,
+  UsePaymentContext,
 } from "../../../context/PaymentContext.tsx";
 
 function MobilePayInputs() {
   const { mobilePayNumber, mobilePayError, isMobilePayValid } =
-    usePaymentContext();
+    UsePaymentContext();
   const dispatch = usePaymentDispatchContext();
 
   useEffect(() => {

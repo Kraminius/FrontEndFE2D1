@@ -28,10 +28,10 @@ export const routes: RouteObject[] = [
         path: "/payment",
         element: <PaymentRender />,
       },
+      {
+        path: "/receipt",
+        element: <ReceiptRender />,
+      },
     ],
-  },
-  {
-    path: "/receipt",
-    element: <ReceiptRender />, //Receipt is not a child of App, but its own page ;)
   },
 ];

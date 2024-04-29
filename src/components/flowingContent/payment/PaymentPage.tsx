@@ -7,7 +7,7 @@ import mastercard from "../../../images/mastercard.png";
 import mobilepay from "../../../images/mobilepay.png";
 import bslogo from "../../../images/BS_Logo.png";
 import {
-  usePaymentContext,
+  UsePaymentContext,
   usePaymentDispatchContext,
 } from "../../../context/PaymentContext.tsx";
 import { Action } from "../../../context/BasketContext.tsx";
@@ -17,7 +17,7 @@ interface PaymentPageProps {
 }
 
 function PaymentPage({ isContinueDisabled }: PaymentPageProps) {
-  const paymentState = usePaymentContext();
+  const paymentState = UsePaymentContext();
   const paymentDispatch = usePaymentDispatchContext();
 
   const { activeOption, isGiftCardValid, isMobilePayValid, isCardValid } =

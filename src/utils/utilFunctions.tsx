@@ -13,6 +13,43 @@ export function calculateTotal(items: BasketItem[]) {
   } else return total;
 }
 
+export function calculatePrice(item: BasketItem) {
+  const normalPrice = item.price * item.quantity;
+  let discountedPrice = normalPrice;
+
+  if (item.rebateQuantity > 0 && item.quantity >= item.rebateQuantity) {
+    discountedPrice = normalPrice - (normalPrice * item.rebatePercent) / 100;
+  }
+
+  return {
+    normalPrice,
+    discountedPrice,
+  };
+}
+
+export function calculateTotalWithBreakdown(items: BasketItem[]) {
+  const subtotal = items.reduce(
+    (sum, item) => sum + calculateItemTotal(item),
+    0,
+  );
+  const discountThreshold = 300;
+  const discountRate = 0.1; // 10%
+
+  let discountApplied = 0;
+  let total = subtotal;
+
+  if (subtotal > discountThreshold) {
+    discountApplied = subtotal * discountRate;
+    total = subtotal - discountApplied;
+  }
+
+  return {
+    subtotal: subtotal,
+    discountApplied: discountApplied,
+    total: total,
+  };
+}
+
 export const calculateItemTotal = (item: BasketItem) => {
   let totalPrice = item.price * item.quantity;
 

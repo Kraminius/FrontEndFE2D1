@@ -9,6 +9,7 @@ import "./styles/basket.css";
 import "./styles/payment.css";
 import "./styles/error.css";
 import "./styles/loading.css";
+import "./styles/receipt.css";
 import { Footer, Header } from "./components/FooterHeader.tsx";
 import OrderSummary from "./components/summary/OrderSummary.tsx";
 import { fetchBasketItems } from "./network/BasketService.ts";
@@ -18,6 +19,7 @@ import { Outlet } from "react-router-dom";
 import { useBasketDispatchContext } from "./context/BasketContext.tsx";
 import { isLocallyStored } from "./context/LocalStorage.ts";
 import { BasketItem } from "./types/Types.ts";
+import { useLocation } from "react-router-dom";
 
 const creatorNames = [
   "Christensen, Nicklas Thorbjørn",
@@ -29,12 +31,13 @@ const creatorNames = [
 ];
 
 interface AppProps {
-  testBasketItems?: BasketItem[]; // Make it optional to maintain compatibility
+  testBasketItems?: BasketItem[];
 }
 
 // Right now we can use the AppProps interface to define the props for the App component, we use this for testing.
 // Alternatively we could use jest.mock to mock the fetchBasketItems function.
 function App({ testBasketItems }: AppProps) {
+  const location = useLocation();
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const basketDispatch = useBasketDispatchContext();
@@ -84,16 +87,15 @@ function App({ testBasketItems }: AppProps) {
           <div id="flow-container">
             {isLoading && (
               <>
-                <div className="loading-text"> Loading your basket...</div>
+                <div className="loading-text">Loading your basket...</div>
                 <div className="loading-wheel"></div>
               </>
             )}
-
             <Outlet />
           </div>
-          <OrderSummary />
+          {location.pathname !== "/receipt" && <OrderSummary />}
         </main>
-        <PromotionBox />
+        {location.pathname !== "/receipt" && <PromotionBox />}
       </div>
       <Footer creatorNames={creatorNames} />
     </>
