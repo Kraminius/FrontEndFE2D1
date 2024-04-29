@@ -41,6 +41,7 @@ function App({ testBasketItems }: AppProps) {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const basketDispatch = useBasketDispatchContext();
+
   useEffect(() => {
     if (testBasketItems) {
       basketDispatch({ type: "SET_ITEMS", payload: testBasketItems });
@@ -83,7 +84,9 @@ function App({ testBasketItems }: AppProps) {
             </button>
           </div>
         )}
-        <main className="page-components">
+        <main
+          className={`page-components ${location.pathname === "/receipt" ? "full-width" : ""}`}
+        >
           <div id="flow-container">
             {isLoading && (
               <>

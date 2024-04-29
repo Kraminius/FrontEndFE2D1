@@ -28,11 +28,11 @@
 
 .item-quantity {
     width: 60px;
-    text-align: right;
+    text-align: left;
 }
 
 .item-price {
-    width: 80px;
+    width: 100px;
     text-align: right;
 }
 

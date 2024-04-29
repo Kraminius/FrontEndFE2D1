@@ -19,7 +19,7 @@ describe("PaymentPage component", () => {
   });
 
   it("should enable continue button when a valid payment option is selected", () => {
-    fireEvent.click(screen.getByText(/mobilepay/i)); // Assuming this triggers validation
+    fireEvent.click(screen.getByText(/mobilepay/i));
     expect(mockIsContinueDisabled).toHaveBeenCalledWith(true);
   });
 });

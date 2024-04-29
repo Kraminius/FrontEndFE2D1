@@ -15,6 +15,9 @@ export function PaymentRender() {
     window.scrollTo(0, 0);
   }
   function handleBackClick() {
+    paymentDispatch({ type: "SET_IS_MOBILE_PAY_VALID", payload: false });
+    paymentDispatch({ type: "SET_IS_CARD_VALID", payload: false });
+    paymentDispatch({ type: "SET_IS_GIFT_CARD_VALID", payload: false });
     navigate("/delivery");
     window.scrollTo(0, 0);
   }

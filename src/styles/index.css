@@ -45,6 +45,10 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.full-width {
+	width: 95%;
+}
+
 
 body {
 	margin: auto;
@@ -175,11 +179,17 @@ legend {
 
 main {
 	display: grid;
-	grid-template-columns: 400px 1fr;
 	gap: 8px;
 	margin: 8px 0;
 	padding: 8px 8px 32px 8px;
+}
 
+main:not(.full-width) {
+	grid-template-columns: 400px 1fr;
+}
+
+main.full-width {
+	grid-template-columns: 1fr;
 }
 
 .promotion-box {
@@ -194,6 +204,14 @@ main {
 
 @media (max-width: 800px) {
 	main {
+		display: grid;
+		grid-template-columns: 1fr;
+	}
+	main:not(.full-width) {
+		display: grid;
+		grid-template-columns: 1fr;
+	}
+	main.full-width {
 		display: grid;
 		grid-template-columns: 1fr;
 	}

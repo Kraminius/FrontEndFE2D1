@@ -25,7 +25,7 @@ const initialFormData = {
   billingAddressLine: "",
   billingAddressLine2: "",
   agreeToTerms: false,
-  agreeToMarketing: true,
+  agreeToMarketing: false,
   deliveryMessage: "",
 };
 
