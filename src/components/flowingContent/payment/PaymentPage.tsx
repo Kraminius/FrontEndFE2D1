@@ -1,3 +1,4 @@
+import React from "react";
 import { useCallback, useEffect } from "react";
 import CardInputs from "./CardInformation.tsx";
 import MobilePayInputs from "./MobilePayInformation.tsx";
@@ -6,12 +7,12 @@ import visa from "../../../images/visa.png";
 import mastercard from "../../../images/mastercard.png";
 import mobilepay from "../../../images/mobilepay.png";
 import bslogo from "../../../images/BS_Logo.png";
+
 import {
   UsePaymentContext,
   usePaymentDispatchContext,
 } from "../../../context/PaymentContext.tsx";
 import { BackButton, ContinueButton } from "../Buttons.tsx";
-import { Action } from "../../../context/BasketContext.tsx";
 
 interface PaymentPageProps {
   handleNextClick: () => void;
@@ -37,21 +38,21 @@ export const PaymentPage: React.FC<PaymentPageProps> = ({
     (option: string) => {
       paymentDispatch({ type: "SET_ACTIVE_OPTION", payload: option });
     },
-    [paymentDispatch]
+    [paymentDispatch],
   );
 
   const setIsCardValid = useCallback(
     (isValid: boolean) => {
       paymentDispatch({ type: "SET_IS_CARD_VALID", payload: isValid });
     },
-    [paymentDispatch]
+    [paymentDispatch],
   );
 
   const setIsMobilePayValid = useCallback(
     (isValid: boolean) => {
       paymentDispatch({ type: "SET_IS_MOBILE_PAY_VALID", payload: isValid });
     },
-    [paymentDispatch]
+    [paymentDispatch],
   );
 
   useEffect(() => {
