@@ -16,9 +16,9 @@ export function ReceiptRender() {
 	 * validated from backend on the receipt page (and other pages too)
 	 */
 	useEffect(() => {
-		// if (!paymentCompleted) {
-		//   navigate("/");
-		// }
+		if (!paymentCompleted) {
+		navigate("/");
+		}
 	}, [paymentCompleted, navigate]);
 
 	function handleBackClick() {
