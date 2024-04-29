@@ -45,9 +45,6 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.full-width {
-	width: 95%;
-}
 
 
 body {
@@ -184,12 +181,8 @@ main {
 	padding: 8px 8px 32px 8px;
 }
 
-main:not(.full-width) {
+main {
 	grid-template-columns: 400px 1fr;
-}
-
-main.full-width {
-	grid-template-columns: 1fr;
 }
 
 .promotion-box {
@@ -207,15 +200,6 @@ main.full-width {
 		display: grid;
 		grid-template-columns: 1fr;
 	}
-	main:not(.full-width) {
-		display: grid;
-		grid-template-columns: 1fr;
-	}
-	main.full-width {
-		display: grid;
-		grid-template-columns: 1fr;
-	}
-
 }
 
 #summary-container {
