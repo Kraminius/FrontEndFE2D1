@@ -38,6 +38,10 @@
 	color: var(--textOnBack)
 }
 
+p: {
+
+}
+
 .summary-item-image {
 	padding: 1%;
 	display: flex;

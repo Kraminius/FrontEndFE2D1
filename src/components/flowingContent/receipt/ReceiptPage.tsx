@@ -6,6 +6,7 @@ import {
   calculateTotalWithBreakdown,
 } from "../../../utils/utilFunctions.tsx";
 import { UsePaymentContext } from "../../../context/PaymentContext.tsx";
+import { UseDeliveryContext } from "../../../context/DeliveryContext.tsx";
 
 interface ReceiptPageProps {
   items: BasketItem[];
@@ -14,6 +15,8 @@ interface ReceiptPageProps {
 const ReceiptPage = ({ items }: ReceiptPageProps) => {
   const navigate = useNavigate();
   const { giftCardAmount, isGiftCardValid, newTotal } = UsePaymentContext();
+  const { firstName, lastName, deliveryAddressLine, phoneCode, phone, email } =
+    UseDeliveryContext();
 
   useEffect(() => {
     if (items.length === 0) {
@@ -29,7 +32,16 @@ const ReceiptPage = ({ items }: ReceiptPageProps) => {
     <div className="receipt-page">
       <h1>Order Confirmation</h1>
       <p>Thank you for your purchase!</p>
+      <br />
       <p>Order Number: {orderNumber}</p>
+      <p>
+        {firstName} {lastName}
+      </p>
+      <p>{deliveryAddressLine}</p>
+      <p>
+        {phoneCode} {phone}
+      </p>
+      <p>{email}</p>
       <ul className="basket-items-list-receipt">
         {items.map((item) => {
           const { normalPrice, discountedPrice } = calculatePrice(item);

@@ -34,6 +34,10 @@ export const DeliveryDispatchContext = createContext<
   React.Dispatch<Action> | undefined
 >(undefined);
 
+export function UseDeliveryContext() {
+  return useContext(DeliveryContext);
+}
+
 export function DeliveryProvider({ children }: DeliveryProviderProps) {
   const [tasks, dispatch] = useReducer(deliveryReducer, initialFormData);
 

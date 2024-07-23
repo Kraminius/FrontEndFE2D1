@@ -37,7 +37,8 @@ export function DeliveryInputs() {
         type: "SET_FORM_DATA",
         payload: {
           ...formData,
-          billingAddressDifferent: !formData.billingAddressDifferent,
+          deliveryCountry: selectedCountry,
+          phoneCode: selectedCountryData.phoneCode,
         },
       });
     }
